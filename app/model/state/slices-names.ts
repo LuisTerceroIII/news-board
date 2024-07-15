@@ -1,3 +1,4 @@
 export enum SlicesNames {
-    USER = "userSlice"
+    USER = "userSlice",
+    SEARCH_ARTICLE = "searchArticleSlice"
 }

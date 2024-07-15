@@ -1,61 +1,54 @@
 import React from "react";
-import type { PropsWithChildren } from "react";
-import {
-	Button,
-	SafeAreaView,
-	ScrollView,
-	StyleSheet,
-	Text,
-	useColorScheme,
-	View,
-} from "react-native";
-import { getFullName } from "./../model/state/user/user-slice" 
-
 import { ScreenNames } from "../navigation/screen-names";
-import { navigate } from "../navigation/root-navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Heading } from "../components/basics/heading";
+import { Input } from "../components/basics/input";
+import { getKeyword, onChangeKeyword } from "../model/state/ui-slices/search-article-slice";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { Button } from "../components/basics/button";
+
+const styles = StyleSheet.create({
+	heading: {
+		color: "purple",
+		alignSelf: "center"
+	},
+	searchNewsInput: {
+		marginVertical: 20,
+		width:  "95%",
+		alignSelf: "center"
+	},
+	subtitle: {
+		color: "purple",
+		marginVertical: 20,
+		alignSelf: "flex-start"
+	},
+	link: {
+		color: "white",
+		fontSize: 16,
+		fontWeight: 600
+	}
+})
 
 export const Home = ({ route, navigation }): React.JSX.Element => {
 
-	const currentUserFullName = useSelector(getFullName)
-	const isDarkMode = useColorScheme() === 'dark';
+	const keywordFilter = useSelector(getKeyword)
+	const dispatch = useDispatch()
 
-	const { name, ocupation } = route?.params;
+	const onChangeText = (keyword: string) => {
+		dispatch(onChangeKeyword({keyword}))
+	}
 
-	const goToDetail = () => {
-		navigate(ScreenNames.DETAIL);
-	};
+	const search = () => navigation.navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
 
 	return (
-	
-			<ScrollView contentInsetAdjustmentBehavior="automatic">
-				<View>
-					<Text>
-						Bienvenido otra vez: {currentUserFullName}
-					</Text>
-					<Button onPress={goToDetail} title="Go to Detail" />
-				</View>
-			</ScrollView>
+		<ScrollView contentInsetAdjustmentBehavior="automatic">
+			<KeyboardAvoidingView behavior="padding">
+				<Heading tx="Tus News" variant="title" style={styles.heading} />
+				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
+				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
+			</KeyboardAvoidingView>
+		</ScrollView>
 	);
 }
-
-const styles = StyleSheet.create({
-	sectionContainer: {
-		marginTop: 32,
-		paddingHorizontal: 24,
-	},
-	sectionTitle: {
-		fontSize: 24,
-		fontWeight: "600",
-	},
-	sectionDescription: {
-		marginTop: 8,
-		fontSize: 18,
-		fontWeight: "400",
-	},
-	highlight: {
-		fontWeight: "700",
-	},
-});
 
 export default Home;

@@ -1,4 +1,4 @@
-import Detail from "../screens/detail";
+import ArticlesSearchResult from "../screens/articles-search-result";
 import Home from "../screens/home";
 import { ScreenNames } from "./screen-names";
 
@@ -15,7 +15,7 @@ const HomeScreens: Route[] = [
 		component: Home,
 		initialParams: { name: "Luis", ocupation: "dev" },
 	},
-	{ name: ScreenNames.DETAIL, component: Detail },
+	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
 ];
 
 export const screens = [...HomeScreens];

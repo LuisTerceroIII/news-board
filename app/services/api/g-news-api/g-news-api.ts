@@ -16,7 +16,7 @@ export class GNewsAPI {
 
             const config = {
                 method: "get",
-                url: `${process.env.EXPO_PUBLIC_G_NEWS_API_URL}${keyword}${lang}${country}${max}apikey=${process.env.EXPO_PUBLIC_G_NEWS_API_KEY}`,
+                url: `${process.env.G_NEWS_API_URL}${keyword}${lang}${country}${max}apikey=${process.env.G_NEWS_API_KEY}`,
                 signal: abortController.signal,
                 headers: {
                     'Accept': 'application/json'
