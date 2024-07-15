@@ -1,4 +1,4 @@
-News Board
+# News Board
 
 News Board is a mobile application developed with React Native that allows users to read news based on their own interests. Users can create custom filters to generate a news feed based on their specific interests.
 Getting Started
