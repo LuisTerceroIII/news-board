@@ -21,7 +21,7 @@ import {
 import {
 	Colors,
 } from "react-native/Libraries/NewAppScreen";
-import { ScreenNames } from "../router/screen-names";
+import { ScreenNames } from "../navigation/screen-names";
 
 type SectionProps = PropsWithChildren<{
 	title: string;

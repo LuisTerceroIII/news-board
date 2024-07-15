@@ -1,6 +1,6 @@
 import Detail from "../screens/detail";
-import Home from "../screens/home"
-import { ScreenNames } from "./screen-names"
+import Home from "../screens/home";
+import { ScreenNames } from "./screen-names";
 
 export interface Route {
 	name: string;

@@ -23,7 +23,8 @@ import {
 	LearnMoreLinks,
 	ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
-import { ScreenNames } from "../router/screen-names";
+import { ScreenNames } from "../navigation/screen-names";
+import { navigate } from "../navigation/root-navigation";
 
 type SectionProps = PropsWithChildren<{
 	title: string;
@@ -58,10 +59,14 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
 export const Home = ({ route, navigation }): React.JSX.Element => {
 	const isDarkMode = useColorScheme() === 'dark';
 
-	const { name, ocupation } = route?.params
+	const { name, ocupation } = route?.params;
 
 	const backgroundStyle = {
 		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+	};
+
+	const goToDetail = () => {
+		navigate(ScreenNames.DETAIL);
 	};
 
 	return (
@@ -78,10 +83,7 @@ export const Home = ({ route, navigation }): React.JSX.Element => {
 					<Text>
 						{name} {ocupation}
 					</Text>
-					<Button
-						onPress={() => navigation.navigate(ScreenNames.DETAIL)}
-						title="Go to Detail"
-					/>
+					<Button onPress={goToDetail} title="Go to Detail" />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
