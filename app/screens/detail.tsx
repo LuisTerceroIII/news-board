@@ -13,18 +13,15 @@ import {
 	ScrollView,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	useColorScheme,
 	View,
 } from "react-native";
 
 import {
 	Colors,
-	DebugInstructions,
-	LearnMoreLinks,
-	ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
 import { ScreenNames } from "../navigation/screen-names";
-import { navigate } from "../navigation/root-navigation";
 
 type SectionProps = PropsWithChildren<{
 	title: string;
@@ -56,17 +53,18 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
 	);
 }
 
-export const Home = ({ route, navigation }): React.JSX.Element => {
+export const Detail = ({ navigation }) => {
 	const isDarkMode = useColorScheme() === 'dark';
-
-	const { name, ocupation } = route?.params;
 
 	const backgroundStyle = {
 		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
 	};
 
-	const goToDetail = () => {
-		navigate(ScreenNames.DETAIL);
+	const goToHome = () => {
+		navigation.navigate(ScreenNames.HOME, {
+			name: "valentin camm",
+			ocupation: "comedian",
+		});
 	};
 
 	return (
@@ -80,10 +78,12 @@ export const Home = ({ route, navigation }): React.JSX.Element => {
 							? Colors.black
 							: Colors.white,
 					}}>
-					<Text>
-						{name} {ocupation}
-					</Text>
-					<Button onPress={goToDetail} title="Go to Detail" />
+					<Section title="Step One">Detail screen</Section>
+					<TouchableOpacity
+						style={{ padding: 20, backgroundColor: "blue" }}
+						onPress={goToHome}>
+						<Text>Go to home</Text>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Home;
+export default Detail;
