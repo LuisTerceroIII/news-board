@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ScreenNames } from "./screen-names";
 import { Route, screens } from "./routes";
 import { createNavigationContainerRef } from "@react-navigation/native";
+import SplashScreen from "react-native-splash-screen";
 
 const Stack = createNativeStackNavigator();
 export const navigationRef = createNavigationContainerRef();
@@ -40,7 +41,9 @@ export function RootNavigation(): React.JSX.Element {
 	}, []);
 
 	return (
-		<NavigationContainer ref={navigationRef}>
+		<NavigationContainer
+			onReady={() => SplashScreen.hide()}
+			ref={navigationRef}>
 			{routesStack}
 		</NavigationContainer>
 	);
