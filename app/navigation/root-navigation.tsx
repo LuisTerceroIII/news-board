@@ -2,9 +2,11 @@ import React, { useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ScreenNames } from "./screen-names";
-import { Route, screens } from "./routes";
+import { Route, authScreens, publicScreens } from "./routes";
 import { createNavigationContainerRef } from "@react-navigation/native";
 import SplashScreen from "react-native-splash-screen";
+import { useSelector } from "react-redux";
+import { getIsLogin } from "../model/state/user/user-slice";
 
 const Stack = createNativeStackNavigator();
 export const navigationRef = createNavigationContainerRef();
@@ -18,6 +20,8 @@ export function navigate(name: any, params: any = undefined) {
 }
 
 export function RootNavigation(): React.JSX.Element {
+	const userIsLogIn = useSelector(getIsLogin)
+	const screens = userIsLogIn ? authScreens : publicScreens
 	const routesStack = useMemo(() => {
 		return (
 			<Stack.Navigator

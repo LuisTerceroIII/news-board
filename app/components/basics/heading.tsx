@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextStyle } from "react-native";
 
 interface HeadingProps {
   variant: "title" | "subTitle";
-  tx: string;
+  tx: string | undefined;
   style?: TextStyle
 }
 

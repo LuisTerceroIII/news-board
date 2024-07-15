@@ -25,4 +25,5 @@ export const UserSlice = createSlice({
 export const { saveArticle } = UserSlice.actions;
 export const getFullName = (state: AppStore) => `${state.userSlice.user.name} ${state.userSlice.user.lastName}`
 export const getSavedArticles = (state: AppStore) => state.userSlice?.user?.getUserInteractions?.getSavedArticles
+export const getIsLogin = (state: AppStore) => state.userSlice.user.getUserAuth?.isLogin
 export default UserSlice.reducer;
