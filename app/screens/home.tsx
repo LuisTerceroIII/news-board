@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { ScreenNames } from "../navigation/screen-names";
 import { useDispatch, useSelector } from "react-redux";
 import { Heading } from "../components/basics/heading";
@@ -6,6 +6,7 @@ import { Input } from "../components/basics/input";
 import { getKeyword, onChangeKeyword } from "../model/state/ui-slices/search-article-slice";
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { Button } from "../components/basics/button";
+import { ScreenNavigationProps } from "../navigation/routes";
 
 const styles = StyleSheet.create({
 	heading: {
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-export const Home = ({ route, navigation }): React.JSX.Element => {
+export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
 	const keywordFilter = useSelector(getKeyword)
 	const dispatch = useDispatch()
