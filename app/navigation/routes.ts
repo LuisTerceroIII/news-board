@@ -18,42 +18,18 @@ export interface Route {
 	initialParams?: object;
 }
 
-const HomeScreens: Route[] = [
-	{
-		name: ScreenNames.HOME,
-		component: Home
-	},
-	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
-];
-
 const WelcomeOnBoarding: Route[] = [
-	{ 
-		name: ScreenNames.WELCOME_ON_BOARDING, 
-		component: WelcomeOnBoardingScreen,
-		options: {
-			headerShown: false
-		}
-	},
+	{ name: ScreenNames.WELCOME_ON_BOARDING, component: WelcomeOnBoardingScreen }
 ]
-
 const Auth: Route[] = [
-	{ 
-		name: ScreenNames.LOGIN, 
-		component: LoginScreen,
-		options: {
-			headerShown: true
-		}
-	},
-	{ 
-		name: ScreenNames.REGISTER, 
-		component: RegisterScreen,
-		options: {
-			headerShown: true
-		}
-	},
+	{ name: ScreenNames.LOGIN, component: LoginScreen },
+	{ name: ScreenNames.REGISTER, component: RegisterScreen },
+]
+const HomeScreens: Route[] = [
+	{ name: ScreenNames.HOME, component: Home },
+	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
 ]
 
 export const authScreens = [...HomeScreens];
-
 export const publicScreens = [...WelcomeOnBoarding, ...Auth];
 

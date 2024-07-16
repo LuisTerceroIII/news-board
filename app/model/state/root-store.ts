@@ -1,12 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import { SlicesNames } from "./slices-names";
 import UserSliceReducer from "./user/user-slice";
 import SearchArticleSliceReducer from "./ui-slices/search-article-slice"
-
-import { SlicesNames } from "./slices-names";
+import AuthSliceReducer from "./auth-slice";
 
 const appReducers = combineReducers({
     [SlicesNames.USER]: UserSliceReducer,
+	[SlicesNames.AUTH]: AuthSliceReducer,
 	[SlicesNames.SEARCH_ARTICLE]: SearchArticleSliceReducer
 })
 

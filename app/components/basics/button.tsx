@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 import { Heading } from './heading'
+import { palette } from '../../theme/palette'
 
 interface ButtonProps {
 	onPress?: () => void
@@ -12,19 +13,20 @@ interface ButtonProps {
 const styles = StyleSheet.create({
 	button: {
 		width: 156,
-		height: 40,
+		height: 47,
 		borderRadius: 12,
-		backgroundColor: "purple",
-		color: "white",
+		paddingHorizontal: 25,
+		backgroundColor: palette.secondary,
+		color: palette.white,
 		textAlign: "center",
 		textAlignVertical: "center",
 		justifyContent: "center",
 		alignItems: "center"
 	},
 	tx: {
-		color: "white",
-		fontSize: 16,
-		fontWeight: 600
+		color: palette.white,
+		fontSize: 18,
+		fontWeight: 800
 	}
 })
 

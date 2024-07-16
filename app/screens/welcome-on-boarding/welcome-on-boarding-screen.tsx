@@ -72,13 +72,13 @@ export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
 				messageTx={dictionary.welcomeOnBoarding?.slide_four_message}
 				children={
 					<View style={styles.linksBox}>
-						<TouchableOpacity onPress={goToLogin}>
+						<TouchableOpacity onPress={goToRegister}>
 							<Paragraph 
 								tx={dictionary.welcomeOnBoarding?.slide_four_option_1}
 								style={styles.linkTx} 		
 							/>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={goToRegister}>
+						<TouchableOpacity onPress={goToLogin}>
 							<Paragraph 
 								tx={dictionary.welcomeOnBoarding?.slide_four_option_2}
 								style={styles.linkTx} 		
