@@ -8,10 +8,6 @@ import SplashScreen from "react-native-splash-screen";
 import { useSelector } from "react-redux";
 import { getIsLogin } from "../model/state/user/user-slice";
 
-type RootStackParamsList = {
-
-}
-
 const Stack = createNativeStackNavigator();
 export const navigationRef = createNavigationContainerRef();
 
