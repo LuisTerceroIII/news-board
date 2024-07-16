@@ -5,6 +5,12 @@ export const spacing = {
         wp("10%"),
         wp("5%")
     ],
+    paddingBottom: [
+        wp("10%"),
+        wp("20%"),
+        wp("30%")
+
+    ],
     paddingHorizontal: 20
 }
 
