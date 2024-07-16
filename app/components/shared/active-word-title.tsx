@@ -1,9 +1,7 @@
-import React, { FC, useMemo } from 'react'
-import { StyleSheet, Text, TextStyle, View } from 'react-native'
+import React, { FC } from 'react'
+import { StyleSheet, TextStyle, View } from 'react-native'
 import { palette } from '../../theme/palette'
-import { fontFamily } from '../../theme/font'
-
-
+import { Text, TextVariant } from '../basics/text'
 interface TitleProps {
 	activeWord?: number // based on zero count
 	txChain?: string[] // ex: ["News" , "Board"]
@@ -16,12 +14,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row"
 	},
 	active: {
-		color: palette.active
-	},
-	word: {
-		fontSize: 35,
-		color: palette.white,
-		fontFamily: fontFamily.jomolhari.regular
+		color: palette.active,
 	}
 })
 
@@ -32,9 +25,12 @@ export const ActiveWordTitle: FC<TitleProps> = (props) => {
 	const words = txChain?.map((tx, index) => {
 		const active = activeWord === index
 		return (
-			<Text style={[styles.word, active && styles.active, textStyle]} key={tx}>
-				{tx}
-			</Text>
+			<Text
+				key={tx}
+				tx={tx}
+				variant={TextVariant.LOGO_TITLE} 
+				style={[active && styles.active, textStyle]}
+			/>
 		)
 	})
 

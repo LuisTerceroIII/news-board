@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import { Heading } from './heading'
 import { palette } from '../../theme/palette'
+import { Text, TextVariant } from './text'
 
 interface ButtonProps {
 	onPress?: () => void
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
 		backgroundColor: palette.secondary,
 		color: palette.white,
 		textAlign: "center",
-		textAlignVertical: "center",
 		justifyContent: "center",
 		alignItems: "center"
 	},
@@ -38,7 +37,7 @@ export const Button: FC<ButtonProps> = (props) => {
 
 	return (
 		<TouchableOpacity style={[styles.button, style]} onPress={onPress}>
-			{hasChild ? children : <Heading variant='subTitle' tx={tx || ""} style={styles.tx} />}
+			{hasChild ? children : <Text variant={TextVariant.SUBTITLE} tx={tx || ""} style={styles.tx} />}
 		</TouchableOpacity>
 	)
 }

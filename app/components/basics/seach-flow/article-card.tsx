@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import { Image, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 import { Article } from '../../../model/entities/article'
-import { Heading } from '../heading'
-import { Paragraph } from '../paragraph'
+import { Text, TextVariant } from '../text'
 
 interface ArticleCardProps {
 	style?: ViewStyle
@@ -45,8 +44,13 @@ export const ArticleCard: FC<ArticleCardProps> = (props) => {
 	return (
 		<TouchableOpacity style={[styles.mainBox, style]} onPress={onPress}>
 			<Image source={{ uri: article?.image }} style={styles.image} />
-			<Heading variant='subTitle' tx={article?.title || ""} style={styles.title} />
-			<Paragraph tx={article?.description || ""} numberOfLines={2} style={styles.description} />
+			<Text variant={TextVariant.SUBTITLE} tx={article?.title || ""} style={styles.title} />
+			<Text 
+				tx={article?.description || ""} 
+				variant={TextVariant.PARAGRAPH}
+				numberOfLines={2} 
+				style={styles.description} 
+			/>
 		</TouchableOpacity>
 	)
 }

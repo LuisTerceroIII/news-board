@@ -14,8 +14,6 @@ const welcomeOnBoarding = {
     slide_three_message: "Configura filtros de búsqueda avanzados para recibir las noticias más relevantes sobre tus temas favoritos.",
     slide_three_title_1: "Crea",
     slide_three_title_2: "filtros",
-    slide_three_title_3: "de",
-    slide_three_title_4: "búsqueda",
 
     slide_four_message: "Regístrate para personalizar tu experiencia y acceder a todas las funcionalidades de News Board. Guarda tus filtros, recibe notificaciones y disfruta de un feed a tu medida.",
     slide_four_title_1: "Comienza",
@@ -23,7 +21,20 @@ const welcomeOnBoarding = {
     slide_four_option_1: "Nueva cuenta",
     slide_four_option_2: "Ya tengo cuenta",
 }
+const auth = {
+    //Register
+    register_title: "Registrate",
+    username_label: "Nombre de usuario",
+    email_label: "Email",
+    password_label: "Contraseña",
+    confirm_pass_label: "Confirmar contraseña",
+    register_button: "Registrarme",
+    already_has_account: "¿ Ya tienes cuenta ? ",
+    log_in_option: "Iniciar Sesion",
+    register_using_google: "Registrate usando tu cuenta de google"
+}
 
 export default {
-    welcomeOnBoarding
+    welcomeOnBoarding,
+    auth
 }

@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { ScreenNames } from "../navigation/screen-names";
 import { useDispatch, useSelector } from "react-redux";
-import { Heading } from "../components/basics/heading";
 import { Input } from "../components/basics/input";
 import { getKeyword, onChangeKeyword } from "../model/state/ui-slices/search-article-slice";
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { Button } from "../components/basics/button";
 import { ScreenNavigationProps } from "../navigation/routes";
+import { Text, TextVariant } from "../components/basics/text";
 
 const styles = StyleSheet.create({
 	heading: {
@@ -44,7 +44,7 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic">
 			<KeyboardAvoidingView behavior="padding">
-				<Heading tx="Tus News" variant="title" style={styles.heading} />
+				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
 				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
 				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
 			</KeyboardAvoidingView>

@@ -5,9 +5,9 @@ import { WelcomeOnBoardingSlide } from './slides/welcome-on-boarding-slide'
 import { dictionary } from '../../dictionary/dictionary'
 import { palette } from '../../theme/palette'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Link, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { ScreenNames } from '../../navigation/screen-names'
-import { Paragraph } from '../../components/basics/paragraph'
+import { Text, TextVariant } from '../../components/basics/text'
 
 const styles = StyleSheet.create({
 	linksBox: {
@@ -57,10 +57,7 @@ export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
 			<WelcomeOnBoardingSlide
 				titleTxChain={[
 					dictionary.welcomeOnBoarding?.slide_three_title_1 || "",
-					dictionary.welcomeOnBoarding?.slide_three_title_2 || "",
-					dictionary.welcomeOnBoarding?.slide_three_title_3 || "",
-					dictionary.welcomeOnBoarding?.slide_three_title_4 || ""
-
+					dictionary.welcomeOnBoarding?.slide_three_title_2 || ""
 				]}
 				messageTx={dictionary.welcomeOnBoarding?.slide_three_message}
 			/>
@@ -73,15 +70,15 @@ export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
 				children={
 					<View style={styles.linksBox}>
 						<TouchableOpacity onPress={goToRegister}>
-							<Paragraph 
+							<Text
 								tx={dictionary.welcomeOnBoarding?.slide_four_option_1}
-								style={styles.linkTx} 		
+								variant={TextVariant.LINK}
 							/>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={goToLogin}>
-							<Paragraph 
+							<Text
 								tx={dictionary.welcomeOnBoarding?.slide_four_option_2}
-								style={styles.linkTx} 		
+								variant={TextVariant.LINK}
 							/>
 						</TouchableOpacity>
 					</View>
