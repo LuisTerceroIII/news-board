@@ -8,6 +8,10 @@ import SplashScreen from "react-native-splash-screen";
 import { useSelector } from "react-redux";
 import { getIsLogin } from "../model/state/user/user-slice";
 
+type RootStackParamsList = {
+
+}
+
 const Stack = createNativeStackNavigator();
 export const navigationRef = createNavigationContainerRef();
 
@@ -20,15 +24,17 @@ export function navigate(name: any, params: any = undefined) {
 }
 
 export function RootNavigation(): React.JSX.Element {
+
 	const userIsLogIn = useSelector(getIsLogin)
 	const screens = userIsLogIn ? authScreens : publicScreens
+	
 	const routesStack = useMemo(() => {
 		return (
 			<Stack.Navigator
 				screenOptions={{
 					headerShown: true,
 				}}
-				initialRouteName={ScreenNames.HOME}>
+				initialRouteName={ScreenNames.WELCOME_ON_BOARDING}>
 				{screens.map((screen: Route) => {
 					return (
 						<Stack.Screen

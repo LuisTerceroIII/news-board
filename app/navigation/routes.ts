@@ -19,14 +19,19 @@ export interface Route {
 const HomeScreens: Route[] = [
 	{
 		name: ScreenNames.HOME,
-		component: Home,
-		initialParams: { name: "Luis", ocupation: "dev" },
+		component: Home
 	},
 	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
 ];
 
 const WelcomeOnBoarding: Route[] = [
-	{ name: ScreenNames.WELCOME_ON_BOARDING, component: WelcomeOnBoardingScreen }
+	{ 
+		name: ScreenNames.WELCOME_ON_BOARDING, 
+		component: WelcomeOnBoardingScreen,
+		options: {
+			headerShown: false
+		}
+	},
 ]
 
 export const authScreens = [...HomeScreens];

@@ -6,6 +6,18 @@ interface FontType {
     paragraph: TextStyle
 }
 
+export const fontFamily = {
+    nunito: {
+        regular: "Nunito-Regular",
+        semiBold: "Nunito-SemiBold",
+        bold: "Nunito-Bold",
+        extraBold: "Nunito-ExtraBold",
+    },
+    jomolhari: {
+        regular: "Jomolhari-Regular"
+    }
+}
+
 export const font: FontType = {
     title: {
         fontSize: 22,
@@ -16,7 +28,8 @@ export const font: FontType = {
         fontWeight: 700
     },
     paragraph: {
-        fontSize: 16,
-        fontWeight: 500
+        fontSize: 18,
+        fontWeight: 400,
+        fontFamily: fontFamily.nunito.regular
     }
 }

@@ -3,3 +3,5 @@ export const palette = {
     active: "#6BA8F0",
     white: "#F0F1F1"
 }
+
+export type paletteType = keyof typeof palette

@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { StyleSheet, Text, TextStyle } from "react-native";
+import { font } from "../../theme/font";
 interface ParagraphProps {
-  tx: string;
+  tx?: string;
   style?: TextStyle
   numberOfLines?: number
 }
 
 const styles = StyleSheet.create({
   message: {
-    fontSize: 16,
-    fontWeight: 500,
+    ...font.paragraph
   },
 });
 
