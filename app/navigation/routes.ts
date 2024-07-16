@@ -4,6 +4,8 @@ import { ScreenNames } from "./screen-names";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ParamListBase } from "@react-navigation/native"
 import { WelcomeOnBoardingScreen } from "../screens/welcome-on-boarding/welcome-on-boarding-screen";
+import LoginScreen from "../screens/auth/login/login";
+import RegisterScreen from "../screens/auth/register/register";
 
 export interface ScreenNavigationProps {
 	route: { params?: object }
@@ -34,7 +36,24 @@ const WelcomeOnBoarding: Route[] = [
 	},
 ]
 
+const Auth: Route[] = [
+	{ 
+		name: ScreenNames.LOGIN, 
+		component: LoginScreen,
+		options: {
+			headerShown: true
+		}
+	},
+	{ 
+		name: ScreenNames.REGISTER, 
+		component: RegisterScreen,
+		options: {
+			headerShown: true
+		}
+	},
+]
+
 export const authScreens = [...HomeScreens];
 
-export const publicScreens = [...WelcomeOnBoarding];
+export const publicScreens = [...WelcomeOnBoarding, ...Auth];
 

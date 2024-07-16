@@ -1,7 +1,8 @@
 import React, { FC, useMemo } from 'react'
-import { palette } from '../../../theme/palette'
 import { StyleSheet, Text, TextStyle, View } from 'react-native'
-import { fontFamily } from '../../../theme/font'
+import { palette } from '../../theme/palette'
+import { fontFamily } from '../../theme/font'
+
 
 interface TitleProps {
 	activeWord?: number // based on zero count
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-export const WelcomeOnBoardingTitle: FC<TitleProps> = (props) => {
+export const ActiveWordTitle: FC<TitleProps> = (props) => {
 
 	const { activeWord=0, txChain, textStyle } = props
 

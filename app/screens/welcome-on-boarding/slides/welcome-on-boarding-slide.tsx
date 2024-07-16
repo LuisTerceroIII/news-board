@@ -2,9 +2,8 @@ import React, { FC, ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { dictionary } from '../../../dictionary/dictionary'
 import { palette } from '../../../theme/palette'
-import { WelcomeOnBoardingTitle } from './welcome-on-boarding-title'
 import { Paragraph } from '../../../components/basics/paragraph'
-
+import { ActiveWordTitle } from '../../../components/shared/active-word-title'
 interface SlideProps {
 	titleTxChain: string[]
 	messageTx?: string
@@ -24,16 +23,13 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		textAlign: "center"
 	}
-
 })
 
 export const WelcomeOnBoardingSlide: FC<SlideProps> = ({ titleTxChain, messageTx, children }) => {
 	return (
 		<View style={styles.box}>
-			<WelcomeOnBoardingTitle
-				txChain={titleTxChain}
-			/>
-			<WelcomeOnBoardingTitle
+			<ActiveWordTitle txChain={titleTxChain} />
+			<ActiveWordTitle
 				activeWord={2}
 				txChain={[
 					dictionary.welcomeOnBoarding?.subtitle_1 || "",
@@ -42,10 +38,7 @@ export const WelcomeOnBoardingSlide: FC<SlideProps> = ({ titleTxChain, messageTx
 				]}
 				textStyle={{marginTop: -10}}
 			/>
-			<Paragraph 
-				tx={messageTx}
-				style={styles.message}
-			/>
+			<Paragraph tx={messageTx} style={styles.message} />
 			{children}
 		</View>
 	)
