@@ -1,10 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SlicesNames } from "./slices-names";
 import { AppStore } from "./root-store";
-import { ErrorInput } from "../../util/types";
+import { ErrorInput, ReqState } from "../../util/types";
 import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../util/validations";
 import { dictionary } from "../../dictionary/dictionary";
 import { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import auth from '@react-native-firebase/auth';
+import { updateUser } from "./user/user-slice";
 
 enum AuthProvider {
     EMAIL_PASS = "emailPass",
@@ -23,6 +25,8 @@ interface AuthState {
     emailError: ErrorInput
     passError: ErrorInput
     repeatedPassError: ErrorInput
+    //Submit State
+    submitState: ReqState
 }
 
 const initialState: AuthState = {
@@ -36,7 +40,9 @@ const initialState: AuthState = {
     usernameError: { state: false, errorsTx: [] },
     emailError: { state: false, errorsTx: [] },
     passError: { state: false, errorsTx: [] },
-    repeatedPassError: { state: false, errorsTx: [] }
+    repeatedPassError: { state: false, errorsTx: [] },
+    //Req State
+    submitState: ReqState.IDLE
 }
 export enum AuthErrorType {
     USERNAME = "username",
@@ -60,7 +66,7 @@ export const AuthSlice = createSlice({
                 state.passError = { state: false, errorsTx: [] },
                 state.repeatedPassError = { state: false, errorsTx: [] }
         },
-        onAuthStateChange: (state, action: PayloadAction<{user: FirebaseAuthTypes.User}>) => {
+        onAuthStateChange: (state, action: PayloadAction<{ user?: FirebaseAuthTypes.User }>) => {
             state.isLogin = action.payload?.user != null
             console.log(JSON.stringify(action.payload?.user, null, 2))
         },
@@ -153,7 +159,7 @@ export const AuthSlice = createSlice({
                 }
             }
 
-            switch(action.payload.error) {
+            switch (action.payload.error) {
                 case AuthErrorType.USERNAME:
                     checkUsername()
                     break;
@@ -203,7 +209,7 @@ export const AuthSlice = createSlice({
                 }
             }
 
-            switch(action.payload.error) {
+            switch (action.payload.error) {
                 case AuthErrorType.EMAIL:
                     checkEmail()
                     break;
@@ -215,6 +221,19 @@ export const AuthSlice = createSlice({
                     checkPass()
             }
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(registerEmailPassAsync.pending, (state, action) => {
+                state.submitState = ReqState.PENDING
+            })
+            .addCase(registerEmailPassAsync.fulfilled, (state, action) => {
+                state.submitState = ReqState.SUCCEEDED
+                state.isLogin = true
+            })
+            .addCase(registerEmailPassAsync.rejected, (state, action) => {
+                state.submitState = ReqState.FAILED
+            })
     }
 })
 
@@ -232,7 +251,54 @@ export const {
 
 } = AuthSlice.actions
 
+//Api calls
+export const registerEmailPassAsync = createAsyncThunk(
+    `${SlicesNames.AUTH}/loginEmailPass`,
+    async (payload, { getState, rejectWithValue, dispatch }) => {
+
+        const state: AppStore = getState() as AppStore
+        const authState: AuthState = state?.[SlicesNames.AUTH]
+
+        const hasPendingRegisterErrors = (
+            authState?.emailError.state ||
+            authState?.usernameError.state ||
+            authState?.passError.state ||
+            authState?.repeatedPassError.state
+        )
+
+        if(!hasPendingRegisterErrors) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    dispatch(updateUser({
+                        username: authState?.username,
+                        email: authState?.email
+                    }))
+                    resolve(authState)
+                }, 2000)
+            })
+        }
+    
+        //await auth().createUserWithEmailAndPassword(state.email, state.password)
+    }
+)
+
 //Views
 export const getIsLogin = (state: AppStore) => state.authSlice.isLogin
+export const hasPendingRegisterErrors = (state: AppStore) => {
+    return (
+        state.authSlice.emailError.state ||
+        state.authSlice.usernameError.state ||
+        state.authSlice.passError.state ||
+        state.authSlice.repeatedPassError.state
+    )
+}
+export const hasEmptyRegisterField = (state: AppStore) => {
+    return (
+        state.authSlice.email?.length === 0 ||
+        state.authSlice.username.length === 0 ||
+        state.authSlice.password.length === 0 ||
+        state.authSlice.repeatedPassword.length === 0
+    )
+}
 
 export default AuthSlice.reducer

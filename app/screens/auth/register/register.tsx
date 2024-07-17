@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { ScreenNavigationProps } from "../../../navigation/routes";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { palette } from "../../../theme/palette";
 import { ActiveWordTitle } from "../../../components/shared/active-word-title";
 import { dictionary } from "../../../dictionary/dictionary";
@@ -10,10 +10,11 @@ import { FormField } from "../../../components/basics/form-field";
 import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AppStore } from "../../../model/state/root-store";
-import { AuthErrorType, checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { AppStore, useAppDispatch } from "../../../model/state/root-store";
+import { AuthErrorType, checkRegisterError, hasEmptyRegisterField, hasPendingRegisterErrors, registerEmailPassAsync, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
 import { GoogleButton } from "../google-button";
 import { ScreenNames } from "../../../navigation/screen-names";
+import { ReqState } from "../../../util/types";
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -22,10 +23,12 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	const passRef = useRef<TextInput>(null)
 	const repeatPassRef = useRef<TextInput>(null)
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
-	const { username, email, password, repeatedPassword } = useSelector((state: AppStore) => state.authSlice)
+	const { username, email, password, repeatedPassword, submitState } = useSelector((state: AppStore) => state.authSlice)
 	const { usernameError, emailError, passError, repeatedPassError } = useSelector((state: AppStore) => state.authSlice)
+	const hasPendingErrors = useSelector(hasPendingRegisterErrors)
+	const hasEmptyField = useSelector(hasEmptyRegisterField)
 
 	useEffect(() => {
 		return () => {
@@ -67,6 +70,9 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	}
 	const submitRegisterForm = () => {
 		dispatch(checkRegisterError({ error: AuthErrorType.ALL }))
+		if (!hasPendingErrors && !hasEmptyField) {
+			dispatch(registerEmailPassAsync())
+		}
 	}
 	const goToLogin = () => navigation.navigate(ScreenNames.LOGIN)
 
@@ -148,6 +154,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 						/>
 					</TouchableOpacity>
 				</View>
+				{submitState === ReqState.PENDING && <ActivityIndicator size={"large"} />}
 			</View>
 		</KeyboardAwareScrollView>
 	);

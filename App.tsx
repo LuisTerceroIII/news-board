@@ -10,14 +10,18 @@ import { onAuthStateChange } from "./app/model/state/auth-slice"
 const AuthState = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
-		const subscriber = auth().onAuthStateChanged((user) => dispatch(onAuthStateChange(user)))
+		const subscriber =
+			auth()
+				.onAuthStateChanged((user) => {
+					dispatch(onAuthStateChange({ user: user || undefined }))
+				})
 		return subscriber // unsubscribe on unmount
 	}, [])
 	return <></>
 }
 
 function App(): React.JSX.Element {
-	
+
 
 	return (
 		<SafeAreaProvider>
