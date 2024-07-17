@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 	message: {
 		marginTop: 20,
 		color: palette.white,
-		width: width[0],
+		width: width[9],
 		textAlign: "center"
 	}
 })

@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 import { palette } from '../../theme/palette'
 import { Text, TextVariant } from './text'
+import { width } from '../../theme/spacing'
 
 interface ButtonProps {
 	onPress?: () => void
@@ -12,7 +13,8 @@ interface ButtonProps {
 
 const styles = StyleSheet.create({
 	button: {
-		width: 156,
+		maxWidth: width[5],
+		minWidth: width[4],
 		height: 47,
 		borderRadius: 12,
 		paddingHorizontal: 25,

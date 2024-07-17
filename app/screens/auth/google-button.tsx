@@ -33,7 +33,7 @@ export const GoogleButton: FC<GoogleButtonProps> = (props) => {
 
 const styles = StyleSheet.create({
 	box: {
-		width: width[0],
+		width: width[9],
 		paddingVertical: 26,
 		backgroundColor: palette.white,
 		justifyContent: "center",

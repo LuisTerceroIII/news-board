@@ -1,27 +1,31 @@
 import React, { FC } from "react";
 import { ScreenNames } from "../navigation/screen-names";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Input } from "../components/basics/input";
 import { getKeyword, onChangeKeyword } from "../model/state/ui-slices/search-article-slice";
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { Button } from "../components/basics/button";
 import { ScreenNavigationProps } from "../navigation/routes";
 import { Text, TextVariant } from "../components/basics/text";
 import { SlicesNames } from "../model/state/slices-names";
-import { AppStore } from "../model/state/root-store";
+import { AppStore, useAppDispatch } from "../model/state/root-store";
 import { palette } from "../theme/palette";
+import { signOutAsync } from "../model/state/auth/auth-async-actions";
+import { ReqState } from "../util/types";
 
 export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
 	const keywordFilter = useSelector(getKeyword)
+	const { submitState } = useSelector((state: AppStore) => state.authSlice)
 	const { id, email, username, registerAt, name } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const onChangeText = (keyword: string) => {
 		dispatch(onChangeKeyword({keyword}))
 	}
 
 	const search = () => navigation.navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
+	const signOut = () => dispatch(signOutAsync())
 
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
@@ -36,6 +40,9 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 					name,
 					registerAt
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
+				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
+				{submitState === ReqState.PENDING && <ActivityIndicator size={"large"} />}
+
 			</KeyboardAvoidingView>
 		</ScrollView>
 	);

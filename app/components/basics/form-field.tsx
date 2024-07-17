@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 	input: {
 		height: 38,
 		backgroundColor: palette.white,
-		width: width[0],
+		width: width[9],
 		borderRadius: corners[0],
 	},
 	error: {

@@ -33,6 +33,16 @@ export const UserSlice = createSlice({
         saveArticle: (state, action: PayloadAction<{ article: Article }>) => {
             state.user.getUserInteractions.savedArticles.saveArticle(action.payload.article)
         },
+        resetUser: (state) => {
+            state.user = new User()
+            state.id = ""
+            state.username = ""
+            state.name = ""
+            state.lastName = ""
+            state.email = ""
+            state.registerAt = ""
+            state.photoURL = ""
+        },
         updateUser: (state, action: PayloadAction<{
             id: string,
             username: string,
@@ -54,7 +64,8 @@ export const UserSlice = createSlice({
 //Actions
 export const {
     saveArticle,
-    updateUser
+    updateUser,
+    resetUser
 } = UserSlice.actions
 
 //Views

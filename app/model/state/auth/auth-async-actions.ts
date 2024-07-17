@@ -4,7 +4,7 @@ import { AppStore } from "../root-store"
 import { AuthState } from "./auth-slice"
 import auth from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import { updateUser } from "../user/user-slice"
+import { resetUser, updateUser } from "../user/user-slice"
 
 //Api calls
 export const registerEmailPassAsync = createAsyncThunk(
@@ -55,5 +55,17 @@ export const enterUsingGoogleAsync = createAsyncThunk(
             registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
         }))
         return res
+    }
+)
+export const signOutAsync = createAsyncThunk(
+    `${SlicesNames.AUTH}/signOut`,
+    async (payload, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await auth().signOut()
+            dispatch(resetUser())
+            return res
+        } catch(e) {
+            rejectWithValue(e)
+        }
     }
 )

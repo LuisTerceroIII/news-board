@@ -4,7 +4,7 @@ import { ErrorInput, ReqState } from "../../../util/types"
 import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../../util/validations"
 import { dictionary } from "../../../dictionary/dictionary"
 import { FirebaseAuthTypes } from "@react-native-firebase/auth"
-import { enterUsingGoogleAsync, registerEmailPassAsync } from "./auth-async-actions"
+import { enterUsingGoogleAsync, registerEmailPassAsync, signOutAsync } from "./auth-async-actions"
 
 export interface AuthState {
     isLogin: boolean
@@ -225,6 +225,16 @@ export const AuthSlice = createSlice({
                 state.submitState = ReqState.SUCCEEDED
             })
             .addCase(enterUsingGoogleAsync.rejected, (state, action) => {
+                state.submitState = ReqState.FAILED
+            })
+            //Sign out
+            .addCase(signOutAsync.pending, (state, action) => {
+                state.submitState = ReqState.PENDING
+            })
+            .addCase(signOutAsync.fulfilled, (state, action) => {
+                state.submitState = ReqState.SUCCEEDED
+            })
+            .addCase(signOutAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
             })
     }
