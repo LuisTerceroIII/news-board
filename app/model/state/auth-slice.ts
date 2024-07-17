@@ -42,12 +42,17 @@ export const AuthSlice = createSlice({
     name: SlicesNames.AUTH,
     initialState,
     reducers: {
-        resetAuthForm: (state, action) => {
+        resetAuthForm: (state) => {
+            state.username = ""
             state.email = ""
             state.password = ""
             state.repeatedPassword = ""
+            state.usernameError =  { state: false, errorsTx: [] },
+            state.emailError =  { state: false, errorsTx: [] },
+            state.passError =  { state: false, errorsTx: [] },
+            state.repeatedPassError =  { state: false, errorsTx: [] }
         },
-        createUserEmailPass: (state, action) => {
+        createUserEmailPass: (state) => {
             console.log({
                 email: state.email,
                 password: state.password,

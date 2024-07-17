@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { KeyboardAvoidingView, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { ScreenNavigationProps } from "../../../navigation/routes";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppStore } from "../../../model/state/root-store";
-import { checkRegisterError, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -20,11 +20,16 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	const passRef = useRef<TextInput>(null)
 	const repeatPassRef = useRef<TextInput>(null)
 
-
 	const dispatch = useDispatch()
 
 	const { username, email, password, repeatedPassword } = useSelector((state: AppStore) => state.authSlice)
 	const { usernameError, emailError, passError, repeatedPassError } = useSelector((state: AppStore) => state.authSlice)
+
+	useEffect(() => {
+		return () => {
+			dispatch(resetAuthForm())
+		}
+	}, [])
 
 	const onChangeUsername = (str: string) => {
 		dispatch(setUsername({ username: str }))
