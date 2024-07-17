@@ -30,9 +30,13 @@ const auth = {
     confirm_pass_label: "Confirmar contraseña",
     register_button: "Registrarme",
     already_has_account: "¿ Ya tienes cuenta ? ",
-    log_in_option: "Iniciar Sesion",
+    log_in_option: "Iniciar Sesión",
     register_using_google: "Registrate usando tu cuenta de google",
-
+    //Login
+    login_title: "Iniciar sesión",
+    login_using_google: "Inicia usando tu cuenta de google",
+    login_button: "Ingresar",
+    not_has_account: "¿ Aun no tienes cuenta ?"
 }
 
 const errors = {

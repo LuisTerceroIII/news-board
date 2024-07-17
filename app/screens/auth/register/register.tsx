@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { ScreenNavigationProps } from "../../../navigation/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { palette } from "../../../theme/palette";
@@ -13,6 +13,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { AppStore } from "../../../model/state/root-store";
 import { AuthErrorType, checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
 import { GoogleButton } from "../google-button";
+import { ScreenNames } from "../../../navigation/screen-names";
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -34,22 +35,21 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 
 	const onChangeUsername = (str: string) => {
 		dispatch(setUsername({ username: str }))
-		if(usernameError.state) dispatch(checkRegisterError({error: AuthErrorType.USERNAME}))
+		if (usernameError.state) dispatch(checkRegisterError({ error: AuthErrorType.USERNAME }))
 	}
 	const onChangeEmail = (str: string) => {
 		dispatch(setEmail({ email: str }))
-		if(emailError.state) dispatch(checkRegisterError({error: AuthErrorType.EMAIL}))
+		if (emailError.state) dispatch(checkRegisterError({ error: AuthErrorType.EMAIL }))
 
 	}
 	const onChangePassword = (str: string) => {
 		dispatch(setPassword({ password: str }))
-		if(passError.state) dispatch(checkRegisterError({error: AuthErrorType.PASS}))
+		if (passError.state) dispatch(checkRegisterError({ error: AuthErrorType.PASS }))
 	}
 	const onChangeRepeatPass = (str: string) => {
 		dispatch(setRepeatPassword({ password: str }))
-		if(repeatedPassError.state) dispatch(checkRegisterError({error: AuthErrorType.REPEAT_PASS}))
+		if (repeatedPassError.state) dispatch(checkRegisterError({ error: AuthErrorType.REPEAT_PASS }))
 	}
-
 	const focusEmail = () => {
 		setTimeout(() => {
 			emailRef.current?.focus()
@@ -65,10 +65,10 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 			repeatPassRef.current?.focus()
 		}, 200)
 	}
-
 	const submitRegisterForm = () => {
 		dispatch(checkRegisterError({ error: AuthErrorType.ALL }))
 	}
+	const goToLogin = () => navigation.navigate(ScreenNames.LOGIN)
 
 	return (
 		<KeyboardAwareScrollView
@@ -136,6 +136,18 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					tx={dictionary.auth?.register_button}
 					onPress={submitRegisterForm}
 				/>
+				<View style={styles.toLoginBox}>
+					<Text
+						tx={dictionary.auth?.already_has_account}
+						variant={TextVariant.PARAGRAPH}
+					/>
+					<TouchableOpacity onPress={goToLogin}>
+						<Text
+							tx={dictionary.auth?.log_in_option}
+							variant={TextVariant.LINK}
+						/>
+					</TouchableOpacity>
+				</View>
 			</View>
 		</KeyboardAwareScrollView>
 	);
@@ -153,7 +165,12 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		rowGap: 22,
 		marginTop: 20,
+	},
+	toLoginBox: {
+		flexDirection: "row",
+		columnGap: 10
 	}
+
 })
 
 export default RegisterScreen;

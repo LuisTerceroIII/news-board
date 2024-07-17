@@ -167,6 +167,48 @@ export const AuthSlice = createSlice({
                     checkPass()
                     checkRepeatPass()
             }
+        },
+        checkLoginError: (state, action: PayloadAction<{ error: AuthErrorType }>) => {
+
+            const checkEmail = () => {
+                state.emailError.state = !validateEmail(state.email) || !validateNotEmpty(state.email)
+                if (state.emailError.state) {
+                    if (!validateEmail(state.email) || !validateNotEmpty(state.email)) {
+                        const errorIsAdd = state.emailError.errorsTx?.find(error => error.errorLabel === "invalid_email") != null
+                        if (!errorIsAdd) {
+                            state.emailError.errorsTx = [...state.emailError.errorsTx, { errorLabel: "invalid_email", tx: dictionary.errors?.invalid_email || "" }]
+                        }
+                    } else {
+                        state.emailError.errorsTx = [...state.emailError.errorsTx?.filter(err => err.errorLabel !== "invalid_email")]
+                    }
+                }
+            }
+
+            const checkPass = () => {
+                state.passError.state = !validateNotEmpty(state.password)
+                if (state.passError.state) {
+                    if (!validateNotEmpty(state.password)) {
+                        let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "empty_field") != null
+                        if (!errorIsAdd) {
+                            state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "empty_field", tx: dictionary.errors?.empty_field || "" }]
+                        }
+                    } else {
+                        state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "empty_field")]
+                    }
+                }
+            }
+
+            switch(action.payload.error) {
+                case AuthErrorType.EMAIL:
+                    checkEmail()
+                    break;
+                case AuthErrorType.PASS:
+                    checkPass()
+                    break;
+                default:
+                    checkEmail()
+                    checkPass()
+            }
         }
     }
 })
@@ -180,6 +222,7 @@ export const {
     setRepeatPassword,
     setUsername,
     checkRegisterError,
+    checkLoginError
 
 } = AuthSlice.actions
 
