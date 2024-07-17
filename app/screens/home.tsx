@@ -14,7 +14,7 @@ import { palette } from "../theme/palette";
 export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
 	const keywordFilter = useSelector(getKeyword)
-	const { id, email, username, registerAt } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	const { id, email, username, registerAt, name } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
 	const dispatch = useDispatch()
 
 	const onChangeText = (keyword: string) => {
@@ -33,6 +33,7 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 					id,
 					email,
 					username,
+					name,
 					registerAt
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
 			</KeyboardAvoidingView>

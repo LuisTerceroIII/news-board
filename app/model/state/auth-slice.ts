@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SlicesNames } from "./slices-names";
-import { AppStore } from "./root-store";
-import { ErrorInput, ReqState } from "../../util/types";
-import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../util/validations";
-import { dictionary } from "../../dictionary/dictionary";
-import { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import auth from '@react-native-firebase/auth';
-import { updateUser } from "./user/user-slice";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { SlicesNames } from "./slices-names"
+import { AppStore } from "./root-store"
+import { ErrorInput, ReqState } from "../../util/types"
+import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../util/validations"
+import { dictionary } from "../../dictionary/dictionary"
+import { FirebaseAuthTypes } from "@react-native-firebase/auth"
+import auth from '@react-native-firebase/auth'
+import { updateUser } from "./user/user-slice"
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 enum AuthProvider {
     EMAIL_PASS = "emailPass",
@@ -154,16 +155,16 @@ export const AuthSlice = createSlice({
             switch (action.payload.error) {
                 case AuthErrorType.USERNAME:
                     checkUsername()
-                    break;
+                    break
                 case AuthErrorType.EMAIL:
                     checkEmail()
-                    break;
+                    break
                 case AuthErrorType.PASS:
                     checkPass()
-                    break;
+                    break
                 case AuthErrorType.REPEAT_PASS:
                     checkRepeatPass()
-                    break;
+                    break
                 default:
                     checkUsername()
                     checkEmail()
@@ -204,10 +205,10 @@ export const AuthSlice = createSlice({
             switch (action.payload.error) {
                 case AuthErrorType.EMAIL:
                     checkEmail()
-                    break;
+                    break
                 case AuthErrorType.PASS:
                     checkPass()
-                    break;
+                    break
                 default:
                     checkEmail()
                     checkPass()
@@ -216,6 +217,7 @@ export const AuthSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            //register Email & Pass
             .addCase(registerEmailPassAsync.pending, (state, action) => {
                 state.submitState = ReqState.PENDING
             })
@@ -223,6 +225,16 @@ export const AuthSlice = createSlice({
                 state.submitState = ReqState.SUCCEEDED
             })
             .addCase(registerEmailPassAsync.rejected, (state, action) => {
+                state.submitState = ReqState.FAILED
+            })
+            //register Google Account
+            .addCase(registerGoogleAsync.pending, (state, action) => {
+                state.submitState = ReqState.PENDING
+            })
+            .addCase(registerGoogleAsync.fulfilled, (state, action) => {
+                state.submitState = ReqState.SUCCEEDED
+            })
+            .addCase(registerGoogleAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
             })
     }
@@ -267,6 +279,30 @@ export const registerEmailPassAsync = createAsyncThunk(
         }))
         return res
 
+
+    }
+)
+export const registerGoogleAsync = createAsyncThunk(
+    `${SlicesNames.AUTH}/registerGoogle`,
+    async (payload, { getState, rejectWithValue, dispatch }) => {
+        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn()
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken)
+        // Sign-in the user with the credential
+        const res = await auth().signInWithCredential(googleCredential)
+
+        dispatch(updateUser({
+            id: res?.user?.uid,
+            username: "",
+            name: res.user.displayName || "",
+            email: res.user.email || "",
+            photoURL: res?.user?.photoURL || "",
+            registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
+        }))
+        
+        return res
 
     }
 )

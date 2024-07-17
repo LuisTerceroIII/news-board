@@ -39,9 +39,11 @@ export const UserSlice = createSlice({
             email: string,
             photoURL: string,
             registerAt: string, // getTime
+            name?:string
         }>) => {
             state.id = action.payload.id
             state.username = action.payload.username
+            state.name = action.payload.name || ""
             state.email = action.payload.email
             state.photoURL = action.payload.photoURL
             state.registerAt = action.payload.registerAt

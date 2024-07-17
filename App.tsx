@@ -5,6 +5,8 @@ import { Provider, useDispatch } from "react-redux"
 import rootStore from "./app/model/state/root-store"
 import auth from '@react-native-firebase/auth'
 import { onAuthStateChange } from "./app/model/state/auth-slice"
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 
 //Inner components to initialize auth state
 const AuthState = () => {
@@ -14,19 +16,16 @@ const AuthState = () => {
 			auth()
 				.onAuthStateChanged((user) => {
 					dispatch(onAuthStateChange({ user: user || undefined }))
-				/* 	dispatch(updateUser({
-						id: user?.uid,
-						username: authState?.username,
-						email: authState?.email,
-						photoURL: res?.user?.photoURL || "",
-						registerAt: res.user.metadata.creationTime || ""
-					})) */
-
 				})
 		return subscriber // unsubscribe on unmount
 	}, [])
 	return <></>
 }
+
+//enable google auth
+GoogleSignin.configure({
+	webClientId: "21756226705-dgsk48nnuqfdi78f6i5hb34qnckt755q.apps.googleusercontent.com",
+})
 
 function App(): React.JSX.Element {
 
