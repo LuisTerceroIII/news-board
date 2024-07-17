@@ -47,7 +47,8 @@ const errors = {
     missing_upper_char: "La contraseña debe contener al menos una letra mayúscula.",
     repeat_pass_not_match:  "Las contraseñas no coinciden.",
     empty_field: "Campo vacío.",
-    email_already_in_use: "La dirección de correo electrónico ya está en uso por otra cuenta."
+    email_already_in_use: "La dirección de correo electrónico ya está en uso por otra cuenta.",
+    invalid_credential: "Las credenciales de autenticación proporcionadas son incorrectas, están mal formadas o han expirado."
 }
 export type ErrorsType = keyof typeof errors
 

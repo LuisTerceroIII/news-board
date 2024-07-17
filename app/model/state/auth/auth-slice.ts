@@ -224,16 +224,9 @@ export const AuthSlice = createSlice({
                 Alert.alert(
                     `${dictionary.errors?.alert_generic_title || ""}`,
                     `${dictionary.errors?.[errorType]}`,
-                    [
-                        {
-                            text: 'Ok',
-                            style: 'default',
-                        },
-                    ],
-                    {
-                        cancelable: true
-                    },
-                );
+                    [ {  text: 'Ok', style: 'default' } ],
+                    { cancelable: true },
+                )
             })
             //register or login Google Account
             .addCase(enterUsingGoogleAsync.pending, (state, action) => {
@@ -264,6 +257,15 @@ export const AuthSlice = createSlice({
             })
             .addCase(enterUsingEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
+                const errorType: ErrorsType = extractFirebaseErrorCode(action.payload as string)
+                state.email = ""
+                state.password = ""
+                Alert.alert(
+                    `${dictionary.errors?.alert_generic_title || ""}`,
+                    `${dictionary.errors?.[errorType]}`,
+                    [ {  text: 'Ok', style: 'default' } ],
+                    { cancelable: true },
+                )
             })
     }
 })
