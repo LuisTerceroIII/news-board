@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { ScreenNavigationProps } from "../../../navigation/routes";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { palette } from "../../../theme/palette";
 import { ActiveWordTitle } from "../../../components/shared/active-word-title";
 import { dictionary } from "../../../dictionary/dictionary";
@@ -10,8 +10,8 @@ import { FormField } from "../../../components/basics/form-field";
 import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AppStore } from "../../../model/state/root-store";
-import { AuthErrorType, checkLoginError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { AppStore, useAppDispatch } from "../../../model/state/root-store";
+import { AuthErrorType, checkLoginError, enterUsingGoogleAsync, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
 import { GoogleButton } from "../google-button";
 import { ScreenNames } from "../../../navigation/screen-names";
 
@@ -20,7 +20,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 	const emailRef = useRef<TextInput>(null)
 	const passRef = useRef<TextInput>(null)
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	const { email, password } = useSelector((state: AppStore) => state.authSlice)
 	const { emailError, passError } = useSelector((state: AppStore) => state.authSlice)
@@ -45,9 +45,9 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 			passRef.current?.focus()
 		}, 200)
 	}
-	const submitRegisterForm = () => {
-		dispatch(checkLoginError({ error: AuthErrorType.ALL }))
-	}
+	const submitRegisterForm = () => dispatch(checkLoginError({ error: AuthErrorType.ALL }))
+	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
+
 	const goToRegister = () => navigation.navigate(ScreenNames.REGISTER)
 
 	return (
@@ -90,7 +90,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 				/>
 				<GoogleButton
 					tx={dictionary.auth?.login_using_google || ""}
-					onPress={() => console.warn("Login using google")}
+					onPress={enterUsingGoogle}
 				/>
 				<Button
 					tx={dictionary.auth?.login_button}

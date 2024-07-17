@@ -228,13 +228,13 @@ export const AuthSlice = createSlice({
                 state.submitState = ReqState.FAILED
             })
             //register Google Account
-            .addCase(registerGoogleAsync.pending, (state, action) => {
+            .addCase(enterUsingGoogleAsync.pending, (state, action) => {
                 state.submitState = ReqState.PENDING
             })
-            .addCase(registerGoogleAsync.fulfilled, (state, action) => {
+            .addCase(enterUsingGoogleAsync.fulfilled, (state, action) => {
                 state.submitState = ReqState.SUCCEEDED
             })
-            .addCase(registerGoogleAsync.rejected, (state, action) => {
+            .addCase(enterUsingGoogleAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
             })
     }
@@ -270,6 +270,7 @@ export const registerEmailPassAsync = createAsyncThunk(
         if (hasPendingRegisterErrors) rejectWithValue("Pending errors")
         
         const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
+
         dispatch(updateUser({
             id: res?.user?.uid,
             username: authState?.username,
@@ -277,12 +278,11 @@ export const registerEmailPassAsync = createAsyncThunk(
             photoURL: res?.user?.photoURL || "",
             registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
         }))
+        
         return res
-
-
     }
 )
-export const registerGoogleAsync = createAsyncThunk(
+export const enterUsingGoogleAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/registerGoogle`,
     async (payload, { getState, rejectWithValue, dispatch }) => {
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })

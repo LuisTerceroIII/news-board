@@ -11,7 +11,7 @@ import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppStore, useAppDispatch } from "../../../model/state/root-store";
-import { AuthErrorType, checkRegisterError, hasEmptyRegisterField, hasPendingRegisterErrors, registerEmailPassAsync, registerGoogleAsync, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { AuthErrorType, checkRegisterError, hasEmptyRegisterField, hasPendingRegisterErrors, registerEmailPassAsync, enterUsingGoogleAsync, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
 import { GoogleButton } from "../google-button";
 import { ScreenNames } from "../../../navigation/screen-names";
 import { ReqState } from "../../../util/types";
@@ -74,7 +74,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 			dispatch(registerEmailPassAsync())
 		}
 	}
-	const enterUsingGoogle = () => dispatch(registerGoogleAsync())
+	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
 	const goToLogin = () => navigation.navigate(ScreenNames.LOGIN)
 
 	return (
