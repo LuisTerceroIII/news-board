@@ -5,9 +5,10 @@ import { WelcomeOnBoardingSlide } from './slides/welcome-on-boarding-slide'
 import { dictionary } from '../../dictionary/dictionary'
 import { palette } from '../../theme/palette'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { ScreenNames } from '../../navigation/screen-names'
 import { Text, TextVariant } from '../../components/basics/text'
+import { useAppDispatch } from '../../model/state/root-store'
+import { resetAuthForm } from '../../model/state/auth/auth-slice'
 
 const styles = StyleSheet.create({
 	linksBox: {
@@ -24,11 +25,19 @@ const styles = StyleSheet.create({
 	}
 })
 
-export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
+export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = ({ navigation }) => {
 
-	const navigation = useNavigation()
-	const goToLogin = () => navigation?.navigate(ScreenNames.LOGIN)
-	const goToRegister = () => navigation?.navigate(ScreenNames.REGISTER)
+	const dispatch = useAppDispatch()
+
+	const goToLogin = () => {
+		navigation?.navigate(ScreenNames.LOGIN)
+		dispatch(resetAuthForm())
+
+	}
+	const goToRegister = () => {
+		navigation?.navigate(ScreenNames.REGISTER)
+		dispatch(resetAuthForm())
+	}
 
 	return (
 		<Swiper

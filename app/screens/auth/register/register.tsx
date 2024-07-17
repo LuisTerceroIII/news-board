@@ -77,7 +77,10 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 		}
 	}
 	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
-	const goToLogin = () => navigation.navigate(ScreenNames.LOGIN)
+	const goToLogin = () => {
+		navigation?.navigate(ScreenNames.LOGIN)
+		dispatch(resetAuthForm())
+	}
 
 	return (
 		<KeyboardAwareScrollView

@@ -55,10 +55,10 @@ export const AuthSlice = createSlice({
             state.email = ""
             state.password = ""
             state.repeatedPassword = ""
-            state.usernameError = { state: false, errorsTx: [] },
-                state.emailError = { state: false, errorsTx: [] },
-                state.passError = { state: false, errorsTx: [] },
-                state.repeatedPassError = { state: false, errorsTx: [] }
+            state.usernameError = { state: false, errorsTx: [] }
+            state.emailError = { state: false, errorsTx: [] }
+            state.passError = { state: false, errorsTx: [] }
+            state.repeatedPassError = { state: false, errorsTx: [] }
         },
         onAuthStateChange: (state, action: PayloadAction<{ user?: FirebaseAuthTypes.User }>) => {
             state.isLogin = action.payload?.user != null
@@ -262,7 +262,6 @@ export const AuthSlice = createSlice({
             .addCase(enterUsingEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
                 const error = action.payload
-                console.log("🚀 ~ .addCase ~ error:", error)
                 //ignore fomr field errors
                 if (error === "Check form fields") return
                 // check firebase error
