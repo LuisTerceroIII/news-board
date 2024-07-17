@@ -4,6 +4,7 @@ import { AppStore } from "./root-store";
 import { ErrorInput } from "../../util/types";
 import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../util/validations";
 import { dictionary } from "../../dictionary/dictionary";
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
 enum AuthProvider {
     EMAIL_PASS = "emailPass",
@@ -58,6 +59,10 @@ export const AuthSlice = createSlice({
                 state.emailError = { state: false, errorsTx: [] },
                 state.passError = { state: false, errorsTx: [] },
                 state.repeatedPassError = { state: false, errorsTx: [] }
+        },
+        onAuthStateChange: (state, action: PayloadAction<{user: FirebaseAuthTypes.User}>) => {
+            state.isLogin = action.payload?.user != null
+            console.log(JSON.stringify(action.payload?.user, null, 2))
         },
         createUserEmailPass: (state) => {
             console.log({
@@ -222,7 +227,8 @@ export const {
     setRepeatPassword,
     setUsername,
     checkRegisterError,
-    checkLoginError
+    checkLoginError,
+    onAuthStateChange
 
 } = AuthSlice.actions
 
