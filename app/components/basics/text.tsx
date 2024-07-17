@@ -9,6 +9,7 @@ export enum TextVariant {
 	TITLE = "title",
 	SUBTITLE = "subtitle",
 	NOTE = "note", // small text use to display minor info
+	ERROR = "error", // small text use to display minor info
 	PARAGRAPH = "paragraph",
 	LINK = "link"
 }
@@ -61,6 +62,12 @@ const styles = StyleSheet.create({
 	[TextVariant.NOTE]: {
 		fontSize: 14,
 		color: palette.white,
+		fontFamily: fontFamily.nunito.regular,
+		fontWeight: 400
+	},
+	[TextVariant.ERROR]: {
+		fontSize: 14,
+		color: palette.red,
 		fontFamily: fontFamily.nunito.regular,
 		fontWeight: 400
 	},

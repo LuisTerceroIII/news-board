@@ -31,10 +31,22 @@ const auth = {
     register_button: "Registrarme",
     already_has_account: "¿ Ya tienes cuenta ? ",
     log_in_option: "Iniciar Sesion",
-    register_using_google: "Registrate usando tu cuenta de google"
+    register_using_google: "Registrate usando tu cuenta de google",
+
 }
+
+const errors = {
+    generic_error: "Verificar campo.",
+    invalid_email: "El email ingresado no es válido.",
+    short_pass: "La contraseña debe tener al menos 8 caracteres.",
+    missing_upper_char: "La contraseña debe contener al menos una letra mayúscula.",
+    repeat_pass_not_match:  "Las contraseñas no coinciden.",
+    empty_field: "Campo vacío"
+}
+export type ErrorsType = keyof typeof errors
 
 export default {
     welcomeOnBoarding,
-    auth
+    auth,
+    errors
 }
