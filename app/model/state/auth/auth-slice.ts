@@ -219,12 +219,16 @@ export const AuthSlice = createSlice({
             })
             .addCase(registerEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
-                const errorType: ErrorsType = extractFirebaseErrorCode(action.payload as string)
+                const error = action.payload
+                //ignore fomr field errors
+                if (error === "Check form fields") return
+                // check firebase error
+                const errorType: ErrorsType = extractFirebaseErrorCode(error as string)
                 state.email = ""
                 Alert.alert(
                     `${dictionary.errors?.alert_generic_title || ""}`,
                     `${dictionary.errors?.[errorType]}`,
-                    [ {  text: 'Ok', style: 'default' } ],
+                    [{ text: 'Ok', style: 'default' }],
                     { cancelable: true },
                 )
             })
@@ -257,13 +261,18 @@ export const AuthSlice = createSlice({
             })
             .addCase(enterUsingEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
-                const errorType: ErrorsType = extractFirebaseErrorCode(action.payload as string)
+                const error = action.payload
+                console.log("🚀 ~ .addCase ~ error:", error)
+                //ignore fomr field errors
+                if (error === "Check form fields") return
+                // check firebase error
+                const errorType: ErrorsType = extractFirebaseErrorCode(error as string)
                 state.email = ""
                 state.password = ""
                 Alert.alert(
                     `${dictionary.errors?.alert_generic_title || ""}`,
                     `${dictionary.errors?.[errorType]}`,
-                    [ {  text: 'Ok', style: 'default' } ],
+                    [{ text: 'Ok', style: 'default' }],
                     { cancelable: true },
                 )
             })
