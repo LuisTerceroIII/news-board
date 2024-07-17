@@ -4,7 +4,7 @@ import RootNavigation from "./app/navigation/root-navigation"
 import { Provider, useDispatch } from "react-redux"
 import rootStore from "./app/model/state/root-store"
 import auth from '@react-native-firebase/auth'
-import { onAuthStateChange } from "./app/model/state/auth-slice"
+import { onAuthStateChange } from "./app/model/state/auth/auth-slice"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 

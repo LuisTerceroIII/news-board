@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { SlicesNames } from "./slices-names";
 import UserSliceReducer from "./user/user-slice";
 import SearchArticleSliceReducer from "./ui-slices/search-article-slice"
-import AuthSliceReducer from "./auth-slice";
+import AuthSliceReducer from "./auth/auth-slice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistReducer, persistStore } from "redux-persist"
 import CryptoTransform from "../../util/store-transformations";

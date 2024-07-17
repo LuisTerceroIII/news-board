@@ -11,10 +11,12 @@ import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppStore, useAppDispatch } from "../../../model/state/root-store";
-import { AuthErrorType, checkRegisterError, hasEmptyRegisterField, hasPendingRegisterErrors, registerEmailPassAsync, enterUsingGoogleAsync, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { AuthErrorType, checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth/auth-slice";
 import { GoogleButton } from "../google-button";
 import { ScreenNames } from "../../../navigation/screen-names";
-import { ReqState } from "../../../util/types";
+import { ErrorInputTx, ReqState } from "../../../util/types";
+import { hasEmptyRegisterField, hasPendingRegisterErrors } from "../../../model/state/auth/auth-views";
+import { enterUsingGoogleAsync, registerEmailPassAsync } from "../../../model/state/auth/auth-async-actions";
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -110,7 +112,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					value={email}
 					onChangeText={onChangeEmail}
 					error={emailError.state}
-					errorsTx={emailError.errorsTx?.map(err => err.tx)}
+					errorsTx={emailError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					onSubmitEditing={focusPass}
 					keyboardType="email-address"
 				/>
@@ -121,7 +123,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					value={password}
 					onChangeText={onChangePassword}
 					error={passError.state}
-					errorsTx={passError.errorsTx?.map(err => err.tx)}
+					errorsTx={passError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					onSubmitEditing={focusRepeatPass}
 					secureTextEntry
 				/>
@@ -132,7 +134,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					value={repeatedPassword}
 					onChangeText={onChangeRepeatPass}
 					error={repeatedPassError.state}
-					errorsTx={repeatedPassError.errorsTx?.map(err => err.tx)}
+					errorsTx={repeatedPassError.errorsTx?.map((err: ErrorInputTx) => err?.tx)}
 					secureTextEntry
 				/>
 				<GoogleButton

@@ -1,26 +1,17 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { SlicesNames } from "./slices-names"
-import { AppStore } from "./root-store"
-import { ErrorInput, ReqState } from "../../util/types"
-import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../util/validations"
-import { dictionary } from "../../dictionary/dictionary"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { SlicesNames } from "../slices-names"
+import { ErrorInput, ReqState } from "../../../util/types"
+import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../../util/validations"
+import { dictionary } from "../../../dictionary/dictionary"
 import { FirebaseAuthTypes } from "@react-native-firebase/auth"
-import auth from '@react-native-firebase/auth'
-import { updateUser } from "./user/user-slice"
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { enterUsingGoogleAsync, registerEmailPassAsync } from "./auth-async-actions"
 
-enum AuthProvider {
-    EMAIL_PASS = "emailPass",
-    GOOGLE = "google"
-}
-interface AuthState {
+export interface AuthState {
     isLogin: boolean
     username: string
     email: string
     password: string
     repeatedPassword: string
-    provider: AuthProvider
-
     //forms validations errors
     usernameError: ErrorInput
     emailError: ErrorInput
@@ -36,7 +27,6 @@ const initialState: AuthState = {
     email: "",
     password: "",
     repeatedPassword: "",
-    provider: AuthProvider.EMAIL_PASS,
     //forms validations errors
     usernameError: { state: false, errorsTx: [] },
     emailError: { state: false, errorsTx: [] },
@@ -251,79 +241,5 @@ export const {
     checkLoginError,
     onAuthStateChange
 } = AuthSlice.actions
-
-//Api calls
-export const registerEmailPassAsync = createAsyncThunk(
-    `${SlicesNames.AUTH}/loginEmailPass`,
-    async (payload, { getState, rejectWithValue, dispatch }) => {
-
-        const state: AppStore = getState() as AppStore
-        const authState: AuthState = state?.[SlicesNames.AUTH]
-
-        const hasPendingRegisterErrors = (
-            authState?.emailError.state ||
-            authState?.usernameError.state ||
-            authState?.passError.state ||
-            authState?.repeatedPassError.state
-        )
-
-        if (hasPendingRegisterErrors) rejectWithValue("Pending errors")
-        
-        const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
-
-        dispatch(updateUser({
-            id: res?.user?.uid,
-            username: authState?.username,
-            email: authState?.email,
-            photoURL: res?.user?.photoURL || "",
-            registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
-        }))
-        
-        return res
-    }
-)
-export const enterUsingGoogleAsync = createAsyncThunk(
-    `${SlicesNames.AUTH}/registerGoogle`,
-    async (payload, { getState, rejectWithValue, dispatch }) => {
-        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn()
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken)
-        // Sign-in the user with the credential
-        const res = await auth().signInWithCredential(googleCredential)
-
-        dispatch(updateUser({
-            id: res?.user?.uid,
-            username: "",
-            name: res.user.displayName || "",
-            email: res.user.email || "",
-            photoURL: res?.user?.photoURL || "",
-            registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
-        }))
-        
-        return res
-
-    }
-)
-
-//Views
-export const getIsLogin = (state: AppStore) => state.authSlice.isLogin
-export const hasPendingRegisterErrors = (state: AppStore) => {
-    return (
-        state.authSlice.emailError.state ||
-        state.authSlice.usernameError.state ||
-        state.authSlice.passError.state ||
-        state.authSlice.repeatedPassError.state
-    )
-}
-export const hasEmptyRegisterField = (state: AppStore) => {
-    return (
-        state.authSlice.email?.length === 0 ||
-        state.authSlice.username.length === 0 ||
-        state.authSlice.password.length === 0 ||
-        state.authSlice.repeatedPassword.length === 0
-    )
-}
 
 export default AuthSlice.reducer

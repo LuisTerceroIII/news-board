@@ -1,8 +1,12 @@
 import { ErrorsType } from "../dictionary/es";
 
+export interface ErrorInputTx {
+    errorLabel: ErrorsType
+    tx: string
+}
 export interface ErrorInput {
     state: boolean
-    errorsTx: {errorLabel: ErrorsType, tx: string}[]
+    errorsTx: ErrorInputTx[]
 }
 export enum ReqState {
     IDLE = "idle",
