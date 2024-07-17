@@ -12,6 +12,7 @@ import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppStore } from "../../../model/state/root-store";
 import { checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { GoogleButton } from "../google-button";
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -116,6 +117,10 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					error={repeatedPassError.state}
 					errorsTx={repeatedPassError.errorsTx?.map(err => err.tx)}
 					secureTextEntry
+				/>
+				<GoogleButton 
+					tx={dictionary.auth?.register_using_google || ""}
+					onPress={() => console.warn("Register using google")}
 				/>
 				<Button
 					tx={dictionary.auth?.register_button}
