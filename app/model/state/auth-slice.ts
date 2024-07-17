@@ -37,6 +37,13 @@ const initialState: AuthState = {
     passError: { state: false, errorsTx: [] },
     repeatedPassError: { state: false, errorsTx: [] }
 }
+export enum AuthErrorType {
+    USERNAME = "username",
+    PASS = "password",
+    REPEAT_PASS = "repeatPass",
+    EMAIL = "email",
+    ALL = "all"
+}
 
 export const AuthSlice = createSlice({
     name: SlicesNames.AUTH,
@@ -47,10 +54,10 @@ export const AuthSlice = createSlice({
             state.email = ""
             state.password = ""
             state.repeatedPassword = ""
-            state.usernameError =  { state: false, errorsTx: [] },
-            state.emailError =  { state: false, errorsTx: [] },
-            state.passError =  { state: false, errorsTx: [] },
-            state.repeatedPassError =  { state: false, errorsTx: [] }
+            state.usernameError = { state: false, errorsTx: [] },
+                state.emailError = { state: false, errorsTx: [] },
+                state.passError = { state: false, errorsTx: [] },
+                state.repeatedPassError = { state: false, errorsTx: [] }
         },
         createUserEmailPass: (state) => {
             console.log({
@@ -71,62 +78,94 @@ export const AuthSlice = createSlice({
         setRepeatPassword: (state, action: PayloadAction<{ password: string }>) => {
             state.repeatedPassword = action.payload.password
         },
-        checkRegisterError: (state) => {
-            //username
-            state.usernameError.state = !validateNotEmpty(state.username)
-            //email
-            state.emailError.state = !validateEmail(state.email) || !validateNotEmpty(state.email)
-            if (state.emailError.state) {
-                const errorIsAdd = state.emailError.errorsTx?.find(error => error.errorLabel === "invalid_email")
-                if (!errorIsAdd) {
-                    state.emailError.errorsTx = [...state.emailError.errorsTx, { errorLabel: "invalid_email", tx: dictionary.errors?.invalid_email || "" }]
+        checkRegisterError: (state, action: PayloadAction<{ error: AuthErrorType }>) => {
+
+            const checkUsername = () => {
+                state.usernameError.state = !validateNotEmpty(state.username)
+            }
+
+            const checkEmail = () => {
+                state.emailError.state = !validateEmail(state.email) || !validateNotEmpty(state.email)
+                if (state.emailError.state) {
+                    if (!validateEmail(state.email) || !validateNotEmpty(state.email)) {
+                        const errorIsAdd = state.emailError.errorsTx?.find(error => error.errorLabel === "invalid_email") != null
+                        if (!errorIsAdd) {
+                            state.emailError.errorsTx = [...state.emailError.errorsTx, { errorLabel: "invalid_email", tx: dictionary.errors?.invalid_email || "" }]
+                        }
+                    } else {
+                        state.emailError.errorsTx = [...state.emailError.errorsTx?.filter(err => err.errorLabel !== "invalid_email")]
+                    }
                 }
             }
-            //password
-            state.passError.state = !validatePasswordUppercase(state.password) || !validatePasswordLong(state.password) || !validateNotEmpty(state.password)
-            if (state.passError.state) {
-                if (!validateNotEmpty(state.password)) {
-                    let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "empty_field")
-                    if (!errorIsAdd) {
-                        state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "empty_field", tx: dictionary.errors?.empty_field || "" }]
+
+            const checkPass = () => {
+                state.passError.state = !validatePasswordUppercase(state.password) || !validatePasswordLong(state.password) || !validateNotEmpty(state.password)
+                if (state.passError.state) {
+                    if (!validateNotEmpty(state.password)) {
+                        let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "empty_field") != null
+                        if (!errorIsAdd) {
+                            state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "empty_field", tx: dictionary.errors?.empty_field || "" }]
+                        }
+                    } else {
+                        state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "empty_field")]
                     }
-                } else {
-                    state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "empty_field")]
-                }
-                if (!validatePasswordUppercase(state.password)) {
-                    let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "missing_upper_char")
-                    if (!errorIsAdd) {
-                        state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "missing_upper_char", tx: dictionary.errors?.missing_upper_char || "" }]
+                    if (!validatePasswordUppercase(state.password)) {
+                        let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "missing_upper_char") != null
+                        if (!errorIsAdd) {
+                            state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "missing_upper_char", tx: dictionary.errors?.missing_upper_char || "" }]
+                        }
+                    } else {
+                        state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "missing_upper_char")]
                     }
-                } else {
-                    state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "missing_upper_char")]
-                }
-                if (!validatePasswordLong(state.password)) {
-                    let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "short_pass")
-                    if (!errorIsAdd) {
-                        state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "short_pass", tx: dictionary.errors?.short_pass || "" }]
+                    if (!validatePasswordLong(state.password)) {
+                        let errorIsAdd = state.passError.errorsTx?.find(error => error.errorLabel === "short_pass") != null
+                        if (!errorIsAdd) {
+                            state.passError.errorsTx = [...state.passError.errorsTx, { errorLabel: "short_pass", tx: dictionary.errors?.short_pass || "" }]
+                        }
+                    } else {
+                        state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "short_pass")]
                     }
-                } else {
-                    state.passError.errorsTx = [...state.passError.errorsTx?.filter(err => err.errorLabel !== "short_pass")]
                 }
             }
-            //repeat pass
-            state.repeatedPassError.state = !validateRepeatedPassword(state.password, state.repeatedPassword) || !validateNotEmpty(state.repeatedPassword)
-            if (!validateNotEmpty(state.repeatedPassword)) {
-                let errorIsAdd = state.repeatedPassError.errorsTx?.find(error => error.errorLabel === "empty_field")
-                if (!errorIsAdd) {
-                    state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx, { errorLabel: "empty_field", tx: dictionary.errors?.empty_field || "" }]
+
+            const checkRepeatPass = () => {
+                state.repeatedPassError.state = !validateRepeatedPassword(state.password, state.repeatedPassword) || !validateNotEmpty(state.repeatedPassword)
+                if (!validateNotEmpty(state.repeatedPassword)) {
+                    let errorIsAdd = state.repeatedPassError.errorsTx?.find(error => error.errorLabel === "empty_field")
+                    if (!errorIsAdd) {
+                        state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx, { errorLabel: "empty_field", tx: dictionary.errors?.empty_field || "" }]
+                    }
+                } else {
+                    state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx?.filter(err => err.errorLabel !== "empty_field")]
                 }
-            } else {
-                state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx?.filter(err => err.errorLabel !== "empty_field")]
+                if (!validateRepeatedPassword(state.password, state.repeatedPassword)) {
+                    let errorIsAdd = state.repeatedPassError.errorsTx?.find(error => error.errorLabel === "repeat_pass_not_match")
+                    if (!errorIsAdd) {
+                        state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx, { errorLabel: "repeat_pass_not_match", tx: dictionary.errors?.repeat_pass_not_match || "" }]
+                    }
+                } else {
+                    state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx?.filter(err => err.errorLabel !== "repeat_pass_not_match")]
+                }
             }
-            if (!validateRepeatedPassword(state.password, state.repeatedPassword)) {
-                let errorIsAdd = state.repeatedPassError.errorsTx?.find(error => error.errorLabel === "repeat_pass_not_match")
-                if (!errorIsAdd) {
-                    state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx, { errorLabel: "repeat_pass_not_match", tx: dictionary.errors?.repeat_pass_not_match || "" }]
-                }
-            } else {
-                state.repeatedPassError.errorsTx = [...state.repeatedPassError.errorsTx?.filter(err => err.errorLabel !== "repeat_pass_not_match")]
+
+            switch(action.payload.error) {
+                case AuthErrorType.USERNAME:
+                    checkUsername()
+                    break;
+                case AuthErrorType.EMAIL:
+                    checkEmail()
+                    break;
+                case AuthErrorType.PASS:
+                    checkPass()
+                    break;
+                case AuthErrorType.REPEAT_PASS:
+                    checkRepeatPass()
+                    break;
+                default:
+                    checkUsername()
+                    checkEmail()
+                    checkPass()
+                    checkRepeatPass()
             }
         }
     }

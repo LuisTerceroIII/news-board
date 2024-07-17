@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import { KeyboardAvoidingView, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { ScreenNavigationProps } from "../../../navigation/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { palette } from "../../../theme/palette";
@@ -11,7 +11,7 @@ import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppStore } from "../../../model/state/root-store";
-import { checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
+import { AuthErrorType, checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth-slice";
 import { GoogleButton } from "../google-button";
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
@@ -34,13 +34,21 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 
 	const onChangeUsername = (str: string) => {
 		dispatch(setUsername({ username: str }))
-		if(usernameError.state) {
-			dispatch(checkRegisterError())
-		} 
+		if(usernameError.state) dispatch(checkRegisterError({error: AuthErrorType.USERNAME}))
 	}
-	const onChangeEmail = (str: string) => dispatch(setEmail({ email: str }))
-	const onChangePassword = (str: string) => dispatch(setPassword({ password: str }))
-	const onChangeRepeatPass = (str: string) => dispatch(setRepeatPassword({ password: str }))
+	const onChangeEmail = (str: string) => {
+		dispatch(setEmail({ email: str }))
+		if(emailError.state) dispatch(checkRegisterError({error: AuthErrorType.EMAIL}))
+
+	}
+	const onChangePassword = (str: string) => {
+		dispatch(setPassword({ password: str }))
+		if(passError.state) dispatch(checkRegisterError({error: AuthErrorType.PASS}))
+	}
+	const onChangeRepeatPass = (str: string) => {
+		dispatch(setRepeatPassword({ password: str }))
+		if(repeatedPassError.state) dispatch(checkRegisterError({error: AuthErrorType.REPEAT_PASS}))
+	}
 
 	const focusEmail = () => {
 		setTimeout(() => {
@@ -59,7 +67,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	}
 
 	const submitRegisterForm = () => {
-		dispatch(checkRegisterError())
+		dispatch(checkRegisterError({ error: AuthErrorType.ALL }))
 	}
 
 	return (
@@ -74,8 +82,10 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					dictionary.welcomeOnBoarding?.slide_one_title_2 || ""
 				]}
 			/>
-			<Text tx={dictionary.auth?.register_title} variant={TextVariant.LOGO_SUBTITLE} />
-
+			<Text
+				tx={dictionary.auth?.register_title}
+				variant={TextVariant.LOGO_SUBTITLE}
+			/>
 			<View style={styles.formBox}>
 				{/* Username */}
 				<FormField
@@ -118,7 +128,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					errorsTx={repeatedPassError.errorsTx?.map(err => err.tx)}
 					secureTextEntry
 				/>
-				<GoogleButton 
+				<GoogleButton
 					tx={dictionary.auth?.register_using_google || ""}
 					onPress={() => console.warn("Register using google")}
 				/>
