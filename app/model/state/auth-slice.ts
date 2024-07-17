@@ -68,14 +68,6 @@ export const AuthSlice = createSlice({
         },
         onAuthStateChange: (state, action: PayloadAction<{ user?: FirebaseAuthTypes.User }>) => {
             state.isLogin = action.payload?.user != null
-            console.log(JSON.stringify(action.payload?.user, null, 2))
-        },
-        createUserEmailPass: (state) => {
-            console.log({
-                email: state.email,
-                password: state.password,
-                repeatedPassword: state.repeatedPassword
-            })
         },
         setUsername: (state, action: PayloadAction<{ username: string }>) => {
             state.username = action.payload.username
@@ -229,7 +221,6 @@ export const AuthSlice = createSlice({
             })
             .addCase(registerEmailPassAsync.fulfilled, (state, action) => {
                 state.submitState = ReqState.SUCCEEDED
-                state.isLogin = true
             })
             .addCase(registerEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
@@ -240,7 +231,6 @@ export const AuthSlice = createSlice({
 //Actions
 export const {
     resetAuthForm,
-    createUserEmailPass,
     setEmail,
     setPassword,
     setRepeatPassword,
@@ -248,7 +238,6 @@ export const {
     checkRegisterError,
     checkLoginError,
     onAuthStateChange
-
 } = AuthSlice.actions
 
 //Api calls
@@ -267,18 +256,17 @@ export const registerEmailPassAsync = createAsyncThunk(
         )
 
         if(!hasPendingRegisterErrors) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    dispatch(updateUser({
-                        username: authState?.username,
-                        email: authState?.email
-                    }))
-                    resolve(authState)
-                }, 2000)
-            })
+            const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
+            dispatch(updateUser({
+                id: res?.user?.uid,
+                username: authState?.username,
+                email: authState?.email,
+                photoURL: res?.user?.photoURL || "",
+                registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
+            }))
+            return res
         }
     
-        //await auth().createUserWithEmailAndPassword(state.email, state.password)
     }
 )
 

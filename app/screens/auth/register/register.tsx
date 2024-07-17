@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		columnGap: 10
 	}
-
 })
 
 export default RegisterScreen;

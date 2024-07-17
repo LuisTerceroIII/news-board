@@ -6,10 +6,24 @@ import { AppStore } from "../root-store"
 
 export interface UserState {
     user: User
+    id: string
+    username: string
+    name: string
+    lastName: string
+    email: string
+    registerAt: string // timestamp format
+    photoURL: string
 }
 
 const initialState: UserState = {
-    user: new User()
+    user: new User(),
+    id: "",
+    username: "",
+    name: "",
+    lastName: "",
+    email: "",
+    registerAt: "", // timestamp format
+    photoURL: ""
 }
 
 export const UserSlice = createSlice({
@@ -20,17 +34,23 @@ export const UserSlice = createSlice({
             state.user.getUserInteractions.savedArticles.saveArticle(action.payload.article)
         },
         updateUser: (state, action: PayloadAction<{
+            id: string,
             username: string,
-            email: string
+            email: string,
+            photoURL: string,
+            registerAt: string, // getTime
         }>) => {
-            state.user.username = action.payload.username
-            state.user.email = action.payload.email
+            state.id = action.payload.id
+            state.username = action.payload.username
+            state.email = action.payload.email
+            state.photoURL = action.payload.photoURL
+            state.registerAt = action.payload.registerAt
         }
     }
 })
 
 //Actions
-export const { 
+export const {
     saveArticle,
     updateUser
 } = UserSlice.actions

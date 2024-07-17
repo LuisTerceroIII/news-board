@@ -14,6 +14,14 @@ const AuthState = () => {
 			auth()
 				.onAuthStateChanged((user) => {
 					dispatch(onAuthStateChange({ user: user || undefined }))
+				/* 	dispatch(updateUser({
+						id: user?.uid,
+						username: authState?.username,
+						email: authState?.email,
+						photoURL: res?.user?.photoURL || "",
+						registerAt: res.user.metadata.creationTime || ""
+					})) */
+
 				})
 		return subscriber // unsubscribe on unmount
 	}, [])

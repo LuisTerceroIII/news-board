@@ -7,26 +7,31 @@ export class Person {
     name: string;
     lastName: string;
     email: string;
-    registerAt: Date;
-    imageURL: string;
+    registerAt: string; // timestamp format
+    photoURL: string;
 
     constructor(
         username: string, 
         name: string, 
         lastName: string,
         email: string,
-        imageURL: string
+        photoURL: string
     ) {
-        this.#id = String(uuid.v4())
+        this.#id = ""
         this.username = username || ""
         this.name = name || ""
         this.lastName = lastName  || ""
         this.email = email 
-        this.registerAt = new Date()
-        this.imageURL = imageURL  || ""
+        this.registerAt = ""
+        this.photoURL = photoURL  || ""
     }
 
     getId() {
         return this.#id
     }
+
+    setId(id: string) {
+        this.#id = id
+    }
+
 }
