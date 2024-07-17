@@ -18,3 +18,15 @@ export const hasEmptyRegisterField = (state: AppStore) => {
         state.authSlice.repeatedPassword.length === 0
     )
 }
+export const hasPendingLoginErrors = (state: AppStore) => {
+    return (
+        state.authSlice.emailError.state ||
+        state.authSlice.passError.state
+    )
+}
+export const hasEmptyLoginField = (state: AppStore) => {
+    return (
+        state.authSlice.email?.length === 0 ||
+        state.authSlice.password.length === 0
+    )
+}

@@ -36,8 +36,30 @@ export const registerEmailPassAsync = createAsyncThunk(
         return res
     }
 )
+export const enterUsingEmailPassAsync = createAsyncThunk(
+    `${SlicesNames.AUTH}/enterUsingEmailPass`,
+    async (payload, { getState, rejectWithValue, dispatch }) => {
+
+        const state: AppStore = getState() as AppStore
+        const authState: AuthState = state?.[SlicesNames.AUTH]
+
+        if (authState?.emailError.state) rejectWithValue("Check email")
+        const res = await auth().signInWithEmailAndPassword(authState.email, authState.password)
+        if (res == null) rejectWithValue("Not user")
+        dispatch(updateUser({
+            id: res?.user?.uid,
+            username: "",
+            name: res.user.displayName || "",
+            email: res.user.email || "",
+            photoURL: res?.user?.photoURL || "",
+            registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
+        }))
+        
+        return res
+    }
+)
 export const enterUsingGoogleAsync = createAsyncThunk(
-    `${SlicesNames.AUTH}/registerGoogle`,
+    `${SlicesNames.AUTH}/enterUsingGoogle`,
     async (payload, { getState, rejectWithValue, dispatch }) => {
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
         // Get the users ID token

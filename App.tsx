@@ -24,7 +24,7 @@ const AuthState = () => {
 
 //enable google auth
 GoogleSignin.configure({
-	webClientId: "21756226705-dgsk48nnuqfdi78f6i5hb34qnckt755q.apps.googleusercontent.com",
+	webClientId: process.env.GOOGLE_AUTH_WEB_CLIENT,
 })
 
 function App(): React.JSX.Element {

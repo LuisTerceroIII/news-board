@@ -15,7 +15,8 @@ import { AuthErrorType, checkLoginError, resetAuthForm, setEmail, setPassword, s
 import { GoogleButton } from "../google-button";
 import { ScreenNames } from "../../../navigation/screen-names";
 import { ErrorInputTx } from "../../../util/types";
-import { enterUsingGoogleAsync } from "../../../model/state/auth/auth-async-actions";
+import { enterUsingEmailPassAsync, enterUsingGoogleAsync } from "../../../model/state/auth/auth-async-actions";
+import { hasEmptyLoginField, hasPendingLoginErrors } from "../../../model/state/auth/auth-views";
 
 export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -26,6 +27,8 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 
 	const { email, password } = useSelector((state: AppStore) => state.authSlice)
 	const { emailError, passError } = useSelector((state: AppStore) => state.authSlice)
+	const hasPendingErrors = useSelector(hasPendingLoginErrors)
+	const hasEmptyField = useSelector(hasEmptyLoginField)
 
 	useEffect(() => {
 		return () => {
@@ -47,7 +50,12 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 			passRef.current?.focus()
 		}, 200)
 	}
-	const submitRegisterForm = () => dispatch(checkLoginError({ error: AuthErrorType.ALL }))
+	const submitRegisterForm = () => {
+		dispatch(checkLoginError({ error: AuthErrorType.ALL }))
+		if (!hasPendingErrors && !hasEmptyField) {
+			dispatch(enterUsingEmailPassAsync())
+		}
+	}
 	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
 
 	const goToRegister = () => navigation.navigate(ScreenNames.REGISTER)

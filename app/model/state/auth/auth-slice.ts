@@ -4,7 +4,7 @@ import { ErrorInput, ReqState } from "../../../util/types"
 import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../../util/validations"
 import { dictionary } from "../../../dictionary/dictionary"
 import { FirebaseAuthTypes } from "@react-native-firebase/auth"
-import { enterUsingGoogleAsync, registerEmailPassAsync, signOutAsync } from "./auth-async-actions"
+import { enterUsingEmailPassAsync, enterUsingGoogleAsync, registerEmailPassAsync, signOutAsync } from "./auth-async-actions"
 
 export interface AuthState {
     isLogin: boolean
@@ -217,7 +217,7 @@ export const AuthSlice = createSlice({
             .addCase(registerEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
             })
-            //register Google Account
+            //register or login Google Account
             .addCase(enterUsingGoogleAsync.pending, (state, action) => {
                 state.submitState = ReqState.PENDING
             })
@@ -235,6 +235,16 @@ export const AuthSlice = createSlice({
                 state.submitState = ReqState.SUCCEEDED
             })
             .addCase(signOutAsync.rejected, (state, action) => {
+                state.submitState = ReqState.FAILED
+            })
+            //Login pass and email
+            .addCase(enterUsingEmailPassAsync.pending, (state, action) => {
+                state.submitState = ReqState.PENDING
+            })
+            .addCase(enterUsingEmailPassAsync.fulfilled, (state, action) => {
+                state.submitState = ReqState.SUCCEEDED
+            })
+            .addCase(enterUsingEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
             })
     }
