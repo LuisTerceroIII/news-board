@@ -255,18 +255,19 @@ export const registerEmailPassAsync = createAsyncThunk(
             authState?.repeatedPassError.state
         )
 
-        if(!hasPendingRegisterErrors) {
-            const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
-            dispatch(updateUser({
-                id: res?.user?.uid,
-                username: authState?.username,
-                email: authState?.email,
-                photoURL: res?.user?.photoURL || "",
-                registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
-            }))
-            return res
-        }
-    
+        if (hasPendingRegisterErrors) rejectWithValue("Pending errors")
+        
+        const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
+        dispatch(updateUser({
+            id: res?.user?.uid,
+            username: authState?.username,
+            email: authState?.email,
+            photoURL: res?.user?.photoURL || "",
+            registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
+        }))
+        return res
+
+
     }
 )
 
