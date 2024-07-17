@@ -11,9 +11,11 @@ import { Text, TextVariant } from "../../../components/basics/text";
 import { Button } from "../../../components/basics/button";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AppStore, useAppDispatch } from "../../../model/state/root-store";
-import { AuthErrorType, checkLoginError, enterUsingGoogleAsync, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth/auth-slice";
+import { AuthErrorType, checkLoginError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth/auth-slice";
 import { GoogleButton } from "../google-button";
 import { ScreenNames } from "../../../navigation/screen-names";
+import { ErrorInputTx } from "../../../util/types";
+import { enterUsingGoogleAsync } from "../../../model/state/auth/auth-async-actions";
 
 export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -74,7 +76,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					value={email}
 					onChangeText={onChangeEmail}
 					error={emailError.state}
-					errorsTx={emailError.errorsTx?.map(err => err.tx)}
+					errorsTx={emailError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					onSubmitEditing={focusPass}
 					keyboardType="email-address"
 				/>
@@ -85,7 +87,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					value={password}
 					onChangeText={onChangePassword}
 					error={passError.state}
-					errorsTx={passError.errorsTx?.map(err => err.tx)}
+					errorsTx={passError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					secureTextEntry
 				/>
 				<GoogleButton
