@@ -2,9 +2,9 @@ import React, { FC, ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { dictionary } from '../../../dictionary/dictionary'
 import { palette } from '../../../theme/palette'
-import { WelcomeOnBoardingTitle } from './welcome-on-boarding-title'
-import { Paragraph } from '../../../components/basics/paragraph'
-
+import { ActiveWordTitle } from '../../../components/shared/active-word-title'
+import { Text, TextVariant } from '../../../components/basics/text'
+import { width } from '../../../theme/spacing'
 interface SlideProps {
 	titleTxChain: string[]
 	messageTx?: string
@@ -21,30 +21,28 @@ const styles = StyleSheet.create({
 	message: {
 		marginTop: 20,
 		color: palette.white,
-		paddingHorizontal: 10,
+		width: width[9],
 		textAlign: "center"
 	}
-
 })
 
 export const WelcomeOnBoardingSlide: FC<SlideProps> = ({ titleTxChain, messageTx, children }) => {
 	return (
 		<View style={styles.box}>
-			<WelcomeOnBoardingTitle
-				txChain={titleTxChain}
-			/>
-			<WelcomeOnBoardingTitle
+			<ActiveWordTitle txChain={titleTxChain} />
+			<ActiveWordTitle
 				activeWord={2}
 				txChain={[
 					dictionary.welcomeOnBoarding?.subtitle_1 || "",
 					dictionary.welcomeOnBoarding?.subtitle_2 || "",
 					dictionary.welcomeOnBoarding?.subtitle_3 || ""
 				]}
-				textStyle={{marginTop: -10}}
+				textStyle={{marginTop: 10}}
 			/>
-			<Paragraph 
+			<Text
 				tx={messageTx}
-				style={styles.message}
+				variant={TextVariant.PARAGRAPH}
+				style={styles.message} 
 			/>
 			{children}
 		</View>

@@ -5,9 +5,10 @@ import { WelcomeOnBoardingSlide } from './slides/welcome-on-boarding-slide'
 import { dictionary } from '../../dictionary/dictionary'
 import { palette } from '../../theme/palette'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Link, useNavigation } from '@react-navigation/native'
 import { ScreenNames } from '../../navigation/screen-names'
-import { Paragraph } from '../../components/basics/paragraph'
+import { Text, TextVariant } from '../../components/basics/text'
+import { useAppDispatch } from '../../model/state/root-store'
+import { resetAuthForm } from '../../model/state/auth/auth-slice'
 
 const styles = StyleSheet.create({
 	linksBox: {
@@ -24,11 +25,19 @@ const styles = StyleSheet.create({
 	}
 })
 
-export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
+export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = ({ navigation }) => {
 
-	const navigation = useNavigation()
-	const goToLogin = () => navigation?.navigate(ScreenNames.LOGIN)
-	const goToRegister = () => navigation?.navigate(ScreenNames.REGISTER)
+	const dispatch = useAppDispatch()
+
+	const goToLogin = () => {
+		navigation?.navigate(ScreenNames.LOGIN)
+		dispatch(resetAuthForm())
+
+	}
+	const goToRegister = () => {
+		navigation?.navigate(ScreenNames.REGISTER)
+		dispatch(resetAuthForm())
+	}
 
 	return (
 		<Swiper
@@ -57,10 +66,7 @@ export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
 			<WelcomeOnBoardingSlide
 				titleTxChain={[
 					dictionary.welcomeOnBoarding?.slide_three_title_1 || "",
-					dictionary.welcomeOnBoarding?.slide_three_title_2 || "",
-					dictionary.welcomeOnBoarding?.slide_three_title_3 || "",
-					dictionary.welcomeOnBoarding?.slide_three_title_4 || ""
-
+					dictionary.welcomeOnBoarding?.slide_three_title_2 || ""
 				]}
 				messageTx={dictionary.welcomeOnBoarding?.slide_three_message}
 			/>
@@ -72,16 +78,16 @@ export const WelcomeOnBoardingScreen: FC<ScreenNavigationProps> = (props) => {
 				messageTx={dictionary.welcomeOnBoarding?.slide_four_message}
 				children={
 					<View style={styles.linksBox}>
-						<TouchableOpacity onPress={goToLogin}>
-							<Paragraph 
+						<TouchableOpacity onPress={goToRegister}>
+							<Text
 								tx={dictionary.welcomeOnBoarding?.slide_four_option_1}
-								style={styles.linkTx} 		
+								variant={TextVariant.LINK}
 							/>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={goToRegister}>
-							<Paragraph 
+						<TouchableOpacity onPress={goToLogin}>
+							<Text
 								tx={dictionary.welcomeOnBoarding?.slide_four_option_2}
-								style={styles.linkTx} 		
+								variant={TextVariant.LINK}
 							/>
 						</TouchableOpacity>
 					</View>

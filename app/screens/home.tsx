@@ -1,14 +1,58 @@
 import React, { FC } from "react";
 import { ScreenNames } from "../navigation/screen-names";
-import { useDispatch, useSelector } from "react-redux";
-import { Heading } from "../components/basics/heading";
+import { useSelector } from "react-redux";
 import { Input } from "../components/basics/input";
 import { getKeyword, onChangeKeyword } from "../model/state/ui-slices/search-article-slice";
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { Button } from "../components/basics/button";
 import { ScreenNavigationProps } from "../navigation/routes";
+import { Text, TextVariant } from "../components/basics/text";
+import { SlicesNames } from "../model/state/slices-names";
+import { AppStore, useAppDispatch } from "../model/state/root-store";
+import { palette } from "../theme/palette";
+import { signOutAsync } from "../model/state/auth/auth-async-actions";
+import { ReqState } from "../util/types";
+
+export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
+
+	const keywordFilter = useSelector(getKeyword)
+	const { submitState } = useSelector((state: AppStore) => state.authSlice)
+	const { id, email, username, registerAt, name } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	const dispatch = useAppDispatch()
+
+	const onChangeText = (keyword: string) => {
+		dispatch(onChangeKeyword({keyword}))
+	}
+
+	const search = () => navigation.navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
+	const signOut = () => dispatch(signOutAsync())
+
+	return (
+		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
+			<KeyboardAvoidingView behavior="padding">
+				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
+				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
+				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
+				<Text tx={JSON.stringify({
+					id,
+					email,
+					username,
+					name,
+					registerAt
+				}, null, 2)} variant={TextVariant.PARAGRAPH} />
+				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
+				{submitState === ReqState.PENDING && <ActivityIndicator size={"large"} />}
+
+			</KeyboardAvoidingView>
+		</ScrollView>
+	);
+}
 
 const styles = StyleSheet.create({
+	box: {
+		backgroundColor: palette.primary,
+		flexGrow: 1
+	},
 	heading: {
 		color: "purple",
 		alignSelf: "center"
@@ -29,27 +73,5 @@ const styles = StyleSheet.create({
 		fontWeight: 600
 	}
 })
-
-export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
-
-	const keywordFilter = useSelector(getKeyword)
-	const dispatch = useDispatch()
-
-	const onChangeText = (keyword: string) => {
-		dispatch(onChangeKeyword({keyword}))
-	}
-
-	const search = () => navigation.navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
-
-	return (
-		<ScrollView contentInsetAdjustmentBehavior="automatic">
-			<KeyboardAvoidingView behavior="padding">
-				<Heading tx="Tus News" variant="title" style={styles.heading} />
-				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
-				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
-			</KeyboardAvoidingView>
-		</ScrollView>
-	);
-}
 
 export default Home;

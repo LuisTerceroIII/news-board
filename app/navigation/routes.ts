@@ -4,6 +4,8 @@ import { ScreenNames } from "./screen-names";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ParamListBase } from "@react-navigation/native"
 import { WelcomeOnBoardingScreen } from "../screens/welcome-on-boarding/welcome-on-boarding-screen";
+import LoginScreen from "../screens/auth/login/login";
+import RegisterScreen from "../screens/auth/register/register";
 
 export interface ScreenNavigationProps {
 	route: { params?: object }
@@ -16,25 +18,18 @@ export interface Route {
 	initialParams?: object;
 }
 
-const HomeScreens: Route[] = [
-	{
-		name: ScreenNames.HOME,
-		component: Home
-	},
-	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
-];
-
 const WelcomeOnBoarding: Route[] = [
-	{ 
-		name: ScreenNames.WELCOME_ON_BOARDING, 
-		component: WelcomeOnBoardingScreen,
-		options: {
-			headerShown: false
-		}
-	},
+	{ name: ScreenNames.WELCOME_ON_BOARDING, component: WelcomeOnBoardingScreen }
+]
+const Auth: Route[] = [
+	{ name: ScreenNames.LOGIN, component: LoginScreen },
+	{ name: ScreenNames.REGISTER, component: RegisterScreen },
+]
+const HomeScreens: Route[] = [
+	{ name: ScreenNames.HOME, component: Home },
+	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
 ]
 
 export const authScreens = [...HomeScreens];
-
-export const publicScreens = [...WelcomeOnBoarding];
+export const publicScreens = [...WelcomeOnBoarding, ...Auth];
 
