@@ -10,30 +10,33 @@ import { resetUser, updateUser } from "../user/user-slice"
 export const registerEmailPassAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/loginEmailPass`,
     async (payload, { getState, rejectWithValue, dispatch }) => {
+        try {
+            const state: AppStore = getState() as AppStore
+            const authState: AuthState = state?.[SlicesNames.AUTH]
 
-        const state: AppStore = getState() as AppStore
-        const authState: AuthState = state?.[SlicesNames.AUTH]
+            const hasPendingRegisterErrors = (
+                authState?.emailError.state ||
+                authState?.usernameError.state ||
+                authState?.passError.state ||
+                authState?.repeatedPassError.state
+            )
 
-        const hasPendingRegisterErrors = (
-            authState?.emailError.state ||
-            authState?.usernameError.state ||
-            authState?.passError.state ||
-            authState?.repeatedPassError.state
-        )
+            if (hasPendingRegisterErrors) rejectWithValue("Pending errors")
 
-        if (hasPendingRegisterErrors) rejectWithValue("Pending errors")
-        
-        const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
+            const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
 
-        dispatch(updateUser({
-            id: res?.user?.uid,
-            username: authState?.username,
-            email: authState?.email,
-            photoURL: res?.user?.photoURL || "",
-            registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
-        }))
-        
-        return res
+            dispatch(updateUser({
+                id: res?.user?.uid,
+                username: authState?.username,
+                email: authState?.email,
+                photoURL: res?.user?.photoURL || "",
+                registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
+            }))
+
+            return res
+        } catch (e) {
+            return rejectWithValue(`${e}`)
+        }
     }
 )
 export const enterUsingEmailPassAsync = createAsyncThunk(
@@ -54,7 +57,7 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
             photoURL: res?.user?.photoURL || "",
             registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
         }))
-        
+
         return res
     }
 )
@@ -86,7 +89,7 @@ export const signOutAsync = createAsyncThunk(
             const res = await auth().signOut()
             dispatch(resetUser())
             return res
-        } catch(e) {
+        } catch (e) {
             rejectWithValue(e)
         }
     }

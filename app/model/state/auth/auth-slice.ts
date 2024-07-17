@@ -5,6 +5,9 @@ import { validateEmail, validateNotEmpty, validatePasswordLong, validatePassword
 import { dictionary } from "../../../dictionary/dictionary"
 import { FirebaseAuthTypes } from "@react-native-firebase/auth"
 import { enterUsingEmailPassAsync, enterUsingGoogleAsync, registerEmailPassAsync, signOutAsync } from "./auth-async-actions"
+import { extractFirebaseErrorCode } from "../../../util/firebase-helper"
+import { ErrorsType } from "../../../dictionary/es"
+import { Alert } from "react-native"
 
 export interface AuthState {
     isLogin: boolean
@@ -216,6 +219,21 @@ export const AuthSlice = createSlice({
             })
             .addCase(registerEmailPassAsync.rejected, (state, action) => {
                 state.submitState = ReqState.FAILED
+                const errorType: ErrorsType = extractFirebaseErrorCode(action.payload as string)
+                state.email = ""
+                Alert.alert(
+                    `${dictionary.errors?.alert_generic_title || ""}`,
+                    `${dictionary.errors?.[errorType]}`,
+                    [
+                        {
+                            text: 'Ok',
+                            style: 'default',
+                        },
+                    ],
+                    {
+                        cancelable: true
+                    },
+                );
             })
             //register or login Google Account
             .addCase(enterUsingGoogleAsync.pending, (state, action) => {
