@@ -23,10 +23,8 @@ export const UserSlice = createSlice({
             username: string,
             email: string
         }>) => {
-            console.log(`${SlicesNames.USER}`,JSON.stringify(action.payload, null, 2))
             state.user.username = action.payload.username
             state.user.email = action.payload.email
-
         }
     }
 })
