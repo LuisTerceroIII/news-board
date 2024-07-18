@@ -1,17 +1,14 @@
 import React, { FC } from "react";
-import { ScreenNames } from "../navigation/screen-names";
 import { useSelector } from "react-redux";
-import { Input } from "../components/basics/input";
-import { getKeyword, onChangeKeyword } from "../model/state/ui-slices/search-article-slice";
 import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
-import { Button } from "../components/basics/button";
-import { ScreenNavigationProps } from "../navigation/routes";
-import { Text, TextVariant } from "../components/basics/text";
-import { SlicesNames } from "../model/state/slices-names";
-import { AppStore, useAppDispatch } from "../model/state/root-store";
-import { palette } from "../theme/palette";
-import { signOutAsync } from "../model/state/auth/auth-async-actions";
-import { ReqState } from "../util/types";
+import { ScreenNames, ScreenNavigationProps } from "@navigation/index";
+import { Input, Button, Text, TextVariant } from "@components/index";
+import { getKeyword, onChangeKeyword } from "@model/state/ui-slices/search-article-slice";
+import { SlicesNames } from "@model/state/slices-names";
+import { AppStore, useAppDispatch } from "@model/state/root-store";
+import { signOutAsync } from "@model/state/auth/auth-async-actions";
+import { palette } from "@theme/index";
+import { ReqState } from "@util/index";
 
 export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
