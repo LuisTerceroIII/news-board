@@ -2,9 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { SlicesNames } from "../slices-names"
 import { AppStore } from "../root-store"
 import { AuthState } from "./auth-slice"
-import auth from '@react-native-firebase/auth'
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { resetUser, updateUser } from "../user/user-slice"
+import { api } from "@services/api"
 
 //Api calls
 export const registerEmailPassAsync = createAsyncThunk(
@@ -23,7 +22,7 @@ export const registerEmailPassAsync = createAsyncThunk(
 
             if (hasPendingRegisterErrors) rejectWithValue("Check form fields")
             else {
-                const res = await auth().createUserWithEmailAndPassword(authState.email, authState.password)
+                const res = await api.firebaseAPI.authAPI.doCreateUserWithEmailAndPassword(authState.email, authState.password)
 
                 dispatch(updateUser({
                     id: res?.user?.uid,
@@ -52,12 +51,11 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
 
             if (authState?.emailError.state) rejectWithValue("Check form fields")
             else {
-                const res = await auth().signInWithEmailAndPassword(authState.email, authState.password)
+                const res = await api.firebaseAPI.authAPI.doSignInWithEmailAndPassword(authState.email, authState.password)
 
                 dispatch(updateUser({
                     id: res?.user?.uid,
-                    fullName: "",
-                    name: res.user.displayName || "",
+                    fullName: res.user.displayName || "",
                     email: res.user.email || "",
                     photoURL: res?.user?.photoURL || "",
                     registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
@@ -74,13 +72,8 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
 export const enterUsingGoogleAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/enterUsingGoogle`,
     async (payload, { getState, rejectWithValue, dispatch }) => {
-        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn()
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken)
-        // Sign-in the user with the credential
-        const res = await auth().signInWithCredential(googleCredential)
+       
+        const res = await api.firebaseAPI.authAPI.signInWithGoogle()
         dispatch(updateUser({
             id: res?.user?.uid,
             fullName: res.user.displayName || "",
@@ -95,7 +88,7 @@ export const signOutAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/signOut`,
     async (payload, { dispatch, rejectWithValue }) => {
         try {
-            const res = await auth().signOut()
+            const res = await api.firebaseAPI.authAPI.doSignOut()
             dispatch(resetUser())
             return res
         } catch (e) {
