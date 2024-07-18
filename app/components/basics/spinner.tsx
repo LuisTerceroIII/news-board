@@ -4,12 +4,12 @@ import { Fold } from 'react-native-animated-spinkit'
 
 type SpinnerProps = {
     size?: number,
-    color: paletteType
+    color?: paletteType
 }
 
 export const Spinner: FC<SpinnerProps> = (props) => {
 
-    const { size=48, color=palette.active } = props
+    const { size=48, color="active" } = props
 
-    return <Fold size={size} color={color} />
+    return <Fold size={size} color={palette[color]} />
 }

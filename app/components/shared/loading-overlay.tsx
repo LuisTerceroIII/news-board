@@ -16,7 +16,7 @@ export const LoadingOverlay: FC<LoadingOverlayProps> = (props) => {
 	return (
 		<Modal visible={visible} transparent={true}>
 			<View style={styles.overlay}>
-				<Spinner size={48} color={"active"} />
+				<Spinner />
 				<Text variant={TextVariant.SUBTITLE} tx={tx} />
 			</View>
 		</Modal> 
