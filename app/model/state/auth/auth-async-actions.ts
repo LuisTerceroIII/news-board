@@ -26,13 +26,18 @@ export const registerEmailPassAsync = createAsyncThunk(
             else {
                 const res = await api.firebaseAPI.authAPI.doCreateUserWithEmailAndPassword(authState.email, authState.password)
 
-                dispatch(updateUser({
+                const user: User = {
                     id: res?.user?.uid,
                     fullName: authState?.username,
                     email: authState?.email,
                     photoURL: res?.user?.photoURL || "",
                     registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
-                }))
+                }
+
+                dispatch(updateUser(user))
+
+                const userExists = await api.firebaseAPI.userAPI.userExist(user?.id)
+                if(!userExists) dispatch(addNewUserAsync(user))
 
                 return res
             }
@@ -74,7 +79,7 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
 export const enterUsingGoogleAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/enterUsingGoogle`,
     async (payload, { getState, rejectWithValue, dispatch }) => {
-       
+        
         const res = await api.firebaseAPI.authAPI.signInWithGoogle()
         const user: User = {
             id: res?.user?.uid,
@@ -84,7 +89,8 @@ export const enterUsingGoogleAsync = createAsyncThunk(
             registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
         }
         dispatch(updateUser(user))
-        dispatch(addNewUserAsync(user))
+        const userExists = await api.firebaseAPI.userAPI.userExist(user?.id)
+        if(!userExists) dispatch(addNewUserAsync(user))
         return res
     }
 )
