@@ -50,10 +50,15 @@ const errors = {
     email_already_in_use: "La dirección de correo electrónico ya está en uso por otra cuenta.",
     invalid_credential: "Las credenciales de autenticación proporcionadas son incorrectas, están mal formadas o han expirado."
 }
-export type ErrorsType = keyof typeof errors
+export type ErrorsTx = keyof typeof errors
 
+const loading = {
+    "general": "Procesando solicitud..."
+}
+export type LoadingTx = keyof typeof loading
 export default {
     welcomeOnBoarding,
     auth,
-    errors
+    errors,
+    loading
 }

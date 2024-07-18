@@ -7,6 +7,19 @@ import auth from '@react-native-firebase/auth'
 import { onAuthStateChange } from "./app/model/state/auth/auth-slice"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
+function App(): React.JSX.Element {
+
+	return (
+		<SafeAreaProvider>
+			<Provider store={rootStore}>
+				<RootNavigation />
+				<AuthState />
+			</Provider>
+		</SafeAreaProvider>
+	)
+}
+
+export default App
 
 //Inner components to initialize auth state
 const AuthState = () => {
@@ -26,18 +39,3 @@ const AuthState = () => {
 GoogleSignin.configure({
 	webClientId: process.env.GOOGLE_AUTH_WEB_CLIENT,
 })
-
-function App(): React.JSX.Element {
-
-
-	return (
-		<SafeAreaProvider>
-			<Provider store={rootStore}>
-				<RootNavigation />
-				<AuthState />
-			</Provider>
-		</SafeAreaProvider>
-	)
-}
-
-export default App

@@ -9,6 +9,7 @@ import { AppStore, useAppDispatch } from "@model/state/root-store";
 import { signOutAsync } from "@model/state/auth/auth-async-actions";
 import { palette } from "@theme/index";
 import { ReqState } from "@util/types";
+import { LoadingOverlay } from "@components/index";
 
 export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -27,6 +28,8 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
 			<KeyboardAvoidingView behavior="padding">
+			
+
 				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
 				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
 				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
@@ -37,8 +40,6 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 					registerAt
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
 				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
-				{submitState === ReqState.PENDING && <ActivityIndicator size={"large"} />}
-
 			</KeyboardAvoidingView>
 		</ScrollView>
 	);

@@ -7,7 +7,7 @@ import { dictionary } from "@dictionary/dictionary"
 import { FirebaseAuthTypes } from "@react-native-firebase/auth"
 import { enterUsingEmailPassAsync, enterUsingGoogleAsync, registerEmailPassAsync, signOutAsync } from "./auth-async-actions"
 import { extractFirebaseErrorCode } from "@util/firebase-helper"
-import { ErrorsType } from "@dictionary/es"
+import { ErrorsTx } from "@dictionary/es"
 
 export interface AuthState {
     isLogin: boolean
@@ -223,7 +223,7 @@ export const AuthSlice = createSlice({
                 //ignore fomr field errors
                 if (error === "Check form fields") return
                 // check firebase error
-                const errorType: ErrorsType = extractFirebaseErrorCode(error as string)
+                const errorType: ErrorsTx = extractFirebaseErrorCode(error as string)
                 state.email = ""
                 Alert.alert(
                     `${dictionary.errors?.alert_generic_title || ""}`,
@@ -265,7 +265,7 @@ export const AuthSlice = createSlice({
                 //ignore fomr field errors
                 if (error === "Check form fields") return
                 // check firebase error
-                const errorType: ErrorsType = extractFirebaseErrorCode(error as string)
+                const errorType: ErrorsTx = extractFirebaseErrorCode(error as string)
                 state.email = ""
                 state.password = ""
                 Alert.alert(

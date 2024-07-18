@@ -1,7 +1,7 @@
-import { ErrorsType } from "@dictionary/es";
+import { ErrorsTx } from "@dictionary/es";
 
 export interface ErrorInputTx {
-    errorLabel: ErrorsType
+    errorLabel: ErrorsTx
     tx: string
 }
 export interface ErrorInput {
