@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import { SvgIcon } from '../../components/basics/icon/svg-icon'
-import { Text, TextVariant } from '../../components/basics/text'
-import { dictionary } from '../../dictionary/dictionary'
-import { palette } from '../../theme/palette'
-import { corners, width } from '../../theme/spacing'
+import { SvgIcon } from '@components/basics/icon/svg-icon'
+import { Text, TextVariant } from '@components/basics/text'
+import { dictionary } from '@dictionary/dictionary'
+import { palette } from '@theme/palette'
+import { corners, width } from '@theme/spacing'
 
 interface GoogleButtonProps {
 	tx: string

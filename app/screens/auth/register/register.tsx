@@ -1,22 +1,17 @@
-import React, { FC, useEffect, useRef } from "react";
-import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { ScreenNavigationProps } from "../../../navigation/routes";
-import { useSelector } from "react-redux";
-import { palette } from "../../../theme/palette";
-import { ActiveWordTitle } from "../../../components/shared/active-word-title";
-import { dictionary } from "../../../dictionary/dictionary";
-import { spacing } from "../../../theme/spacing";
-import { FormField } from "../../../components/basics/form-field";
-import { Text, TextVariant } from "../../../components/basics/text";
-import { Button } from "../../../components/basics/button";
+import { useSelector } from "react-redux"
+import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
+import React, { FC, useEffect, useRef } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AppStore, useAppDispatch } from "../../../model/state/root-store";
-import { AuthErrorType, checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth/auth-slice";
-import { GoogleButton } from "../google-button";
-import { ScreenNames } from "../../../navigation/screen-names";
-import { ErrorInputTx, ReqState } from "../../../util/types";
-import { hasEmptyRegisterField, hasPendingRegisterErrors } from "../../../model/state/auth/auth-views";
-import { enterUsingGoogleAsync, registerEmailPassAsync } from "../../../model/state/auth/auth-async-actions";
+import { ActiveWordTitle, FormField, Text, Button, TextVariant } from "@components/index"
+import { GoogleButton } from "../google-button"
+import { spacing, palette } from "@theme/index"
+import { dictionary } from "@dictionary/dictionary"
+import { ErrorInputTx, ReqState } from "@util/types"
+import { ScreenNames, ScreenNavigationProps } from "@navigation/index"
+import { AppStore, useAppDispatch } from "@model/state/root-store"
+import { AuthErrorType, checkRegisterError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "@model/state/auth/auth-slice"
+import { hasEmptyRegisterField, hasPendingRegisterErrors } from "@model/state/auth/auth-views"
+import { enterUsingGoogleAsync, registerEmailPassAsync } from "@model/state/auth/auth-async-actions"
 
 export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -163,7 +158,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 				{submitState === ReqState.PENDING && <ActivityIndicator size={"large"} />}
 			</View>
 		</KeyboardAwareScrollView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -185,4 +180,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default RegisterScreen;
+export default RegisterScreen

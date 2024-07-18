@@ -1,9 +1,9 @@
 import React, { FC, forwardRef, RefObject } from 'react'
 import { KeyboardType, StyleSheet, TextInput, View } from 'react-native'
 import { Text, TextVariant } from './text'
-import { palette } from '../../theme/palette'
-import { corners, width } from '../../theme/spacing'
-import { dictionary } from '../../dictionary/dictionary'
+import { palette } from '@theme/palette'
+import { corners, width } from '@theme/spacing'
+import { dictionary } from '@dictionary/dictionary'
 
 interface FormFieldProps {
 	ref?: any// this ref it just to complete the type, USE ref from forwardedRef

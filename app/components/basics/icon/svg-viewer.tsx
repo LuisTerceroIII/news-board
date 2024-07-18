@@ -3,7 +3,7 @@ import { ScrollView, View } from "react-native"
 import { IconSvgTypes, svgIcons } from "./icons-svg.types"
 import { SvgIcon } from "./svg-icon"
 import { Text, TextVariant } from "../text"
-import { palette } from "../../../theme/palette"
+import { palette } from "../@theme/palette"
 
 export const SvgViewer: React.FunctionComponent = (props) => {
 

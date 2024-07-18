@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { StyleSheet, Text as RNText, TextStyle, StyleProp } from "react-native";
-import { fontFamily } from "../../theme/font";
-import { palette } from "../../theme/palette";
+import { fontFamily } from "@theme/font";
+import { palette } from "@theme/palette";
 
 export enum TextVariant {
 	LOGO_TITLE = "logoTitle", // this use Jomolhari font, rest of the app use nunito

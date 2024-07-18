@@ -1,10 +1,8 @@
 import React, { FC, ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { dictionary } from '../../../dictionary/dictionary'
-import { palette } from '../../../theme/palette'
-import { ActiveWordTitle } from '../../../components/shared/active-word-title'
-import { Text, TextVariant } from '../../../components/basics/text'
-import { width } from '../../../theme/spacing'
+import { dictionary } from '@dictionary/dictionary'
+import { palette, width } from '@theme/index'
+import { ActiveWordTitle, Text, TextVariant  } from '@components/index'
 interface SlideProps {
 	titleTxChain: string[]
 	messageTx?: string

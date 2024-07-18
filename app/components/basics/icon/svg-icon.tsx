@@ -2,7 +2,7 @@ import React from "react"
 import { TouchableOpacity, ViewStyle } from "react-native"
 import { SvgIconProps } from "./svg-icon.props"
 import { IconSvgTypes, svgIcons } from "./icons-svg.types"
-import { palette } from "../../../theme/palette"
+import { palette } from "@theme/index"
 
 interface MainSvgIconProps extends SvgIconProps {
 	icon: IconSvgTypes

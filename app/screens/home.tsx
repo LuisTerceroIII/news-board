@@ -8,7 +8,7 @@ import { SlicesNames } from "@model/state/slices-names";
 import { AppStore, useAppDispatch } from "@model/state/root-store";
 import { signOutAsync } from "@model/state/auth/auth-async-actions";
 import { palette } from "@theme/index";
-import { ReqState } from "@util/index";
+import { ReqState } from "@util/types";
 
 export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { StyleSheet, TextStyle, View } from 'react-native'
-import { palette } from '../../theme/palette'
+import { palette } from '@theme/palette'
 import { Text, TextVariant } from '../basics/text'
 interface TitleProps {
 	activeWord?: number // based on zero count
