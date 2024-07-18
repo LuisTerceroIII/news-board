@@ -24,7 +24,7 @@ const welcomeOnBoarding = {
 const auth = {
     //Register
     register_title: "Registrate",
-    username_label: "Nombre de usuario",
+    username_label: "Ingresa tu nombre",
     email_label: "Email",
     password_label: "Contraseña",
     confirm_pass_label: "Confirmar contraseña",

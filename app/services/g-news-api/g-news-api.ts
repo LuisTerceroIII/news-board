@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { GNewsParamsFilter } from '../dtos.types';
-
 export class GNewsAPI {
 
-    constructor() {
-    }
+    constructor() {}
 
     async getFilterNews(filter: GNewsParamsFilter, abortController: AbortController) {
 

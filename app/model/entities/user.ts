@@ -1,17 +1,12 @@
-import { Auth } from "./auth";
-import { InteractionsRepository } from "../use-cases/interactions/interactions-repository";
-import { Person } from "./person";
+import { Article } from "./article"
+import { Filter } from "./filter"
 
-export class User extends Person {
-
-    #interactions: InteractionsRepository
-
-    constructor(username: string="", name: string="", lastName: string="", email: string="", imageURL: string="") {
-        super(username, name, lastName, email, imageURL)
-        this.#interactions = new InteractionsRepository()
-    }
-
-    get getUserInteractions(): InteractionsRepository {
-        return this.#interactions
-    }
+export interface User {
+    id: string
+    fullName: string
+    email: string
+    registerAt: string // timestamp format
+    photoURL?: string
+    savedFilters?: Filter[]
+    savedArticles?: Article[]
 }

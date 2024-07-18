@@ -1,20 +1,19 @@
 
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Article } from '@model/entities/article'
-import { api } from '@services/api/api'
+import { api } from '@services/api'
 import { AppStore } from '../root-store'
-
 
 interface SearchState {
     keyword: string
-    actionArticle: Article
+    actionArticle: Article | undefined
     requestState: 'idle' | 'pending' | 'succeeded' | 'failed'
     articlesResults: Article[]
 }
 
 const initialState: SearchState = {
     keyword: "",
-    actionArticle: new Article(),
+    actionArticle: undefined,
     requestState: "idle",
     articlesResults: []
 }
@@ -50,7 +49,7 @@ export const searchByKeywordAsync = createAsyncThunk(
     "searchArticleSlice/searchByKeyword",
     async (keyword: string) => {
         const abortController = new AbortController()
-        return await api.gNewsApi.getFilterNews({ keyword }, abortController)
+        return await api.gNewsAPI.getFilterNews({ keyword }, abortController)
     }
 )
 
