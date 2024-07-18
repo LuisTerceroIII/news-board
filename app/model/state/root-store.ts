@@ -7,8 +7,6 @@ import { SlicesNames } from "./slices-names"
 import UserSliceReducer from "./user/user-slice"
 import SearchArticleSliceReducer from "./ui-slices/search-article-slice"
 import AuthSliceReducer from "./auth/auth-slice"
-import SavedArticlesSliceReducer from "./user/features/saved-articles"
-import SavedFiltersSliceReducer from "./user/features/saved-filters"
 
 const persistConfig = {
 	key: "root",
@@ -21,8 +19,6 @@ const appReducers: Reducer = combineReducers({
     [SlicesNames.USER]: UserSliceReducer,
 	[SlicesNames.AUTH]: AuthSliceReducer,
 	[SlicesNames.SEARCH_ARTICLE]: SearchArticleSliceReducer,
-	[SlicesNames.SAVED_ARTICLES]: SavedArticlesSliceReducer,
-	[SlicesNames.SAVED_FILTERS]: SavedFiltersSliceReducer
 })
 
 export const rootStore = configureStore({

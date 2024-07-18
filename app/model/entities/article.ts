@@ -4,8 +4,8 @@ export interface Source {
 	url?: string
 }
 export interface Article {
-	id: string
-	title: string
+	id?: string
+	title?: string
 	description?: string
 	content?: string
 	url?: string

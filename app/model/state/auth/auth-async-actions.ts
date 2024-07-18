@@ -83,8 +83,7 @@ export const enterUsingGoogleAsync = createAsyncThunk(
         const res = await auth().signInWithCredential(googleCredential)
         dispatch(updateUser({
             id: res?.user?.uid,
-            fullName: "",
-            name: res.user.displayName || "",
+            fullName: res.user.displayName || "",
             email: res.user.email || "",
             photoURL: res?.user?.photoURL || "",
             registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()

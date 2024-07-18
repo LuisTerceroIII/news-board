@@ -7,14 +7,14 @@ import { AppStore } from '../root-store'
 
 interface SearchState {
     keyword: string
-    actionArticle: Article
+    actionArticle: Article | undefined
     requestState: 'idle' | 'pending' | 'succeeded' | 'failed'
     articlesResults: Article[]
 }
 
 const initialState: SearchState = {
     keyword: "",
-    actionArticle: new Article(),
+    actionArticle: undefined,
     requestState: "idle",
     articlesResults: []
 }

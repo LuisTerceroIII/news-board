@@ -14,7 +14,7 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 
 	const keywordFilter = useSelector(getKeyword)
 	const { submitState } = useSelector((state: AppStore) => state.authSlice)
-	const { id, email, username, registerAt, name } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	const { id, email, fullName, registerAt } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
 	const dispatch = useAppDispatch()
 
 	const onChangeText = (keyword: string) => {
@@ -33,8 +33,7 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 				<Text tx={JSON.stringify({
 					id,
 					email,
-					username,
-					name,
+					fullName,
 					registerAt
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
 				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
