@@ -4,6 +4,8 @@ import { AppStore } from "../root-store"
 import { AuthState } from "./auth-slice"
 import { resetUser, updateUser } from "../user/user-slice"
 import { api } from "@services/api"
+import { addNewUserAsync } from "../user/user-async-actions"
+import { User } from "@app/model/entities/user"
 
 //Api calls
 export const registerEmailPassAsync = createAsyncThunk(
@@ -74,13 +76,15 @@ export const enterUsingGoogleAsync = createAsyncThunk(
     async (payload, { getState, rejectWithValue, dispatch }) => {
        
         const res = await api.firebaseAPI.authAPI.signInWithGoogle()
-        dispatch(updateUser({
+        const user: User = {
             id: res?.user?.uid,
             fullName: res.user.displayName || "",
             email: res.user.email || "",
             photoURL: res?.user?.photoURL || "",
             registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
-        }))
+        }
+        dispatch(updateUser(user))
+        dispatch(addNewUserAsync(user))
         return res
     }
 )

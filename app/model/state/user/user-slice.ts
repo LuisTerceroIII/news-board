@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { SlicesNames } from "../slices-names"
 import { User } from "@model/entities/user"
+import { addNewUserAsync } from "./user-async-actions"
 
-export interface UserState extends User {}
+export interface UserState extends User {
+     //erros
+     saveNewUserFails: boolean
+}
 const initialState: UserState = {
     id: "",
     fullName: "",
@@ -10,7 +14,9 @@ const initialState: UserState = {
     registerAt: "", // timestamp format
     photoURL: "",
     savedArticles: [],
-    savedFilters: []
+    savedFilters: [],
+    //erros
+    saveNewUserFails: false
 }
 
 export const UserSlice = createSlice({
@@ -35,6 +41,18 @@ export const UserSlice = createSlice({
             state.savedArticles = action.payload?.savedArticles
             state.savedFilters = action.payload?.savedFilters
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            //Add new user after register
+            .addCase(addNewUserAsync.pending, () => {})
+            .addCase(addNewUserAsync.fulfilled, (state,action) => {
+                state.saveNewUserFails = false
+            })
+            .addCase(addNewUserAsync.rejected, (state,action) => {
+                state.saveNewUserFails = true
+            })
+
     }
 })
 
