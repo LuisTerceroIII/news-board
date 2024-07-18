@@ -7,6 +7,7 @@ export * from "./basics/input"
 export * from "./basics/seach-flow/article-card"
 export * from "./basics/text"
 export * from "./basics/icon/svg-icon"
+export * from "./basics/spinner"
 //shared
 export * from "./shared/active-word-title"
 export * from "./shared/loading-overlay"
