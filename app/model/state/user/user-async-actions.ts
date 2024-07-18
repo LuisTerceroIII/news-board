@@ -8,7 +8,7 @@ export const addNewUserAsync = createAsyncThunk(
     async (payload: unknown, { getState, dispatch, rejectWithValue }) => {
         try {
             await api.firebaseAPI.userAPI.addUser(payload as User)
-        } catch(e) {
+        } catch (e) {
             rejectWithValue(`${e}`)
         }
     }

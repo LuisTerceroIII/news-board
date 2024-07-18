@@ -4,8 +4,8 @@ import { User } from "@model/entities/user"
 import { addNewUserAsync } from "./user-async-actions"
 
 export interface UserState extends User {
-     //erros
-     saveNewUserFails: boolean
+    //erros
+    saveNewUserFails: boolean
 }
 const initialState: UserState = {
     id: "",
@@ -29,7 +29,7 @@ export const UserSlice = createSlice({
             state.email = ""
             state.registerAt = ""
             state.photoURL = "",
-            state.savedArticles = []
+                state.savedArticles = []
             state.savedFilters = []
         },
         updateUser: (state, action: PayloadAction<User>) => {
@@ -45,14 +45,13 @@ export const UserSlice = createSlice({
     extraReducers: (builder) => {
         builder
             //Add new user after register
-            .addCase(addNewUserAsync.pending, () => {})
-            .addCase(addNewUserAsync.fulfilled, (state,action) => {
+            .addCase(addNewUserAsync.pending, () => { })
+            .addCase(addNewUserAsync.fulfilled, (state, action) => {
                 state.saveNewUserFails = false
             })
-            .addCase(addNewUserAsync.rejected, (state,action) => {
+            .addCase(addNewUserAsync.rejected, (state, action) => {
                 state.saveNewUserFails = true
             })
-
     }
 })
 
