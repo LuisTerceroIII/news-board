@@ -27,7 +27,7 @@ export const registerEmailPassAsync = createAsyncThunk(
 
                 dispatch(updateUser({
                     id: res?.user?.uid,
-                    username: authState?.username,
+                    fullName: authState?.username,
                     email: authState?.email,
                     photoURL: res?.user?.photoURL || "",
                     registerAt: new Date(res.user.metadata.creationTime || "").getTime().toString()
@@ -56,7 +56,7 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
 
                 dispatch(updateUser({
                     id: res?.user?.uid,
-                    username: "",
+                    fullName: "",
                     name: res.user.displayName || "",
                     email: res.user.email || "",
                     photoURL: res?.user?.photoURL || "",
@@ -83,7 +83,7 @@ export const enterUsingGoogleAsync = createAsyncThunk(
         const res = await auth().signInWithCredential(googleCredential)
         dispatch(updateUser({
             id: res?.user?.uid,
-            username: "",
+            fullName: "",
             name: res.user.displayName || "",
             email: res.user.email || "",
             photoURL: res?.user?.photoURL || "",
