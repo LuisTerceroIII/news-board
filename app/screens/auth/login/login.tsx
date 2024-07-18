@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
 import React, { FC, useEffect, useRef } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ActiveWordTitle, FormField, Text, TextVariant, Button } from "@components/index"
+import { ActiveWordTitle, FormField, Text, TextVariant, Button, LoadingOverlay } from "@components/index"
 import { GoogleButton } from "../google-button"
 import { ScreenNavigationProps } from "@navigation/routes"
 import { palette, spacing } from "@theme/index"
@@ -10,7 +10,7 @@ import { dictionary } from "@dictionary/dictionary"
 import { AppStore, useAppDispatch } from "@model/state/root-store"
 import { AuthErrorType, checkLoginError, resetAuthForm, setEmail, setPassword } from "@model/state/auth/auth-slice"
 import { ScreenNames } from "@navigation/index"
-import { ErrorInputTx } from "@util/types"
+import { ErrorInputTx, ReqState } from "@util/types"
 import { enterUsingEmailPassAsync, enterUsingGoogleAsync } from "@model/state/auth/auth-async-actions"
 import { hasEmptyLoginField, hasPendingLoginErrors } from "@model/state/auth/auth-views"
 
@@ -21,7 +21,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 
 	const dispatch = useAppDispatch()
 
-	const { email, password } = useSelector((state: AppStore) => state.authSlice)
+	const { email, password, submitState } = useSelector((state: AppStore) => state.authSlice)
 	const { emailError, passError } = useSelector((state: AppStore) => state.authSlice)
 	const hasPendingErrors = useSelector(hasPendingLoginErrors)
 	const hasEmptyField = useSelector(hasEmptyLoginField)
@@ -46,14 +46,13 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 			passRef.current?.focus()
 		}, 200)
 	}
-	const submitRegisterForm = () => {
+	const submitLoginForm = () => {
 		dispatch(checkLoginError({ error: AuthErrorType.ALL }))
 		if (!hasPendingErrors && !hasEmptyField) {
 			dispatch(enterUsingEmailPassAsync())
 		}
 	}
 	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
-
 	const goToRegister = () => {
 		navigation?.navigate(ScreenNames.REGISTER)
 		dispatch(resetAuthForm())
@@ -96,6 +95,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					error={passError.state}
 					errorsTx={passError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					secureTextEntry
+					onSubmitEditing={submitLoginForm}
 				/>
 				<GoogleButton
 					tx={dictionary.auth?.login_using_google || ""}
@@ -103,7 +103,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 				/>
 				<Button
 					tx={dictionary.auth?.login_button}
-					onPress={submitRegisterForm}
+					onPress={submitLoginForm}
 				/>
 				<View style={styles.toRegisterBox}>
 					<Text
@@ -118,6 +118,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					</TouchableOpacity>
 				</View>
 			</View>
+			<LoadingOverlay visible={submitState === ReqState.PENDING}/>
 		</KeyboardAwareScrollView>
 	)
 }

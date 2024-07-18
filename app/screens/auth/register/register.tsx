@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
-import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
 import React, { FC, useEffect, useRef } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ActiveWordTitle, FormField, Text, Button, TextVariant } from "@components/index"
+import { ActiveWordTitle, FormField, Text, Button, TextVariant, LoadingOverlay } from "@components/index"
 import { GoogleButton } from "../google-button"
 import { spacing, palette } from "@theme/index"
 import { dictionary } from "@dictionary/dictionary"
@@ -134,6 +134,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					error={repeatedPassError.state}
 					errorsTx={repeatedPassError.errorsTx?.map((err: ErrorInputTx) => err?.tx)}
 					secureTextEntry
+					onSubmitEditing={submitRegisterForm}
 				/>
 				<GoogleButton
 					tx={dictionary.auth?.register_using_google || ""}
@@ -155,8 +156,8 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 						/>
 					</TouchableOpacity>
 				</View>
-				{submitState === ReqState.PENDING && <ActivityIndicator size={"large"} />}
 			</View>
+		<LoadingOverlay visible={submitState === ReqState.PENDING}/>
 		</KeyboardAwareScrollView>
 	)
 }
