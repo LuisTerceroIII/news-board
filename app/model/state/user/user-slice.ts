@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { SlicesNames } from "../slices-names"
-import { User } from "../../entities/user"
-import { Article } from "../../entities/article"
+import { User } from "@model/entities/user"
+import { Article } from "@model/entities/article"
 import { AppStore } from "../root-store"
 
 export interface UserState {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Image, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import { Article } from '../../../model/entities/article'
+import { Article } from '@model/entities/article'
 import { Text, TextVariant } from '../text'
 
 interface ArticleCardProps {

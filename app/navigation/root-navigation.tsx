@@ -6,7 +6,7 @@ import { Route, authScreens, publicScreens } from "./routes"
 import { createNavigationContainerRef } from "@react-navigation/native"
 import SplashScreen from "react-native-splash-screen"
 import { useSelector } from "react-redux"
-import { getIsLogin } from "../model/state/auth/auth-views"
+import { getIsLogin } from "@model/state/auth/auth-views"
 
 const Stack = createNativeStackNavigator()
 export const navigationRef = createNavigationContainerRef()

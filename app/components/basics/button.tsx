@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
-import { palette } from '../../theme/palette'
+import { palette, width } from '@theme/index'
 import { Text, TextVariant } from './text'
-import { width } from '../../theme/spacing'
 
 interface ButtonProps {
 	onPress?: () => void

@@ -1,22 +1,18 @@
-import React, { FC, useEffect, useRef } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { ScreenNavigationProps } from "../../../navigation/routes";
-import { useSelector } from "react-redux";
-import { palette } from "../../../theme/palette";
-import { ActiveWordTitle } from "../../../components/shared/active-word-title";
-import { dictionary } from "../../../dictionary/dictionary";
-import { spacing } from "../../../theme/spacing";
-import { FormField } from "../../../components/basics/form-field";
-import { Text, TextVariant } from "../../../components/basics/text";
-import { Button } from "../../../components/basics/button";
+import { useSelector } from "react-redux"
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
+import React, { FC, useEffect, useRef } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AppStore, useAppDispatch } from "../../../model/state/root-store";
-import { AuthErrorType, checkLoginError, resetAuthForm, setEmail, setPassword, setRepeatPassword, setUsername } from "../../../model/state/auth/auth-slice";
-import { GoogleButton } from "../google-button";
-import { ScreenNames } from "../../../navigation/screen-names";
-import { ErrorInputTx } from "../../../util/types";
-import { enterUsingEmailPassAsync, enterUsingGoogleAsync } from "../../../model/state/auth/auth-async-actions";
-import { hasEmptyLoginField, hasPendingLoginErrors } from "../../../model/state/auth/auth-views";
+import { ActiveWordTitle, FormField, Text, TextVariant, Button } from "@components/index"
+import { GoogleButton } from "../google-button"
+import { ScreenNavigationProps } from "@navigation/routes"
+import { palette, spacing } from "@theme/index"
+import { dictionary } from "@dictionary/dictionary"
+import { AppStore, useAppDispatch } from "@model/state/root-store"
+import { AuthErrorType, checkLoginError, resetAuthForm, setEmail, setPassword } from "@model/state/auth/auth-slice"
+import { ScreenNames } from "@navigation/index"
+import { ErrorInputTx } from "@util/types"
+import { enterUsingEmailPassAsync, enterUsingGoogleAsync } from "@model/state/auth/auth-async-actions"
+import { hasEmptyLoginField, hasPendingLoginErrors } from "@model/state/auth/auth-views"
 
 export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
@@ -123,7 +119,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 				</View>
 			</View>
 		</KeyboardAwareScrollView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -145,4 +141,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default LoginScreen;
+export default LoginScreen

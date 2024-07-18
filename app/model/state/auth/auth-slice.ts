@@ -1,13 +1,13 @@
+import { Alert } from "react-native"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { SlicesNames } from "../slices-names"
-import { ErrorInput, ReqState } from "../../../util/types"
-import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "../../../util/validations"
-import { dictionary } from "../../../dictionary/dictionary"
+import { ErrorInput, ReqState } from "@util/types"
+import { validateEmail, validateNotEmpty, validatePasswordLong, validatePasswordUppercase, validateRepeatedPassword } from "@util/validations"
+import { dictionary } from "@dictionary/dictionary"
 import { FirebaseAuthTypes } from "@react-native-firebase/auth"
 import { enterUsingEmailPassAsync, enterUsingGoogleAsync, registerEmailPassAsync, signOutAsync } from "./auth-async-actions"
-import { extractFirebaseErrorCode } from "../../../util/firebase-helper"
-import { ErrorsType } from "../../../dictionary/es"
-import { Alert } from "react-native"
+import { extractFirebaseErrorCode } from "@util/firebase-helper"
+import { ErrorsType } from "@dictionary/es"
 
 export interface AuthState {
     isLogin: boolean

@@ -1,4 +1,4 @@
-import { ErrorsType } from "../dictionary/es"
+import { ErrorsType } from "@dictionary/es"
 
 /* 
 Extract error from format: 

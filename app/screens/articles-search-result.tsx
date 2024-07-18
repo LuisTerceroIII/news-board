@@ -1,12 +1,12 @@
-import { useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../model/state/root-store";
-import { getRequestState, getResultArticles, searchByKeywordAsync, setActionArticle } from "../model/state/ui-slices/search-article-slice";
-import { ArticleCard } from "../components/basics/seach-flow/article-card";
-import { Text, TextVariant } from "../components/basics/text";
+import { useAppDispatch } from "@model/state/root-store";
+import { getRequestState, getResultArticles, searchByKeywordAsync, setActionArticle } from "@model/state/ui-slices/search-article-slice";
+import { ArticleCard, Text, TextVariant } from "@components/index";
+import { ScreenNavigationProps } from "@navigation/index";
 
-export default function ArticlesSearchResult({route, navigation}) {
+export const ArticlesSearchResult: FC<ScreenNavigationProps> = ({route, navigation}) => {
 	
 	const { keyword } = route?.params
 	const dispatch = useAppDispatch()

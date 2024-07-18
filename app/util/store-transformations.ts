@@ -1,6 +1,6 @@
 import { createTransform } from 'redux-persist'
 import CryptoJS from "react-native-crypto-js"
-import { SlicesNames } from '../model/state/slices-names'
+import { SlicesNames } from '@model/state/slices-names'
 
 const CryptoTransform = createTransform(
 	(inboundState, key) => {

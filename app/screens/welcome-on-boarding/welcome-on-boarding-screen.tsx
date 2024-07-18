@@ -1,14 +1,13 @@
-import React, { FC } from 'react'
-import { ScreenNavigationProps } from '../../navigation/routes'
-import Swiper from 'react-native-swiper'
-import { WelcomeOnBoardingSlide } from './slides/welcome-on-boarding-slide'
-import { dictionary } from '../../dictionary/dictionary'
-import { palette } from '../../theme/palette'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { ScreenNames } from '../../navigation/screen-names'
-import { Text, TextVariant } from '../../components/basics/text'
-import { useAppDispatch } from '../../model/state/root-store'
-import { resetAuthForm } from '../../model/state/auth/auth-slice'
+import React, { FC } from 'react'
+import Swiper from 'react-native-swiper'
+import { ScreenNavigationProps, ScreenNames } from '@navigation/index'
+import { Text, TextVariant } from '@components/index'
+import { WelcomeOnBoardingSlide } from './slides/welcome-on-boarding-slide'
+import { dictionary } from '@dictionary/dictionary'
+import { palette } from '@theme/palette'
+import { useAppDispatch } from '@model/state/root-store'
+import { resetAuthForm } from '@model/state/auth/auth-slice'
 
 const styles = StyleSheet.create({
 	linksBox: {
