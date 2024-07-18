@@ -1,14 +1,9 @@
-import ArticlesSearchResult from "../screens/articles-search-result";
-import Home from "../screens/home";
 import { ScreenNames } from "./screen-names";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ParamListBase } from "@react-navigation/native"
-import { WelcomeOnBoardingScreen } from "../screens/welcome-on-boarding/welcome-on-boarding-screen";
-import LoginScreen from "../screens/auth/login/login";
-import RegisterScreen from "../screens/auth/register/register";
-
+import { LoginScreen, RegisterScreen, WelcomeOnBoardingScreen, Home, ArticlesSearchResult } from "@screens/index"
 export interface ScreenNavigationProps {
-	route: { params?: object }
+	route: { params?: any }
 	navigation: NativeStackNavigationProp<ParamListBase>
 }
 export interface Route {

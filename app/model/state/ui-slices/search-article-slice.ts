@@ -1,7 +1,7 @@
 
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Article } from '../../entities/article'
-import { api } from '../../../services/api/api'
+import { Article } from '@model/entities/article'
+import { api } from '@services/api/api'
 import { AppStore } from '../root-store'
 
 

@@ -27,8 +27,8 @@
 			"@screens/*": [
 				"app/screens/*"
 			],
-			"@api/*": [
-				"app/assets/*"
+			"@services/*": [
+				"app/services/*"
 			],
 			"@theme/*": [
 				"app/theme/*"

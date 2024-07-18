@@ -1,4 +1,3 @@
-import { TextStyle } from "react-native"
 
 export const fontFamily = {
     nunito: {
