@@ -1,7 +1,8 @@
 export enum ScreenNames {
 	HOME = "home",
-	SEARCH_RESULT = "searchResults",
 	WELCOME_ON_BOARDING = "welcomeOnBoarding",
 	LOGIN = "login",
-	REGISTER = "register"
+	REGISTER = "register",
+	SEARCH_RESULT = "searchResults",
+	INTERESTS_ON_BOARDING = "interestsOnBoarding"
 }

@@ -1,5 +1,6 @@
 import { Article } from "./article"
 import { Filter } from "./filter"
+import { Interest } from "./interest"
 
 export interface User {
     id: string
@@ -9,4 +10,5 @@ export interface User {
     photoURL?: string
     savedFilters?: Filter[]
     savedArticles?: Article[]
+    interests?: Interest[]
 }

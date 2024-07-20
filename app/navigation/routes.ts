@@ -1,7 +1,7 @@
 import { ScreenNames } from "./screen-names";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ParamListBase } from "@react-navigation/native"
-import { LoginScreen, RegisterScreen, WelcomeOnBoardingScreen, Home, ArticlesSearchResult } from "@screens/index"
+import { LoginScreen, RegisterScreen, WelcomeOnBoardingScreen, Home, ArticlesSearchResult, InterestsOnBoardingScreen } from "@screens/index"
 export interface ScreenNavigationProps {
 	route: { params?: any }
 	navigation: NativeStackNavigationProp<ParamListBase>
@@ -21,8 +21,9 @@ const Auth: Route[] = [
 	{ name: ScreenNames.REGISTER, component: RegisterScreen },
 ]
 const HomeScreens: Route[] = [
+	{ name: ScreenNames.INTERESTS_ON_BOARDING, component: InterestsOnBoardingScreen },
 	{ name: ScreenNames.HOME, component: Home },
-	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult },
+	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult }
 ]
 
 export const authScreens = [...HomeScreens];

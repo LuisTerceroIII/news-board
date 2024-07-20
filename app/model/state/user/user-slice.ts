@@ -13,6 +13,7 @@ const initialState: UserState = {
     email: "",
     registerAt: "", // timestamp format
     photoURL: "",
+    interests: [],
     savedArticles: [],
     savedFilters: [],
     //erros
@@ -28,8 +29,8 @@ export const UserSlice = createSlice({
             state.fullName = ""
             state.email = ""
             state.registerAt = ""
-            state.photoURL = "",
-                state.savedArticles = []
+            state.photoURL = ""
+            state.savedArticles = []
             state.savedFilters = []
         },
         updateUser: (state, action: PayloadAction<User>) => {
