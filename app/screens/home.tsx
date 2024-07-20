@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { ScreenNames, ScreenNavigationProps } from "@navigation/index";
 import { Input, Button, Text, TextVariant } from "@components/index";
 import { getKeyword, onChangeKeyword } from "@model/state/ui-slices/search-article-slice";
@@ -8,8 +8,6 @@ import { SlicesNames } from "@model/state/slices-names";
 import { AppStore, useAppDispatch } from "@model/state/root-store";
 import { signOutAsync } from "@model/state/auth/auth-async-actions";
 import { palette } from "@theme/index";
-import { ReqState } from "@util/types";
-import { LoadingOverlay } from "@components/index";
 
 export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
