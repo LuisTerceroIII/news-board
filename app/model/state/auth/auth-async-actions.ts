@@ -10,7 +10,7 @@ import { User } from "@app/model/entities/user"
 //Api calls
 export const registerEmailPassAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/loginEmailPass`,
-    async (payload, { getState, rejectWithValue, dispatch }) => {
+    async (payload:{ goToInterests?: () => void }, { getState, rejectWithValue, dispatch }) => {
         try {
             const state: AppStore = getState() as AppStore
             const authState: AuthState = state?.[SlicesNames.AUTH]
@@ -39,6 +39,7 @@ export const registerEmailPassAsync = createAsyncThunk(
                 const userExists = await api.firebaseAPI.userAPI.userExist(user?.id)
                 if(!userExists) dispatch(addNewUserAsync(user))
 
+                if(typeof payload?.goToInterests === "function") payload?.goToInterests()
                 return res
             }
 
@@ -83,7 +84,7 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
 )
 export const enterUsingGoogleAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/enterUsingGoogle`,
-    async(payload:{ goHome?: () => void }, { getState, rejectWithValue, dispatch }) => {
+    async(payload:{ goHome?: () => void, goToInterests?: () => void }, { getState, rejectWithValue, dispatch }) => {
         
         const res = await api.firebaseAPI.authAPI.signInWithGoogle()
         const interests = await api.firebaseAPI.userAPI.getInterests(res?.user?.uid)
@@ -100,7 +101,7 @@ export const enterUsingGoogleAsync = createAsyncThunk(
         if(!userExists) dispatch(addNewUserAsync(user))
         if(interests?.length > 0) {
             if(typeof payload?.goHome === "function") payload?.goHome()
-        }
+        } else if(typeof payload?.goToInterests === "function") payload?.goToInterests()
             
         return res
     }

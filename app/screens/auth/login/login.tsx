@@ -52,7 +52,12 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 			dispatch(enterUsingEmailPassAsync({goHome: () => navigation.navigate(ScreenNames.HOME)}))
 		}
 	}
-	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync({goHome: () => navigation.navigate(ScreenNames.HOME)}))
+	const enterUsingGoogle = () => {
+		dispatch(enterUsingGoogleAsync({
+			goHome: () => navigation.navigate(ScreenNames.HOME),
+			goToInterests: () => navigation.navigate(ScreenNames.INTERESTS_ON_BOARDING)
+		}))
+	}
 	const goToRegister = () => {
 		navigation?.navigate(ScreenNames.REGISTER)
 		dispatch(resetAuthForm())
