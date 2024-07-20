@@ -29,4 +29,9 @@ export class FbUserAPI {
             console.log(JSON.stringify(e))
         }
     }
+
+    async getInterests(userId: string) {
+        return await this.usersCollection.doc(userId).get().then(doc => doc.data()?.interests)
+    }
+
 }

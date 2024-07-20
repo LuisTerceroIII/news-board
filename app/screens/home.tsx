@@ -13,7 +13,7 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 
 	const keywordFilter = useSelector(getKeyword)
 	const { submitState } = useSelector((state: AppStore) => state.authSlice)
-	const { id, email, fullName, registerAt } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	const { id, email, fullName, registerAt, interests } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
 	const dispatch = useAppDispatch()
 
 	const onChangeText = (keyword: string) => {
@@ -26,8 +26,6 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
 			<KeyboardAvoidingView behavior="padding">
-			
-
 				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
 				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
 				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
@@ -35,7 +33,8 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 					id,
 					email,
 					fullName,
-					registerAt
+					registerAt,
+					interests
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
 				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
 			</KeyboardAvoidingView>

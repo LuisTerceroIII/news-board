@@ -49,10 +49,10 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 	const submitLoginForm = () => {
 		dispatch(checkLoginError({ error: AuthErrorType.ALL }))
 		if (!hasPendingErrors && !hasEmptyField) {
-			dispatch(enterUsingEmailPassAsync())
+			dispatch(enterUsingEmailPassAsync({goHome: () => navigation.navigate(ScreenNames.HOME)}))
 		}
 	}
-	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
+	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync({goHome: () => navigation.navigate(ScreenNames.HOME)}))
 	const goToRegister = () => {
 		navigation?.navigate(ScreenNames.REGISTER)
 		dispatch(resetAuthForm())

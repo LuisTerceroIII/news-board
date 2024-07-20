@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { SlicesNames } from "../slices-names"
 import { User } from "@model/entities/user"
 import { addNewUserAsync } from "./user-async-actions"
+import { Interest } from "@app/model/entities/interest"
 
 export interface UserState extends User {
     //erros
@@ -41,6 +42,10 @@ export const UserSlice = createSlice({
             state.registerAt = action.payload.registerAt
             state.savedArticles = action.payload?.savedArticles
             state.savedFilters = action.payload?.savedFilters
+            state.interests = action.payload?.interests || []
+        },
+        setInterests: (state, action: PayloadAction<Interest[]>) => {
+            state.interests = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -59,7 +64,8 @@ export const UserSlice = createSlice({
 //Actions
 export const {
     updateUser,
-    resetUser
+    resetUser,
+    setInterests
 } = UserSlice.actions
 
 //Reducer

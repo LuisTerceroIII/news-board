@@ -26,6 +26,6 @@ const HomeScreens: Route[] = [
 	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult }
 ]
 
-export const authScreens = [...HomeScreens];
+export const authScreens = [...Auth,...HomeScreens];
 export const publicScreens = [...WelcomeOnBoarding, ...Auth];
 
