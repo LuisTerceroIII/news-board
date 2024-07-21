@@ -27,6 +27,7 @@ const Interests: Route[] = [
 ]
 const Home: Route[] = [
 	{ name: ScreenNames.HOME, component: HomeTabsStack },
+	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult }
 ]
 //Auth must be include in both lists to avoid jump on load interests
 export const authScreens = [...Auth,...Home, ...Interests];

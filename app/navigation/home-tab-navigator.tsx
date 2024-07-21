@@ -3,6 +3,7 @@ import { ScreenNames } from "@navigation/screen-names"
 import { HomeFiltersScreen, HomeScreen } from "@app/screens"
 import { SvgIcon } from "@app/components"
 import { palette } from "@app/theme"
+import { HomeHeader } from "@app/screens/(homeTabs)/components/home-header"
 
 const Tab = createBottomTabNavigator()
 
@@ -13,7 +14,6 @@ export const HomeTabsStack = () => {
             screenOptions={() => ({
                 tabBarActiveTintColor: palette.white,
                 tabBarInactiveTintColor: palette.secondary,
-                headerShown: false,
                 tabBarStyle: {
                     height: 60,
                     backgroundColor: palette.primary,
@@ -30,6 +30,8 @@ export const HomeTabsStack = () => {
                     tabBarIcon: ({ color, size }) => (
                       <SvgIcon icon="article" linesColor={color} width={30} />
                     ),
+                    header: HomeHeader,
+                   
                 }}
             />
             <Tab.Screen
@@ -38,6 +40,7 @@ export const HomeTabsStack = () => {
                 component={HomeFiltersScreen}
                 options={{
                     tabBarShowLabel: false,
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => (
                       <SvgIcon icon="filter" linesColor={color} width={30} />
                     ),

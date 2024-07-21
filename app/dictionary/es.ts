@@ -89,7 +89,9 @@ const interests = [
     {id: "Cinema", keyword: "Cine"},
     {id: "Music", keyword: "Musica"}
 ]
-
+const homeFilter = {
+    search: "Buscar..."
+}
 
 
 export default {
@@ -98,5 +100,6 @@ export default {
     errors,
     loading,
     interests,
-    interestsOnBoarding
+    interestsOnBoarding,
+    homeFilter
 }

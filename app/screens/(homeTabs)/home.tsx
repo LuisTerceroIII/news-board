@@ -20,19 +20,13 @@ export const HomeScreen: FC = (): React.JSX.Element => {
 	const userHasInterests = useSelector(hasInterests)
 	const dispatch = useAppDispatch()
 
-	const onChangeText = (keyword: string) => {
-		dispatch(onChangeKeyword({keyword}))
-	}
-
-	const search = () => navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
+	
 	const signOut = () => dispatch(signOutAsync())
 
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
 			<KeyboardAvoidingView behavior="padding">
 				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
-				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
-				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
 				<Text tx={JSON.stringify({
 					id,
 					email,
