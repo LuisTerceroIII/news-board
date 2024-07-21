@@ -22,7 +22,7 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
 				styles.box
 			]}
 		>
-			{!photoURL ?
+			{photoURL ?
 				<Image
 					source={{ uri: photoURL }}
 					style={[

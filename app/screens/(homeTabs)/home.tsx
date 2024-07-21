@@ -20,9 +20,6 @@ export const HomeScreen: FC = (): React.JSX.Element => {
 	const userHasInterests = useSelector(hasInterests)
 	const dispatch = useAppDispatch()
 
-	
-	const signOut = () => dispatch(signOutAsync())
-
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
 			<KeyboardAvoidingView behavior="padding">
@@ -34,7 +31,6 @@ export const HomeScreen: FC = (): React.JSX.Element => {
 					registerAt,
 					interests
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
-				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
 			</KeyboardAvoidingView>
 		</ScrollView>
 	);

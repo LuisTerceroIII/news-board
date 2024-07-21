@@ -16,6 +16,7 @@ export const HomeHeader = () => {
 		dispatch(onChangeKeyword({ keyword }))
 	}
 	const search = () => navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
+	const goToUserProfile = () => navigate(ScreenNames.USER_PROFILE)
 
 	return (
 		<View style={styles.box}>
@@ -32,7 +33,7 @@ export const HomeHeader = () => {
 				rightIconSize={20}
 				rightIconOnPress={keywordFilter?.length > 0 ? search : undefined}
 			/>
-			<UserAvatar onPress={() => console.log("Ir a screen de profile")}/>
+			<UserAvatar onPress={goToUserProfile}/>
 		</View>
 	)
 }
