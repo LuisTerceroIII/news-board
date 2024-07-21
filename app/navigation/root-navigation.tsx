@@ -7,12 +7,13 @@ import SplashScreen from "react-native-splash-screen"
 import { useSelector } from "react-redux"
 import { getIsLogin } from "@model/state/auth/auth-views"
 import { getInitialRoute } from "@app/model/state/ui-slices/global-ui-slice"
+import { ScreenNames } from "./screen-names"
 
 const Stack = createNativeStackNavigator()
 export const navigationRef = createNavigationContainerRef()
 
 //actions to use without JSX, Example: Store
-export function navigate(name: any, params: any = undefined) {
+export function navigate(name: ScreenNames, params: any = undefined) {
 	if (navigationRef.isReady()) {
 		//@ts-ignore
 		navigationRef.navigate(name, params)
