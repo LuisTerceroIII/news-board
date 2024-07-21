@@ -33,3 +33,5 @@ export const width = [
     wp("90%"),
     wp("100%")
 ]
+
+export const reponsiveW = (n: number) => wp(n)

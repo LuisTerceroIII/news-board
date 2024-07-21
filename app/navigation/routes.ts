@@ -1,8 +1,9 @@
 import { ScreenNames } from "./screen-names";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ParamListBase } from "@react-navigation/native"
-import { LoginScreen, RegisterScreen, WelcomeOnBoardingScreen, HomeScreen, ArticlesSearchResult, InterestsOnBoardingScreen,
-	 	 LoadingScreen } from "@screens/index"
+import { LoginScreen, RegisterScreen, WelcomeOnBoardingScreen, HomeScreen, ArticlesSearchResult, InterestsOnBoardingScreen, LoadingScreen } from "@screens/index"
+import { HomeTabsStack } from "./home-tab-navigator";
+
 export interface ScreenNavigationProps {
 	route: { params?: any }
 	navigation: NativeStackNavigationProp<ParamListBase>
@@ -24,12 +25,10 @@ const Auth: Route[] = [
 const Interests: Route[] = [
 	{ name: ScreenNames.INTERESTS_ON_BOARDING, component: InterestsOnBoardingScreen },
 ]
-const Home: Route[] = [	
-	{ name: ScreenNames.HOME, component: HomeScreen },
-	{ name: ScreenNames.SEARCH_RESULT, component: ArticlesSearchResult }
+const Home: Route[] = [
+	{ name: ScreenNames.HOME, component: HomeTabsStack },
 ]
-
-export const authScreens = [...Home];
-export const addInterestsScreens = [...Interests];
+//Auth must be include in both lists to avoid jump on load interests
+export const authScreens = [...Auth,...Home, ...Interests];
 export const publicScreens = [...WelcomeOnBoarding, ...Auth];
 
