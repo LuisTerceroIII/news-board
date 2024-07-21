@@ -33,6 +33,7 @@ export const UserSlice = createSlice({
             state.photoURL = ""
             state.savedArticles = []
             state.savedFilters = []
+            state.interests = []
         },
         updateUser: (state, action: PayloadAction<User>) => {
             state.id = action.payload.id

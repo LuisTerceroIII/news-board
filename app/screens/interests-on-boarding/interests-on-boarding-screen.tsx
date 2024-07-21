@@ -11,9 +11,11 @@ import { Interest } from "@app/model/entities/interest"
 import { toggleInterest } from "@model/state/ui-slices/interests/interests-ui-slice"
 import { saveUserInterestsAsync } from "@app/model/state/ui-slices/interests/interests-async-actions"
 import { ReqState } from "@util/types"
+import { usePreventGoBack } from "@app/hooks"
 
 export const InterestsOnBoardingScreen: FC<ScreenNavigationProps> = ({ navigation }) => {
 
+	usePreventGoBack()
 	const dispatch = useAppDispatch()
 	const interests: Interest[] = useSelector((state: AppStore) => state?.[SlicesNames.INTERESTS_UI]?.interests)
 	const reqState: ReqState = useSelector((state: AppStore) => state?.[SlicesNames.INTERESTS_UI]?.reqState)

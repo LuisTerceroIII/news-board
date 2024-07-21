@@ -1,26 +1,30 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
-import { ScreenNames, ScreenNavigationProps } from "@navigation/index";
+import { navigate, ScreenNames } from "@navigation/index";
 import { Input, Button, Text, TextVariant } from "@components/index";
 import { getKeyword, onChangeKeyword } from "@model/state/ui-slices/search-article-slice";
 import { SlicesNames } from "@model/state/slices-names";
 import { AppStore, useAppDispatch } from "@model/state/root-store";
 import { signOutAsync } from "@model/state/auth/auth-async-actions";
 import { palette } from "@theme/index";
+import { hasInterests } from "@app/model/state/user/user-views";
+import { usePreventGoBack } from "@app/hooks";
 
-export const HomeScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
+export const HomeScreen: FC = (): React.JSX.Element => {
 
+	usePreventGoBack()
 	const keywordFilter = useSelector(getKeyword)
 	const { submitState } = useSelector((state: AppStore) => state.authSlice)
 	const { id, email, fullName, registerAt, interests } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	const userHasInterests = useSelector(hasInterests)
 	const dispatch = useAppDispatch()
 
 	const onChangeText = (keyword: string) => {
 		dispatch(onChangeKeyword({keyword}))
 	}
 
-	const search = () => navigation.navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
+	const search = () => navigate(ScreenNames.SEARCH_RESULT, { keyword: keywordFilter })
 	const signOut = () => dispatch(signOutAsync())
 
 	return (

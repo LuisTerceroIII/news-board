@@ -1,13 +1,12 @@
 import React from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Route, addInterestsScreens, authScreens, publicScreens } from "./routes"
+import { Route, authScreens, publicScreens } from "./routes"
 import { createNavigationContainerRef } from "@react-navigation/native"
 import SplashScreen from "react-native-splash-screen"
 import { useSelector } from "react-redux"
 import { getIsLogin } from "@model/state/auth/auth-views"
 import { getInitialRoute } from "@app/model/state/ui-slices/global-ui-slice"
-import { hasInterests } from "@app/model/state/user/user-views"
 
 const Stack = createNativeStackNavigator()
 export const navigationRef = createNavigationContainerRef()
@@ -23,8 +22,7 @@ export function navigate(name: any, params: any = undefined) {
 export const RootNavigation = (): React.JSX.Element => {
 
 	const userIsLogIn = useSelector(getIsLogin)
-	const userHasInterests = useSelector(hasInterests)
-	const screens = userIsLogIn ? userHasInterests ? authScreens : addInterestsScreens : publicScreens
+	const screens = userIsLogIn ? authScreens : publicScreens
 	const initialRoute = useSelector(getInitialRoute)
 
 	const routesStack = (
@@ -44,7 +42,6 @@ export const RootNavigation = (): React.JSX.Element => {
 			})}
 		</Stack.Navigator>
 	)
-
 
 	return (
 		<NavigationContainer
