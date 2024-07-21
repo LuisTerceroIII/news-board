@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
         backgroundColor: palette.primary,
         justifyContent: "center",
         alignItems: "center",
-        rowGap: 40
+        rowGap: 20
     }
 })

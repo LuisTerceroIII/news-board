@@ -8,6 +8,8 @@ import { useSelector } from "react-redux"
 import { getIsLogin } from "@model/state/auth/auth-views"
 import { getInitialRoute } from "@app/model/state/ui-slices/global-ui-slice"
 import { ScreenNames } from "./screen-names"
+import { Header, SvgIcon } from "@app/components"
+import { fontFamily, palette, reponsiveW } from "@app/theme"
 
 const Stack = createNativeStackNavigator()
 export const navigationRef = createNavigationContainerRef()
@@ -28,7 +30,25 @@ export const RootNavigation = (): React.JSX.Element => {
 
 	const routesStack = (
 		<Stack.Navigator
-			screenOptions={{ headerShown: false }}
+			screenOptions={({ navigation }) => ({
+				headerStyle: {
+					backgroundColor: palette.primary,
+					elevation: -10,
+					shadowColor: 'transparent',
+					shadowOpacity: 0
+				},
+				headerTintColor: palette.white,
+				headerLeft: ({label}) => (
+					<Header
+						tx={label}
+						onPress={navigation.goBack} 
+					/>
+				),
+				headerTitleStyle: {
+					fontFamily: fontFamily.nunito.extraBold,
+					fontSize: 24
+				}
+			})}
 			initialRouteName={initialRoute}>
 			{screens.map((screen: Route) => {
 				return (
