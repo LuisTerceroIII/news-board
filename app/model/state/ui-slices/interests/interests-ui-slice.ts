@@ -20,6 +20,10 @@ export const InterestUISlice = createSlice({
 	name: SlicesNames.INTERESTS_UI,
 	initialState,
 	reducers: {
+		resetInterests: (state) => {
+			state.interests = []
+			state.reqState = ReqState.IDLE
+		},
 		setInterests: (state, action: PayloadAction<Interest[]>) => {
 			state.interests = action.payload
 		},
@@ -52,6 +56,7 @@ export const InterestUISlice = createSlice({
 
 export const {
 	setInterests,
-	toggleInterest
+	toggleInterest,
+	resetInterests
 } = InterestUISlice.actions
 export default InterestUISlice.reducer
