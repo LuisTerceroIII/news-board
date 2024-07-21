@@ -34,4 +34,4 @@ export const width = [
     wp("100%")
 ]
 
-export const reponsiveW = (n: number) => wp(n)
+export const reponsiveW = (n: string) => wp(n)

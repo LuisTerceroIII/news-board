@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@model/state/root-store";
 import { getRequestState, getResultArticles, searchByKeywordAsync, setActionArticle } from "@model/state/ui-slices/search-article-slice";
@@ -35,9 +35,9 @@ export const ArticlesSearchResult: FC<ScreenNavigationProps> = ({route, navigati
 				style={{paddingHorizontal: "5%"}}
 			/>
 			{requestState === "pending" ? <ActivityIndicator /> : (
-				<View style={{rowGap: 20, paddingTop: 20, paddingHorizontal: "5%"}}>
+				<ScrollView contentContainerStyle={{rowGap: 20, paddingTop: 20, paddingHorizontal: "5%"}}>
 					{newsResults}
-				</View>
+				</ScrollView>
 			)}
 		</>
 	);

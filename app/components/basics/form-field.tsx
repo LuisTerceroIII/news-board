@@ -1,29 +1,26 @@
 import React, { FC, forwardRef, RefObject } from 'react'
-import { KeyboardType, StyleSheet, TextInput, View } from 'react-native'
+import { KeyboardType, StyleSheet, View } from 'react-native'
 import { Text, TextVariant } from './text'
 import { palette } from '@theme/palette'
 import { corners, width } from '@theme/spacing'
 import { dictionary } from '@dictionary/dictionary'
+import { Input, InputProps } from './input'
 
-interface FormFieldProps {
+interface FormFieldProps extends InputProps {
 	ref?: any// this ref it just to complete the type, USE ref from forwardedRef
-	value: string
 	labelTx: string
-	onChangeText: (str: string) => void
-	onFocus?: () => void
-	onBlur?: () => void
-	keyboardType?: KeyboardType | undefined
 	error?: boolean
 	errorsTx?: string[]
-	onSubmitEditing?: () => void
-	secureTextEntry?: boolean
+
 }
 
 export const FormField: FC<FormFieldProps & { forwardedRef?: RefObject<TextInput> }> = forwardRef<TextInput, FormFieldProps>((props, ref) => {
 	const {
 		value, labelTx, keyboardType, onChangeText, onFocus, onBlur,
 		error = false, errorsTx = [dictionary.errors?.generic_error], onSubmitEditing,
-		secureTextEntry
+		secureTextEntry, rightIcon = undefined,
+		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.grey,
+		rightIconStyle={}
 	} = props
 
 	const errors = errorsTx?.map(error => {
@@ -35,7 +32,7 @@ export const FormField: FC<FormFieldProps & { forwardedRef?: RefObject<TextInput
 	return (
 		<View style={styles.container}>
 			<Text tx={labelTx} variant={TextVariant.PARAGRAPH} />
-			<TextInput
+			<Input
 				ref={ref}
 				value={value}
 				style={[styles.input, error && styles.error]}
@@ -45,6 +42,11 @@ export const FormField: FC<FormFieldProps & { forwardedRef?: RefObject<TextInput
 				keyboardType={keyboardType}
 				onSubmitEditing={onSubmitEditing}
 				secureTextEntry={secureTextEntry}
+				rightIcon={rightIcon}
+				rightIconSize={rightIconSize}
+				rightIconOnPress={rightIconOnPress}
+				rightIconColor={rightIconColor}
+				rightIconStyle={rightIconStyle}
 			/>
 			{error && errors}
 		</View>

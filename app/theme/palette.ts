@@ -3,7 +3,8 @@ export const palette = {
     secondary: "#1C3655",
     active: "#6BA8F0",
     white: "#F0F1F1",
-    red: "#EC4949"
+    red: "#EC4949",
+    grey: "#747A82"
 }
 
 export type paletteType = keyof typeof palette
