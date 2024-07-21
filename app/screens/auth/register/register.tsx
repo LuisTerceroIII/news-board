@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
-import React, { FC, useEffect, useRef } from "react"
+import React, { FC, useEffect, useRef, useState } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { ActiveWordTitle, FormField, Text, Button, TextVariant, LoadingOverlay } from "@components/index"
 import { GoogleButton } from "../google-button"
@@ -26,6 +26,9 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	const { usernameError, emailError, passError, repeatedPassError } = useSelector((state: AppStore) => state.authSlice)
 	const hasPendingErrors = useSelector(hasPendingRegisterErrors)
 	const hasEmptyField = useSelector(hasEmptyRegisterField)
+	const [showPass, setShowPass] = useState(false)
+	const [showRepeatPass, setShowRepeatPass] = useState(false)
+
 
 	useEffect(() => {
 		return () => {
@@ -68,7 +71,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	const submitRegisterForm = () => {
 		dispatch(checkRegisterError({ error: AuthErrorType.ALL }))
 		if (!hasPendingErrors && !hasEmptyField) {
-			dispatch(registerEmailPassAsync({goToInterests: () => navigation.navigate(ScreenNames.INTERESTS_ON_BOARDING)}))
+			dispatch(registerEmailPassAsync({ goToInterests: () => navigation.navigate(ScreenNames.INTERESTS_ON_BOARDING) }))
 		}
 	}
 	const enterUsingGoogle = () => {
@@ -81,6 +84,9 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 		navigation?.navigate(ScreenNames.LOGIN)
 		dispatch(resetAuthForm())
 	}
+	const togglePass = () => setShowPass(prev => !prev)
+	const toggleRepeatPass = () => setShowRepeatPass(prev => !prev)
+
 
 	return (
 		<KeyboardAwareScrollView
@@ -128,7 +134,10 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					error={passError.state}
 					errorsTx={passError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					onSubmitEditing={focusRepeatPass}
-					secureTextEntry
+					secureTextEntry={!showPass}
+					rightIcon={showPass ? "eyeOpen" : "eyeClose"}
+					rightIconColor={palette.grey}
+					rightIconOnPress={togglePass}
 				/>
 				{/* Password Repeat */}
 				<FormField
@@ -138,8 +147,11 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					onChangeText={onChangeRepeatPass}
 					error={repeatedPassError.state}
 					errorsTx={repeatedPassError.errorsTx?.map((err: ErrorInputTx) => err?.tx)}
-					secureTextEntry
 					onSubmitEditing={submitRegisterForm}
+					secureTextEntry={!showRepeatPass}
+					rightIcon={showRepeatPass ? "eyeOpen" : "eyeClose"}
+					rightIconColor={palette.grey}
+					rightIconOnPress={toggleRepeatPass}
 				/>
 				<GoogleButton
 					tx={dictionary.auth?.register_using_google || ""}
@@ -162,7 +174,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					</TouchableOpacity>
 				</View>
 			</View>
-		<LoadingOverlay visible={submitState === ReqState.PENDING}/>
+			<LoadingOverlay visible={submitState === ReqState.PENDING} />
 		</KeyboardAwareScrollView>
 	)
 }

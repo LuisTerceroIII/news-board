@@ -1,16 +1,16 @@
 import { palette } from "@app/theme"
-import React, { FC } from "react"
+import React, { FC, forwardRef, RefObject } from "react"
 import { KeyboardType, StyleSheet, TextInput, View, ViewStyle } from "react-native"
 import { SvgIcon } from "./icon/svg-icon"
 import { IconSvgTypes } from "./icon/icons-svg.types"
 
-interface InputProps {
+export interface InputProps {
 	ref?: any
 	onChangeText: (s: string) => void
 	value: string
 	onBlur?: () => void
 	onFocus?: () => void
-	style?: ViewStyle
+	style?: ViewStyle | ViewStyle[]
 	keyboardType?: KeyboardType
 	placeholderTx?: string
 	onSubmitEditing?: () => void
@@ -20,15 +20,16 @@ interface InputProps {
 	rightIconOnPress?: () => void
 	rightIconColor?: string
 	rightIconStyle?: ViewStyle
+	secureTextEntry?: boolean
 }
 
-export const Input: FC<InputProps> = (props) => {
+export const Input: FC<InputProps & { forwardedRef?: RefObject<TextInput> }> = forwardRef<TextInput, InputProps>((props, ref) => {
 
 	const {
-		ref, onChangeText, value, onBlur, onFocus, onSubmitEditing,
+		onChangeText, value, onBlur, onFocus, onSubmitEditing,
 		placeholderTextColor, placeholderTx, style, rightIcon = undefined,
 		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.grey,
-		rightIconStyle={}
+		rightIconStyle={}, secureTextEntry=false, keyboardType
 	} = props
 
 	return (
@@ -41,8 +42,10 @@ export const Input: FC<InputProps> = (props) => {
 				onFocus={onFocus}
 				style={[styles.input, style]}
 				onSubmitEditing={onSubmitEditing}
+				keyboardType={keyboardType}
 				placeholder={placeholderTx}
 				placeholderTextColor={placeholderTextColor}
+				secureTextEntry={secureTextEntry}
 			/>
 			{rightIcon != null &&
 				<SvgIcon
@@ -54,7 +57,7 @@ export const Input: FC<InputProps> = (props) => {
 				/>}
 		</View>
 	)
-}
+})
 
 const styles = StyleSheet.create({
 	box: {

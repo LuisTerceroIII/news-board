@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native"
-import React, { FC, useEffect, useRef } from "react"
+import React, { FC, useEffect, useRef, useState } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { ActiveWordTitle, FormField, Text, TextVariant, Button, LoadingOverlay } from "@components/index"
 import { GoogleButton } from "../google-button"
@@ -25,6 +25,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 	const { emailError, passError } = useSelector((state: AppStore) => state.authSlice)
 	const hasPendingErrors = useSelector(hasPendingLoginErrors)
 	const hasEmptyField = useSelector(hasEmptyLoginField)
+	const [showPass, setShowPass] = useState(false)
 
 	useEffect(() => {
 		return () => {
@@ -64,6 +65,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 		navigation?.navigate(ScreenNames.REGISTER)
 		dispatch(resetAuthForm())
 	}
+	const togglePass = () => setShowPass(prev => !prev)
 
 	return (
 		<KeyboardAwareScrollView
@@ -101,8 +103,11 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					onChangeText={onChangePassword}
 					error={passError.state}
 					errorsTx={passError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
-					secureTextEntry
+					secureTextEntry={!showPass}
+					rightIcon={showPass ? "eyeOpen" : "eyeClose"}
+					rightIconColor={palette.grey}
 					onSubmitEditing={submitLoginForm}
+					rightIconOnPress={togglePass}
 				/>
 				<GoogleButton
 					tx={dictionary.auth?.login_using_google || ""}
@@ -125,7 +130,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					</TouchableOpacity>
 				</View>
 			</View>
-			<LoadingOverlay visible={submitState === ReqState.PENDING}/>
+			<LoadingOverlay visible={submitState === ReqState.PENDING} />
 		</KeyboardAwareScrollView>
 	)
 }
