@@ -35,7 +35,6 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 	const onChangeEmail = (str: string) => {
 		dispatch(setEmail({ email: str }))
 		if (emailError.state) dispatch(checkLoginError({ error: AuthErrorType.EMAIL }))
-
 	}
 	const onChangePassword = (str: string) => {
 		dispatch(setPassword({ password: str }))
@@ -49,7 +48,10 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 	const submitLoginForm = () => {
 		dispatch(checkLoginError({ error: AuthErrorType.ALL }))
 		if (!hasPendingErrors && !hasEmptyField) {
-			dispatch(enterUsingEmailPassAsync({goHome: () => navigation.navigate(ScreenNames.HOME)}))
+			dispatch(enterUsingEmailPassAsync({
+				goHome: () => navigation.navigate(ScreenNames.HOME),
+				goToInterests: () => navigation.navigate(ScreenNames.INTERESTS_ON_BOARDING)
+			}))
 		}
 	}
 	const enterUsingGoogle = () => {

@@ -51,7 +51,7 @@ export const registerEmailPassAsync = createAsyncThunk(
 )
 export const enterUsingEmailPassAsync = createAsyncThunk(
     `${SlicesNames.AUTH}/enterUsingEmailPass`,
-    async (payload:{ goHome?: () => void }, { getState, rejectWithValue, dispatch }) => {
+    async (payload:{ goHome?: () => void,  goToInterests?: () => void }, { getState, rejectWithValue, dispatch }) => {
 
         try {
             const state: AppStore = getState() as AppStore
@@ -72,7 +72,7 @@ export const enterUsingEmailPassAsync = createAsyncThunk(
                     }))
                     if(interests?.length > 0) {
                         if(typeof payload?.goHome === "function") payload?.goHome()
-                    }
+                    } else if(typeof payload?.goToInterests === "function") payload?.goToInterests()
                 }
                 return res
             }

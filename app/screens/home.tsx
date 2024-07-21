@@ -9,7 +9,7 @@ import { AppStore, useAppDispatch } from "@model/state/root-store";
 import { signOutAsync } from "@model/state/auth/auth-async-actions";
 import { palette } from "@theme/index";
 
-export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
+export const HomeScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
 	const keywordFilter = useSelector(getKeyword)
 	const { submitState } = useSelector((state: AppStore) => state.authSlice)
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default Home;
+export default HomeScreen;
