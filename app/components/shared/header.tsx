@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         columnGap: reponsiveW("5%"),
-        height: 78,
-        shadowOpacity: 0
+        height: 78
     }
 })
