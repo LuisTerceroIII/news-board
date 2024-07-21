@@ -56,9 +56,47 @@ const loading = {
     "general": "Procesando solicitud..."
 }
 export type LoadingTx = keyof typeof loading
+
+const interestsOnBoarding = {
+    title: "Personaliza tu feed",
+    message: "Elige al menos 4 temas para continuar y comenzar a navegar.",
+    button: "Continuar"
+}
+const interests = [
+    {id: "International", keyword: "Internacional"},
+    {id: "BreakingNews", keyword: "Última Hora"},
+    {id: "Economy", keyword: "Economía"},
+    {id: "Politics", keyword: "Política"},
+    {id: "Sports", keyword: "Deportes"},
+    {id: "Technology", keyword: "Tecnología"},
+    {id: "Science", keyword: "Ciencia"},
+    {id: "Health", keyword: "Salud"},
+    {id: "Entertainment", keyword: "Entretenimiento"},
+    {id: "Culture", keyword: "Cultura"},
+    {id: "Environment", keyword: "Medio Ambiente"},
+    {id: "Education", keyword: "Educación"},
+    {id: "Lifestyle", keyword: "Estilo de Vida"},
+    {id: "Travel", keyword: "Viajes"},
+    {id: "Opinion", keyword: "Opinión"},
+    {id: "Business", keyword: "Negocios"},
+    {id: "History", keyword: "Historia"},
+    {id: "Art", keyword: "Arte"},
+    {id: "Food", keyword: "Gastronomía"},
+    {id: "Fashion", keyword: "Moda"},
+    {id: "RealEstate", keyword: "Bienes Raíces"},
+    {id: "Automotive", keyword: "Automóviles"},
+    {id: "PersonalFinance", keyword: "Finanzas Personales"},
+    {id: "Cinema", keyword: "Cine"},
+    {id: "Music", keyword: "Musica"}
+]
+
+
+
 export default {
     welcomeOnBoarding,
     auth,
     errors,
-    loading
+    loading,
+    interests,
+    interestsOnBoarding
 }

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { ScreenNames, ScreenNavigationProps } from "@navigation/index";
 import { Input, Button, Text, TextVariant } from "@components/index";
 import { getKeyword, onChangeKeyword } from "@model/state/ui-slices/search-article-slice";
@@ -8,14 +8,12 @@ import { SlicesNames } from "@model/state/slices-names";
 import { AppStore, useAppDispatch } from "@model/state/root-store";
 import { signOutAsync } from "@model/state/auth/auth-async-actions";
 import { palette } from "@theme/index";
-import { ReqState } from "@util/types";
-import { LoadingOverlay } from "@components/index";
 
-export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
+export const HomeScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Element => {
 
 	const keywordFilter = useSelector(getKeyword)
 	const { submitState } = useSelector((state: AppStore) => state.authSlice)
-	const { id, email, fullName, registerAt } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	const { id, email, fullName, registerAt, interests } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
 	const dispatch = useAppDispatch()
 
 	const onChangeText = (keyword: string) => {
@@ -28,8 +26,6 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
 			<KeyboardAvoidingView behavior="padding">
-			
-
 				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
 				<Input value={keywordFilter} onChangeText={onChangeText} style={styles.searchNewsInput} onSubmitEditing={search} />
 				<Button style={{ alignSelf: "center" }} tx="Buscar" onPress={search} />
@@ -37,7 +33,8 @@ export const Home: FC<ScreenNavigationProps> = ({ navigation }): React.JSX.Eleme
 					id,
 					email,
 					fullName,
-					registerAt
+					registerAt,
+					interests
 				}, null, 2)} variant={TextVariant.PARAGRAPH} />
 				<Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />
 			</KeyboardAvoidingView>
@@ -71,4 +68,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default Home;
+export default HomeScreen;

@@ -1,12 +1,13 @@
-import React, { useMemo } from "react"
+import React from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { ScreenNames } from "./screen-names"
-import { Route, authScreens, publicScreens } from "./routes"
+import { Route, addInterestsScreens, authScreens, publicScreens } from "./routes"
 import { createNavigationContainerRef } from "@react-navigation/native"
 import SplashScreen from "react-native-splash-screen"
 import { useSelector } from "react-redux"
 import { getIsLogin } from "@model/state/auth/auth-views"
+import { getInitialRoute } from "@app/model/state/ui-slices/global-ui-slice"
+import { hasInterests } from "@app/model/state/user/user-views"
 
 const Stack = createNativeStackNavigator()
 export const navigationRef = createNavigationContainerRef()
@@ -22,13 +23,14 @@ export function navigate(name: any, params: any = undefined) {
 export const RootNavigation = (): React.JSX.Element => {
 
 	const userIsLogIn = useSelector(getIsLogin)
-	
-	const screens = userIsLogIn ? authScreens : publicScreens
+	const userHasInterests = useSelector(hasInterests)
+	const screens = userIsLogIn ? userHasInterests ? authScreens : addInterestsScreens : publicScreens
+	const initialRoute = useSelector(getInitialRoute)
 
 	const routesStack = (
 		<Stack.Navigator
 			screenOptions={{ headerShown: false }}
-			initialRouteName={ScreenNames.WELCOME_ON_BOARDING}>
+			initialRouteName={initialRoute}>
 			{screens.map((screen: Route) => {
 				return (
 					<Stack.Screen

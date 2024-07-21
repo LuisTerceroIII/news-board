@@ -68,10 +68,15 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 	const submitRegisterForm = () => {
 		dispatch(checkRegisterError({ error: AuthErrorType.ALL }))
 		if (!hasPendingErrors && !hasEmptyField) {
-			dispatch(registerEmailPassAsync())
+			dispatch(registerEmailPassAsync({goToInterests: () => navigation.navigate(ScreenNames.INTERESTS_ON_BOARDING)}))
 		}
 	}
-	const enterUsingGoogle = () => dispatch(enterUsingGoogleAsync())
+	const enterUsingGoogle = () => {
+		dispatch(enterUsingGoogleAsync({
+			goHome: () => navigation.navigate(ScreenNames.HOME),
+			goToInterests: () => navigation.navigate(ScreenNames.INTERESTS_ON_BOARDING)
+		}))
+	}
 	const goToLogin = () => {
 		navigation?.navigate(ScreenNames.LOGIN)
 		dispatch(resetAuthForm())
