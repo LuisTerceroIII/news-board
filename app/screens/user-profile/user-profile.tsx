@@ -12,7 +12,6 @@ export const UserProfile: FC<ScreenNavigationProps> = ({route, navigation}) => {
 	
 	const dispatch = useAppDispatch()
 	const { email, fullName } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
-	console.log("🚀 ~ fullName:", fullName)
 	const signOut = () => dispatch(signOutAsync())
 
 	return (
