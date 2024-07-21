@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Input, SvgIcon, Text, TextVariant } from '@components/index'
+import { Input, SvgIcon, Text, TextVariant, UserAvatar } from '@components/index'
 import { useSelector } from 'react-redux'
 import { getKeyword, onChangeKeyword } from '@app/model/state/ui-slices/search-article-slice'
 import { useAppDispatch } from '@app/model/state/root-store'
@@ -32,7 +32,7 @@ export const HomeHeader = () => {
 				rightIconSize={20}
 				rightIconOnPress={keywordFilter?.length > 0 ? search : undefined}
 			/>
-			<SvgIcon icon='google' width={40}/>
+			<UserAvatar onPress={() => console.log("Ir a screen de profile")}/>
 		</View>
 	)
 }

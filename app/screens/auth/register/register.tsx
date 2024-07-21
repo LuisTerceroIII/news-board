@@ -136,7 +136,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					onSubmitEditing={focusRepeatPass}
 					secureTextEntry={!showPass}
 					rightIcon={showPass ? "eyeOpen" : "eyeClose"}
-					rightIconColor={palette.grey}
+					rightIconColor={palette.primary}
 					rightIconOnPress={togglePass}
 				/>
 				{/* Password Repeat */}
@@ -150,7 +150,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 					onSubmitEditing={submitRegisterForm}
 					secureTextEntry={!showRepeatPass}
 					rightIcon={showRepeatPass ? "eyeOpen" : "eyeClose"}
-					rightIconColor={palette.grey}
+					rightIconColor={palette.primary}
 					rightIconOnPress={toggleRepeatPass}
 				/>
 				<GoogleButton

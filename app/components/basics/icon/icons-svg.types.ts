@@ -4,6 +4,7 @@ import { EyeOpenIcon } from "./icons/eye-open-icon"
 import { FilterIcon } from "./icons/filter-icon"
 import { GoogleIcon } from "./icons/google-icon"
 import { SearchIcon } from "./icons/search-icon"
+import { UserAvatarIcon } from "./icons/user-avatar-icon"
 
 export const svgIcons = {
     google: GoogleIcon,
@@ -11,7 +12,8 @@ export const svgIcons = {
     filter: FilterIcon,
     search: SearchIcon,
     eyeOpen: EyeOpenIcon,
-    eyeClose: EyeCloseIcon
+    eyeClose: EyeCloseIcon,
+    userAvatar: UserAvatarIcon
 }
 
 export type IconSvgTypes = keyof typeof svgIcons

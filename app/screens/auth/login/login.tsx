@@ -105,7 +105,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 					errorsTx={passError.errorsTx?.map((err: ErrorInputTx) => err.tx)}
 					secureTextEntry={!showPass}
 					rightIcon={showPass ? "eyeOpen" : "eyeClose"}
-					rightIconColor={palette.grey}
+					rightIconColor={palette.primary}
 					onSubmitEditing={submitLoginForm}
 					rightIconOnPress={togglePass}
 				/>
