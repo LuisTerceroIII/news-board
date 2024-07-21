@@ -12,8 +12,8 @@ export const HomeTabsStack = () => {
         <Tab.Navigator
             initialRouteName={ScreenNames.HOME_FEED}
             screenOptions={() => ({
-                tabBarActiveTintColor: palette.white,
-                tabBarInactiveTintColor: palette.secondary,
+                tabBarActiveTintColor: palette.bg_primary,
+                tabBarInactiveTintColor: palette.disabled,
                 tabBarStyle: {
                     height: 60,
                     backgroundColor: palette.primary,

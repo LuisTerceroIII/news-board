@@ -31,7 +31,7 @@ export const UserProfile: FC<ScreenNavigationProps> = ({route, navigation}) => {
 const styles = StyleSheet.create({
     box: {
         flexGrow: 1,
-        backgroundColor: palette.primary,
+        backgroundColor: palette.bg_primary,
         justifyContent: "center",
         alignItems: "center",
         rowGap: 20

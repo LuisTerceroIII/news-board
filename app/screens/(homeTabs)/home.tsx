@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { navigate, ScreenNames } from "@navigation/index";
-import { Input, Button, Text, TextVariant } from "@components/index";
+import { Input, Button, Text, TextVariant, LoadingOverlay } from "@components/index";
 import { getKeyword, onChangeKeyword } from "@model/state/ui-slices/search-article-slice";
 import { SlicesNames } from "@model/state/slices-names";
 import { AppStore, useAppDispatch } from "@model/state/root-store";
@@ -23,6 +23,7 @@ export const HomeScreen: FC = (): React.JSX.Element => {
 	return (
 		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
 			<KeyboardAvoidingView behavior="padding">
+				<LoadingOverlay visible />
 				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
 				<Text tx={JSON.stringify({
 					id,
@@ -38,7 +39,7 @@ export const HomeScreen: FC = (): React.JSX.Element => {
 
 const styles = StyleSheet.create({
 	box: {
-		backgroundColor: palette.primary,
+		backgroundColor: palette.bg_primary,
 		flexGrow: 1
 	},
 	heading: {
@@ -49,11 +50,6 @@ const styles = StyleSheet.create({
 		marginVertical: 20,
 		width:  "95%",
 		alignSelf: "center"
-	},
-	subtitle: {
-		color: "purple",
-		marginVertical: 20,
-		alignSelf: "flex-start"
 	},
 	link: {
 		color: "white",

@@ -28,7 +28,7 @@ export const Input: FC<InputProps & { forwardedRef?: RefObject<TextInput> }> = f
 	const {
 		onChangeText, value, onBlur, onFocus, onSubmitEditing,
 		placeholderTextColor, placeholderTx, style, rightIcon = undefined,
-		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.grey,
+		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.disabled,
 		rightIconStyle={}, secureTextEntry=false, keyboardType
 	} = props
 
@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
 		padding: 10,
 		borderRadius: 12,
 		width: "100%",
-		paddingRight: 25
+		paddingRight: 25,
+		backgroundColor: palette.bg_primary
 	},
 	rightIcon: {
 		position: "absolute",

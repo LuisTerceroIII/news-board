@@ -12,13 +12,13 @@ interface SlideProps {
 const styles = StyleSheet.create({
 	box: {
 		flex: 1,
-		backgroundColor: palette.primary,
+		backgroundColor: palette.bg_primary,
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	message: {
 		marginTop: 20,
-		color: palette.white,
+		color: palette.tx_paragraph,
 		width: width[9],
 		textAlign: "center"
 	}

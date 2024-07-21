@@ -19,7 +19,7 @@ export const FormField: FC<FormFieldProps & { forwardedRef?: RefObject<TextInput
 		value, labelTx, keyboardType, onChangeText, onFocus, onBlur,
 		error = false, errorsTx = [dictionary.errors?.generic_error], onSubmitEditing,
 		secureTextEntry, rightIcon = undefined,
-		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.grey,
+		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.disabled,
 		rightIconStyle={}
 	} = props
 
@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 38,
-		backgroundColor: palette.white,
+		backgroundColor: palette.bg_primary,
 		width: width[9],
 		borderRadius: corners[0],
 	},
 	error: {
-		borderColor: palette.red,
+		borderColor: palette.error,
 		borderWidth: 1.5,
 	},
 })

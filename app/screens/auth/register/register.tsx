@@ -103,6 +103,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 			<Text
 				tx={dictionary.auth?.register_title}
 				variant={TextVariant.LOGO_SUBTITLE}
+				style={{color: palette.primary}}
 			/>
 			<View style={styles.formBox}>
 				{/* Username */}
@@ -181,7 +182,7 @@ export const RegisterScreen: FC<ScreenNavigationProps> = ({ navigation }): React
 
 const styles = StyleSheet.create({
 	box: {
-		backgroundColor: palette.primary,
+		backgroundColor: palette.bg_primary,
 		alignItems: "center",
 		paddingTop: spacing.paddingTop[0],
 		paddingBottom: spacing.paddingBottom[2],

@@ -27,9 +27,9 @@ export const HomeHeader = () => {
 				style={styles.searchNewsInput} 
 				onSubmitEditing={search} 
 				placeholderTx={dictionary.homeFilter?.search}
-				placeholderTextColor={palette.grey}
+				placeholderTextColor={palette.tx_paragraph}
 				rightIcon='search'
-				rightIconColor={palette.grey}
+				rightIconColor={palette.primary}
 				rightIconSize={20}
 				rightIconOnPress={keywordFilter?.length > 0 ? search : undefined}
 			/>
@@ -40,7 +40,7 @@ export const HomeHeader = () => {
 
 const styles = StyleSheet.create({
 	box: {
-		backgroundColor: palette.secondary,
+		backgroundColor: palette.primary,
 		justifyContent: "space-between",
 		alignItems: "center",
 		flexDirection: "row",
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
 		borderRadius: 100,
 		borderColor: palette.active,
 		borderWidth: 1.2,
-		color: palette.white
+		color: palette.tx_paragraph
 	}
 })

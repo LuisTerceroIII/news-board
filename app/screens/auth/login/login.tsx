@@ -82,6 +82,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 			<Text
 				tx={dictionary.auth?.login_title}
 				variant={TextVariant.LOGO_SUBTITLE}
+				style={{color: palette.primary}}
 			/>
 			<View style={styles.formBox}>
 				{/* Email */}
@@ -137,7 +138,7 @@ export const LoginScreen: FC<ScreenNavigationProps> = ({ navigation }): React.JS
 
 const styles = StyleSheet.create({
 	box: {
-		backgroundColor: palette.primary,
+		backgroundColor: palette.bg_primary,
 		alignItems: "center",
 		paddingTop: spacing.paddingTop[0],
 		paddingBottom: spacing.paddingBottom[2],

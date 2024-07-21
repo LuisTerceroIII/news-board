@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
 		columnGap: 10,
 		flexDirection: "row"
 	},
+	tx: {
+		color: palette.primary,
+	},
 	active: {
 		color: palette.active,
 	}
@@ -29,7 +32,7 @@ export const ActiveWordTitle: FC<TitleProps> = (props) => {
 				key={tx}
 				tx={tx}
 				variant={TextVariant.LOGO_TITLE} 
-				style={[active && styles.active, textStyle]}
+				style={[styles.tx, active && styles.active, textStyle]}
 			/>
 		)
 	})

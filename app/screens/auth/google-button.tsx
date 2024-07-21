@@ -21,7 +21,7 @@ export const GoogleButton: FC<GoogleButtonProps> = (props) => {
 			<Text
 				tx={tx}
 				variant={TextVariant.PARAGRAPH}
-				style={{ color: palette.primary}}
+				style={{ color: palette.bg_primary}}
 			/>
 		</TouchableOpacity>
 	)
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 	box: {
 		width: width[9],
 		paddingVertical: 26,
-		backgroundColor: palette.white,
+		backgroundColor: palette.primary,
 		justifyContent: "center",
 		alignItems: "center",
 		borderRadius: corners[0],

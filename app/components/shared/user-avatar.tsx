@@ -33,7 +33,7 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
 				<SvgIcon
 					icon="userAvatar"
 					width={size}
-					linesColor={palette.white}
+					linesColor={palette.secondary}
 				/>
 			}
 

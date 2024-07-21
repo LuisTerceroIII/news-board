@@ -32,7 +32,7 @@ export const RootNavigation = (): React.JSX.Element => {
 		<Stack.Navigator
 			screenOptions={({ navigation }) => ({
 				headerStyle: { backgroundColor: palette.primary },
-				headerTintColor: palette.white,
+				headerTintColor: palette.secondary,
 				headerLeft: ({label}) => <Header tx={label} onPress={navigation.goBack} />,
 				headerTitleStyle: { fontFamily: fontFamily.nunito.extraBold, fontSize: 24 }
 			})}

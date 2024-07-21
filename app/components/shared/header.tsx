@@ -21,7 +21,7 @@ export const Header: FC<HeaderProps> = (props) => {
             <SvgIcon
                 icon="goBack"
                 width={30}
-                linesColor={palette.white}
+                linesColor={palette.secondary}
                 onPress={onPress}
             />
             <Text variant={TextVariant.TITLE} tx={tx} />

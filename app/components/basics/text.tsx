@@ -36,45 +36,45 @@ export const Text: FC<TextProps> = (props) => {
 const styles = StyleSheet.create({
 	[TextVariant.LOGO_TITLE]: {
 		fontSize: 40,
-		color: palette.white,
+		color: palette.secondary,
 		fontFamily: fontFamily.jomolhari,
 		lineHeight: 50
 	},
 	[TextVariant.LOGO_SUBTITLE]: {
 		fontSize: 30,
-		color: palette.white,
+		color: palette.secondary,
 		fontFamily: fontFamily.jomolhari,
 		lineHeight: 50
 	},
 	[TextVariant.TITLE]: {
 		fontSize: 24,
-		color: palette.white,
+		color: palette.primary,
 		fontFamily: fontFamily.nunito.bold,
 		fontWeight: 800
 	},
 	[TextVariant.SUBTITLE]: {
 		fontSize: 18,
-		color: palette.white,
+		color: palette.primary,
 		fontFamily: fontFamily.nunito.bold,
 		fontWeight: 800
 	},
 	[TextVariant.NOTE]: {
 		fontSize: 14,
-		color: palette.white,
+		color: palette.secondary,
 		fontFamily: fontFamily.nunito.regular,
 		fontWeight: 400
 	},
 	[TextVariant.ERROR]: {
 		fontSize: 14,
-		color: palette.red,
+		color: palette.error,
 		fontFamily: fontFamily.nunito.regular,
 		fontWeight: 400
 	},
 	[TextVariant.PARAGRAPH]: {
 		fontSize: 18,
-		color: palette.white,
+		color: palette.tx_paragraph,
 		fontFamily: fontFamily.nunito.regular,
-		fontWeight: 400
+		fontWeight: 500
 	},
 	[TextVariant.LINK]: {
 		fontSize: 18,

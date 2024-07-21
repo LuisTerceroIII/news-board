@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
 		height: 47,
 		borderRadius: 12,
 		paddingHorizontal: 25,
-		backgroundColor: palette.secondary,
-		color: palette.white,
+		backgroundColor: palette.primary,
+		color: palette.secondary,
 		textAlign: "center",
 		justifyContent: "center",
 		alignItems: "center"
 	},
 	tx: {
-		color: palette.white,
+		color: palette.secondary,
 		fontSize: 18,
 		fontWeight: 800
 	}

@@ -3,6 +3,7 @@ import { Modal, StyleSheet, View } from 'react-native'
 import { Spinner, Text, TextVariant } from "@components/index"
 import { dictionary } from '@app/dictionary/dictionary'
 import { LoadingTx } from '@app/dictionary/es'
+import { palette } from '@app/theme'
 
 type LoadingOverlayProps = {
 	visible: boolean,
@@ -26,7 +27,7 @@ export const LoadingOverlay: FC<LoadingOverlayProps> = (props) => {
 const styles = StyleSheet.create({
 	overlay: {
 		flex: 1,
-		backgroundColor: "rgba(100, 100, 99, 0.26)",
+		backgroundColor: palette.bg_overlay,
 		justifyContent: "center",
 		alignItems: "center",
 		rowGap: 45

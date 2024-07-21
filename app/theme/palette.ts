@@ -1,10 +1,12 @@
 export const palette = {
-    primary: "#18202B",
-    secondary: "#1C3655",
+    primary: "#1C3655",
+    secondary: "#F0FBFD",
+    bg_primary: "#F0FBFD",
+    tx_paragraph: "#607182",
     active: "#6BA8F0",
-    white: "#F0F1F1",
-    red: "#EC4949",
-    grey: "#747A82"
+    disabled: "#607182",
+    error: "#EC4949",
+    bg_overlay: "rgba(24, 32, 43, 0.281)"
 }
 
 export type paletteType = keyof typeof palette
