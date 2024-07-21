@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 		paddingBottom: spacing.paddingBottom[0],
 		paddingHorizontal: spacing.paddingHorizontal,
 		alignItems: "center",
-		backgroundColor: palette.primary,
+		backgroundColor: palette.bg_primary,
 		rowGap: 20,
 		flexGrow: 1
 	},

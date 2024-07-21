@@ -12,6 +12,7 @@ export const UserProfile: FC<ScreenNavigationProps> = ({route, navigation}) => {
 	
 	const dispatch = useAppDispatch()
 	const { email, fullName } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
+	console.log("🚀 ~ fullName:", fullName)
 	const signOut = () => dispatch(signOutAsync())
 
 	return (
@@ -19,7 +20,7 @@ export const UserProfile: FC<ScreenNavigationProps> = ({route, navigation}) => {
             contentContainerStyle={styles.box}
             showsVerticalScrollIndicator={false}
         >
-            <UserAvatar size={90} />
+            <UserAvatar size={90} iconColor={palette.primary}/>
             <Text tx={fullName} variant={TextVariant.SUBTITLE} />
             <Text tx={email} variant={TextVariant.PARAGRAPH} />
             <Button style={{ alignSelf: "center" }} tx="Cerrar session" onPress={signOut} />

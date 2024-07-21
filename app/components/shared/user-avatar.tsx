@@ -7,11 +7,12 @@ import { palette } from '@app/theme'
 interface UserAvatarProps {
 	onPress?: () => void,
 	size?: number
+	iconColor?: string
 }
 
 export const UserAvatar: FC<UserAvatarProps> = (props) => {
 
-	const { onPress, size = 45 } = props
+	const { onPress, size = 45, iconColor=palette.secondary } = props
 	const photoURL = useSelector(getUserPhotoURL)
 
 	return (
@@ -33,7 +34,7 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
 				<SvgIcon
 					icon="userAvatar"
 					width={size}
-					linesColor={palette.secondary}
+					linesColor={iconColor}
 				/>
 			}
 
