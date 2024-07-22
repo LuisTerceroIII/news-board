@@ -28,21 +28,20 @@ export const HomeTabsStack = () => {
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ color, size }) => (
-                      <SvgIcon icon="article" linesColor={color} width={30} />
+                      <SvgIcon icon="home" linesColor={color} width={30} />
                     ),
                     header: HomeHeader,
-                   
                 }}
             />
             <Tab.Screen
-                key={ScreenNames.HOME_FILTERS}
-                name={ScreenNames.HOME_FILTERS}
+                key={ScreenNames.HOME_GLOBAL}
+                name={ScreenNames.HOME_GLOBAL}
                 component={HomeFiltersScreen}
                 options={{
                     tabBarShowLabel: false,
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => (
-                      <SvgIcon icon="filter" linesColor={color} width={30} />
+                      <SvgIcon icon="world" linesColor={color} width={30} />
                     ),
                 }}
             />

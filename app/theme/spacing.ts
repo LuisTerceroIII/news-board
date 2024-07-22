@@ -17,6 +17,7 @@ export const spacing = {
 export const corners = [
     8,
     12,
+    16,
     19
 ]
 

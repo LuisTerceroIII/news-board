@@ -1,3 +1,4 @@
+import { Interest } from "@app/model/entities/interest";
 import { ErrorsTx } from "@dictionary/es";
 
 export interface ErrorInputTx {
@@ -13,4 +14,8 @@ export enum ReqState {
     PENDING = "pending",
     SUCCEEDED = "succeeded",
     FAILED = "failed"
+}
+export const MixInterest: Interest = {
+    id: "MIX",
+    keyword: "Mix" 
 }
