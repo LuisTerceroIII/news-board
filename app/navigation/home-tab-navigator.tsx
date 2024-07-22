@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { ScreenNames } from "@navigation/screen-names"
-import { HomeFiltersScreen, HomeScreen } from "@app/screens"
+import { HomeGlobalFeedScreen, HomeUserFeedScreen } from "@app/screens"
 import { SvgIcon } from "@app/components"
 import { palette } from "@app/theme"
 import { HomeHeader } from "@app/screens/(homeTabs)/components/home-header"
@@ -24,7 +24,7 @@ export const HomeTabsStack = () => {
             <Tab.Screen
                 key={ScreenNames.HOME_FEED}
                 name={ScreenNames.HOME_FEED}
-                component={HomeScreen}
+                component={HomeUserFeedScreen}
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({ color, size }) => (
@@ -36,7 +36,7 @@ export const HomeTabsStack = () => {
             <Tab.Screen
                 key={ScreenNames.HOME_GLOBAL}
                 name={ScreenNames.HOME_GLOBAL}
-                component={HomeFiltersScreen}
+                component={HomeGlobalFeedScreen}
                 options={{
                     tabBarShowLabel: false,
                     headerShown: false,

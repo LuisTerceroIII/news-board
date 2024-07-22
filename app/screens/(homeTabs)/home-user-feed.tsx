@@ -4,12 +4,15 @@ import { usePreventGoBack } from "@app/hooks"
 import { StyleSheet, View } from "react-native"
 import { ArticlesFeed, SvgIcon, Text, TextVariant } from "@app/components"
 import { HomeInterestsSelector } from "./components/home-interests-selector"
-import { data } from "@assets/mock-data/articles-dummy"
 import { dictionary } from "@app/dictionary/dictionary"
+import { useSelector } from "react-redux"
+import { getUserFeed } from "@app/model/state/ui-slices/home/home-ui-slice"
 
-export const HomeScreen: FC = (): React.JSX.Element => {
+export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
 
 	usePreventGoBack()
+
+	const articlesFeed = useSelector(getUserFeed)
 
 	return (
 		<View style={styles.box}>
@@ -28,7 +31,7 @@ export const HomeScreen: FC = (): React.JSX.Element => {
 				</View>
 				<HomeInterestsSelector />
 			</View>
-			<ArticlesFeed data={data.data} />
+			<ArticlesFeed data={articlesFeed} />
 		</View>
 	)
 }
@@ -49,4 +52,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default HomeScreen
+export default HomeUserFeedScreen
