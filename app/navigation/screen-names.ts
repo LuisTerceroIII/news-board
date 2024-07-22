@@ -1,7 +1,7 @@
 export enum ScreenNames {
 	HOME = "home",
 	HOME_FEED = "homeFeed",
-	HOME_FILTERS = "homeFilter",
+	HOME_GLOBAL = "homeGlobal",
 	WELCOME_ON_BOARDING = "welcomeOnBoarding",
 	LOGIN = "login",
 	REGISTER = "register",

@@ -1,11 +1,7 @@
-import { ArticleIcon } from "./icons/article-icon"
-import { EyeCloseIcon } from "./icons/eye-close-icon"
-import { EyeOpenIcon } from "./icons/eye-open-icon"
-import { FilterIcon } from "./icons/filter-icon"
-import { GoBackIcon } from "./icons/go-back-icon"
-import { GoogleIcon } from "./icons/google-icon"
-import { SearchIcon } from "./icons/search-icon"
-import { UserAvatarIcon } from "./icons/user-avatar-icon"
+import { 
+    AddIcon, ArticleIcon, EyeCloseIcon, EyeOpenIcon, FilterIcon, GoBackIcon, GoogleIcon,
+    HomeIcon, SearchIcon, UserAvatarIcon, WorldIcon
+} from "./index"
 
 export const svgIcons = {
     google: GoogleIcon,
@@ -15,7 +11,10 @@ export const svgIcons = {
     eyeOpen: EyeOpenIcon,
     eyeClose: EyeCloseIcon,
     userAvatar: UserAvatarIcon,
-    goBack: GoBackIcon
+    goBack: GoBackIcon,
+    add: AddIcon,
+    world: WorldIcon,
+    home: HomeIcon
 }
 
 export type IconSvgTypes = keyof typeof svgIcons

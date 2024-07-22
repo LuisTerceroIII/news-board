@@ -6,3 +6,7 @@ export * from "./icons/eye-open-icon"
 export * from "./icons/eye-close-icon"
 export * from "./icons/user-avatar-icon"
 export * from "./icons/go-back-icon"
+export * from "./icons/add-icon"
+export * from "./icons/world-icon"
+export * from "./icons/home-icon"
+

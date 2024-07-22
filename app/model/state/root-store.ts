@@ -9,6 +9,7 @@ import SearchArticleSliceReducer from "./ui-slices/search-article-slice"
 import AuthSliceReducer from "./auth/auth-slice"
 import GlobalUISliceReducer from "./ui-slices/global-ui-slice"
 import InterestUISliceReducer from "./ui-slices/interests/interests-ui-slice"
+import HomeUISliceReducer from "./ui-slices/home/home-ui-slice"
 
 const persistConfig = {
 	key: "root",
@@ -24,7 +25,8 @@ const appReducers: Reducer = combineReducers({
 	[SlicesNames.AUTH]: AuthSliceReducer,
 	[SlicesNames.SEARCH_ARTICLE]: SearchArticleSliceReducer,
 	[SlicesNames.GLOBAL_UI]: GlobalUISliceReducer,
-	[SlicesNames.INTERESTS_UI]: InterestUISliceReducer
+	[SlicesNames.INTERESTS_UI]: InterestUISliceReducer,
+	[SlicesNames.HOME_UI]: HomeUISliceReducer
 })
 
 export const rootStore = configureStore({

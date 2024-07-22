@@ -53,7 +53,7 @@ const errors = {
 export type ErrorsTx = keyof typeof errors
 
 const loading = {
-    "general": "Procesando solicitud..."
+    general: "Procesando solicitud..."
 }
 export type LoadingTx = keyof typeof loading
 
@@ -92,6 +92,12 @@ const interests = [
 const homeFilter = {
     search: "Buscar..."
 }
+const homeFeed = {
+    your_interests: "Tus Intereses"
+}
+const article = {
+    by: "Por:" 
+}
 
 
 export default {
@@ -101,5 +107,7 @@ export default {
     loading,
     interests,
     interestsOnBoarding,
-    homeFilter
+    homeFilter,
+    article,
+    homeFeed
 }
