@@ -5,6 +5,7 @@ import { useAppDispatch } from "@model/state/root-store";
 import { getRequestState, getResultArticles, searchByKeywordAsync, setActionArticle } from "@model/state/ui-slices/search-article-slice";
 import { ArticleCard, Text, TextVariant } from "@components/index";
 import { ScreenNavigationProps } from "@navigation/index";
+import { palette } from "@app/theme";
 
 export const ArticlesSearchResult: FC<ScreenNavigationProps> = ({route, navigation}) => {
 	
@@ -28,7 +29,7 @@ export const ArticlesSearchResult: FC<ScreenNavigationProps> = ({route, navigati
 	}, [resultArticles?.length, keyword])
 
 	return (
-		<>
+		<View style={{ backgroundColor: palette.bg_primary}}>
 			<Text
 				tx={keyword} 
 				variant={TextVariant.SUBTITLE} 
@@ -39,6 +40,6 @@ export const ArticlesSearchResult: FC<ScreenNavigationProps> = ({route, navigati
 					{newsResults}
 				</ScrollView>
 			)}
-		</>
+		</View>
 	);
 }

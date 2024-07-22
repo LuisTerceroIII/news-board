@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
 		fontWeight: 800
 	},
 	[TextVariant.NOTE]: {
-		fontSize: 14,
-		color: palette.secondary,
+		fontSize: 15,
+		color: palette.tx_paragraph,
 		fontFamily: fontFamily.nunito.regular,
-		fontWeight: 400
+		fontWeight: 500
 	},
 	[TextVariant.ERROR]: {
 		fontSize: 14,

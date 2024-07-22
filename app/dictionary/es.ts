@@ -92,6 +92,9 @@ const interests = [
 const homeFilter = {
     search: "Buscar..."
 }
+const article = {
+    by: "Por:" 
+}
 
 
 export default {
@@ -101,5 +104,6 @@ export default {
     loading,
     interests,
     interestsOnBoarding,
-    homeFilter
+    homeFilter,
+    article
 }

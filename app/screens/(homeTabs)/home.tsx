@@ -1,60 +1,38 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
-import { navigate, ScreenNames } from "@navigation/index";
-import { Input, Button, Text, TextVariant } from "@components/index";
-import { getKeyword, onChangeKeyword } from "@model/state/ui-slices/search-article-slice";
-import { SlicesNames } from "@model/state/slices-names";
-import { AppStore, useAppDispatch } from "@model/state/root-store";
-import { signOutAsync } from "@model/state/auth/auth-async-actions";
-import { palette } from "@theme/index";
-import { hasInterests } from "@app/model/state/user/user-views";
-import { usePreventGoBack } from "@app/hooks";
+import React, { FC, useEffect, useMemo, useState } from "react"
+import { palette, spacing, width } from "@theme/index"
+import { usePreventGoBack } from "@app/hooks"
+import { StyleSheet, Text } from "react-native"
+import { FlashList } from "@shopify/flash-list"
+import { ArticleCard } from "@app/components"
+import { data } from "@assets/mock-data/articles-dummy"
+import { Article } from "@app/model/entities/article"
 
 export const HomeScreen: FC = (): React.JSX.Element => {
-
 	usePreventGoBack()
-	const keywordFilter = useSelector(getKeyword)
-	const { submitState } = useSelector((state: AppStore) => state.authSlice)
-	const { id, email, fullName, registerAt, interests } = useSelector(( state: AppStore ) => state?.[SlicesNames.USER])
-	const userHasInterests = useSelector(hasInterests)
-	const dispatch = useAppDispatch()
+
+	const articles = useMemo(() => {
+		return ({item} : {item: Article}) => {
+			return <ArticleCard article={item} key={item?.id} style={{paddingBottom: 21}} />
+		}
+	}, [])
 
 	return (
-		<ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.box}>
-			<KeyboardAvoidingView behavior="padding">
-				<Text tx="Tus News" variant={TextVariant.TITLE} style={styles.heading} />
-				<Text tx={JSON.stringify({
-					id,
-					email,
-					fullName,
-					registerAt,
-					interests
-				}, null, 2)} variant={TextVariant.PARAGRAPH} />
-			</KeyboardAvoidingView>
-		</ScrollView>
-	);
+		<FlashList
+			data={data.data}
+			renderItem={articles}
+			estimatedItemSize={200}
+			showsVerticalScrollIndicator={false}
+			contentContainerStyle={styles.articlesBox}
+	
+		/>
+	)
 }
 
 const styles = StyleSheet.create({
-	box: {
-		backgroundColor: palette.bg_primary,
-		flexGrow: 1
-	},
-	heading: {
-		color: "purple",
-		alignSelf: "center"
-	},
-	searchNewsInput: {
-		marginVertical: 20,
-		width:  "95%",
-		alignSelf: "center"
-	},
-	link: {
-		color: "white",
-		fontSize: 16,
-		fontWeight: 600
+	articlesBox: {
+		paddingTop: 21,
+		backgroundColor: palette.bg_primary
 	}
 })
 
-export default HomeScreen;
+export default HomeScreen

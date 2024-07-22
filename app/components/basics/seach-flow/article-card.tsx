@@ -1,41 +1,16 @@
 import React, { FC } from 'react'
-import { Image, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Article } from '@model/entities/article'
 import { Text, TextVariant } from '../text'
-
+import { palette, width } from '@app/theme'
+import FastImage from 'react-native-fast-image'
+import { dictionary } from '@app/dictionary/dictionary'
+import { formatDateToMMDDYY } from '@app/util/date'
 interface ArticleCardProps {
 	style?: ViewStyle
 	article?: Article
 	onPress?: () => void
 }
-
-const styles = StyleSheet.create({
-	mainBox: {
-		borderRadius: 19,
-		backgroundColor: "white",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
-		padding: 16
-	},
-	image: {
-		width: "100%",
-		height: 150,
-		resizeMode: "cover",
-		borderRadius: 8
-	},
-	title: {
-		paddingTop: 10,
-	},
-	description: {
-		paddingTop: 5
-	}
-})
 
 export const ArticleCard: FC<ArticleCardProps> = (props) => {
 
@@ -43,14 +18,60 @@ export const ArticleCard: FC<ArticleCardProps> = (props) => {
 
 	return (
 		<TouchableOpacity style={[styles.mainBox, style]} onPress={onPress}>
-			<Image source={{ uri: article?.image }} style={styles.image} />
-			<Text variant={TextVariant.SUBTITLE} tx={article?.title || ""} style={styles.title} />
-			<Text 
-				tx={article?.description || ""} 
+			<View>
+				<FastImage
+					source={{
+						uri: article?.photoURL || article?.image,
+						cache: 'immutable' // Only updates if url changes.
+					}}
+					resizeMode='cover'
+					fallback//If load fail fallback to using Image (native compo)
+					style={styles.image}
+				/>
+				<View style={styles.titleBox}>
+					<Text
+						tx={article?.title}
+						variant={TextVariant.SUBTITLE}
+						style={styles.title}
+					/>
+				</View>
+			</View>
+			<Text
+				tx={`${dictionary.article?.by} ${article?.source?.name} - ${formatDateToMMDDYY(article?.publishedAt || "")}`}
+				variant={TextVariant.NOTE}
+				numberOfLines={3}
+				style={{marginTop: 9}}
+			/>
+			<Text
+				tx={article?.description}
 				variant={TextVariant.PARAGRAPH}
-				numberOfLines={2} 
-				style={styles.description} 
+				numberOfLines={3}
+				style={{marginTop: 4}}
 			/>
 		</TouchableOpacity>
 	)
 }
+
+const styles = StyleSheet.create({
+	mainBox: {
+		position: "relative",
+		width: width[9],
+		alignSelf: "center"
+	},
+	image: {
+		width: width[9],
+		height: 200
+	},
+	titleBox: {
+		backgroundColor: palette.tx_overlay,
+		position: "absolute",
+		bottom: 5,
+		paddingHorizontal: 12,
+		width: width[9] - 10,
+		alignSelf: "center",
+		paddingVertical: 5
+	},
+	title: {
+		color: palette.secondary
+	}
+})
