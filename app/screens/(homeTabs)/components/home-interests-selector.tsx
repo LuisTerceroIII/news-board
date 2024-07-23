@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
 	box: {
 		columnGap: 20,
 		paddingHorizontal: spacing.paddingHorizontal,
-		marginTop: 18
+		marginTop: 10,
+		paddingBottom: 10
 	}
 })

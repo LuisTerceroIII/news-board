@@ -36,7 +36,5 @@ export const getUserFeed = (state: AppStore) => {
     return mixIsSelected ? state[SlicesNames.HOME_UI]?.userFeedMix : state[SlicesNames.HOME_UI]?.userFeedActionInterests
 }
 export const getGlobalFeed = (state: AppStore) => state[SlicesNames.HOME_UI]?.globalFeed
-
-
 //Reducer
 export default HomeUISlice.reducer

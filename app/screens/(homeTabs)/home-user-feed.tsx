@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 		
 	},
 	selectorBox: {
-		marginTop: 24,
+		marginTop: 10,
 	},
 	titleBox: {
 		flexDirection: "row",

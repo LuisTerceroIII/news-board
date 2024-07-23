@@ -33,9 +33,9 @@ export const ToggleBox: FC<ToggleBoxProps> = (props) => {
 
 const styles = StyleSheet.create({
 	box: {
-		paddingVertical: 11,
+		paddingVertical: 5,
 		paddingHorizontal: 11,
-		borderRadius: corners[2]
+		borderRadius: corners[1]
 	}
 })
 
