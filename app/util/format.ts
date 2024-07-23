@@ -18,11 +18,12 @@
  */
 export const getDomainName = (url: string): string => {
     try {
-        const parsedUrl = new URL(url)
+        const formattedUrl = url.startsWith("http://") || url.startsWith("https://") ? url : `http://${url}`
+        const parsedUrl = new URL(formattedUrl)
         let hostname = parsedUrl.hostname
         if (hostname.startsWith("www.")) hostname = hostname.substring(4)
         const parts = hostname.split(".")
-        const domainPart = parts[0]
+        const domainPart = parts.length > 2 ? parts[parts.length - 2] : parts[0]
         const capitalizedDomain = domainPart.charAt(0).toUpperCase() + domainPart.slice(1)
         return capitalizedDomain
     } catch (error) {

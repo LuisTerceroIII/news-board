@@ -29,7 +29,7 @@ export class TheNewsAPI {
 				}
 			}
 			const response = await axios(config)
-			const mapToArticleType: Article[] = response?.data?.map((article: TheNewsApiResponse) => mapArticlesTheNewsAPI(article))
+			const mapToArticleType: Article[] = response?.data?.data?.map((article: TheNewsApiResponse) => mapArticlesTheNewsAPI(article))
 			return mapToArticleType
 
 		} catch (e) {
