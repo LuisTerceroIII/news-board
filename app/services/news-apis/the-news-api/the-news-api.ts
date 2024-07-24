@@ -1,10 +1,8 @@
-import axios from 'axios'
-import { Interest } from '@app/model/entities/interest'
-import { LanguageCode } from '@app/model/entities/enums'
-import { Article } from '@app/model/entities/article'
-import { mapArticlesTheNewsAPI } from './data-mapping'
-import { TheNewsApiResponse } from './the-news-api.data.type'
-
+import axios from "axios"
+import { LanguageCode } from "@app/model/entities/enums"
+import { Article } from "@app/model/entities/article"
+import { mapArticlesTheNewsAPI } from "./data-mapping"
+import { TheNewsApiResponse } from "./the-news-api.data.type"
 export class TheNewsAPI {
 
 	constructor() { }
@@ -25,7 +23,7 @@ export class TheNewsAPI {
 				url: `${this.url}top?${apiKey}&${language}&${limit}&${pageToReq}`,
 				signal: abortController.signal,
 				headers: {
-					'Accept': 'application/json'
+					"Accept": "application/json"
 				}
 			}
 			const response = await axios(config)
@@ -34,7 +32,7 @@ export class TheNewsAPI {
 
 		} catch (e) {
 			if (abortController.signal.aborted) {
-				console.log('Data fetching cancelled', e)
+				console.log("Data fetching cancelled", e)
 			} else {
 				console.log("Error", e)
 
@@ -42,10 +40,10 @@ export class TheNewsAPI {
 		}
 	}
 
-	async getInterestNews(interest: Interest, page = 1, locale: LanguageCode, abortController: AbortController) {
+	async getInterestNews(interest: string, page = 1, locale: LanguageCode, abortController: AbortController) {
 
 		try {
-			const keyword = `search=${interest.keyword}`
+			const keyword = `search=${interest}`
 			const apiKey = `api_token=${process.env.THE_NEWS_API_KEY}`
 			const pageToReq = `page=${page}`
 			const language = `locale=${locale}`
@@ -56,19 +54,35 @@ export class TheNewsAPI {
 				url: `${this.url}top?${keyword}&${apiKey}&${language}&${limit}&${pageToReq}`,
 				signal: abortController.signal,
 				headers: {
-					'Accept': 'application/json'
+					"Accept": "application/json"
 				}
 			}
 			const response = await axios(config)
-			const mapToArticleType: Article[] = response?.data?.map((article: TheNewsApiResponse) => mapArticlesTheNewsAPI(article))
-			return mapToArticleType
+			const mapToArticleType: Article[] = response?.data?.data?.map((article: TheNewsApiResponse) => mapArticlesTheNewsAPI(article))
+			return mapToArticleType || []
 
 		} catch (e) {
 			if (abortController.signal.aborted) {
-				console.log('Data fetching cancelled', e)
+				console.log("Data fetching cancelled", e)
 			} else {
-				console.log("Error", e)
+				console.log("Error getInterestNews", e)
 			}
+		}
+	}
+
+	async getMultipleInterestsNews(interests: string[], page = 1, locale: LanguageCode, abortController: AbortController) {
+
+		try {
+			
+			const promisesMap = interests.map(keyword => this.getInterestNews(keyword || "", page, locale, abortController)) 
+			const res = await Promise.all(promisesMap)
+			return res?.flat() || []
+		} catch (e) {
+			if (abortController.signal.aborted) {
+				console.log("Data fetching cancelled", e)
+			} else {
+				console.log("Error getMultipleInterestsNews", e)
+			} 
 		}
 	}
 }
