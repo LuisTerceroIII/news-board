@@ -8,7 +8,7 @@ import { dictionary } from "@app/dictionary/dictionary"
 import { useSelector } from "react-redux"
 import { actionInterestFeedReq, getUserFeed, userMixFeedReq, viewingMixFeed } from "@app/model/state/ui-slices/home/home-ui-slice"
 import { useAppDispatch } from "@app/model/state/root-store"
-import { fetchUserMixFeedAsync } from "@app/model/state/ui-slices/home/home-ui-async-actions"
+import { fetchSingleInterestNewsAsync, fetchUserMixFeedAsync } from "@app/model/state/ui-slices/home/home-ui-async-actions"
 import { ReqState } from "@app/util/types"
 
 export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
@@ -23,7 +23,7 @@ export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
 
 	const loadNews = () => {
 		if (viewingMixNews) dispatch(fetchUserMixFeedAsync())
-		else Alert.alert("Implementar action interest feed")
+		else dispatch(fetchSingleInterestNewsAsync())
 	}
 
 	return (

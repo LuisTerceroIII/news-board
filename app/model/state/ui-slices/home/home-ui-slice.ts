@@ -5,7 +5,7 @@ import { AppStore } from "../../root-store"
 import { Interest } from "@app/model/entities/interest"
 import { data } from "@assets/mock-data/articles-dummy"
 import { MixInterest, ReqState } from "@app/util/types"
-import { fetchGlobalFeedAsync, fetchUserMixFeedAsync } from "./home-ui-async-actions"
+import { fetchGlobalFeedAsync, fetchSingleInterestNewsAsync, fetchUserMixFeedAsync } from "./home-ui-async-actions"
 export interface MixInterestsFeedTracker {
     interestId?: string
     keyword?: string
@@ -47,8 +47,11 @@ export const HomeUISlice = createSlice({
     name: SlicesNames.GLOBAL_UI,
     initialState,
     reducers: {
-        setActionInterest: (state, action: PayloadAction<Article>) => {
+        setActionInterest: (state, action: PayloadAction<Interest>) => {
+            if(state.actionInterest?.id === action.payload?.id) return
             state.actionInterest = action.payload
+            state.userFeedActionInterests = []
+            state.actionInterestFeedPage = 1
         },
         nextPageGlobalFeed: (state) => {
             state.globalFeedPage = state.globalFeedPage + 1
@@ -107,6 +110,19 @@ export const HomeUISlice = createSlice({
             })
             .addCase(fetchUserMixFeedAsync.rejected, (state, action) => {
                 state.userMixFeedReq = ReqState.FAILED
+            })
+            //Action interest feed
+            .addCase(fetchSingleInterestNewsAsync.pending, (state, action) => {
+                state.actionInterestFeedReq = ReqState.PENDING
+            })
+            .addCase(fetchSingleInterestNewsAsync.fulfilled, (state, action) => {
+                state.actionInterestFeedReq = ReqState.IDLE
+                state.actionInterestFeedPage = state.actionInterestFeedPage + 1
+                //@ts-ignore
+                state.userFeedActionInterests = [...state.userFeedActionInterests, ...action?.payload]
+            })
+            .addCase(fetchSingleInterestNewsAsync.rejected, (state, action) => {
+                state.actionInterestFeedReq = ReqState.FAILED
             })
     }
 })

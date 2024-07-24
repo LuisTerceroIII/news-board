@@ -26,9 +26,26 @@ export const fetchGlobalFeedAsync = createAsyncThunk(
         }
     }
 )
-
+export const fetchSingleInterestNewsAsync = createAsyncThunk(
+    `${SlicesNames.HOME_UI}/fetchSingleInterestNews`,
+    async (payload, { getState, rejectWithValue, dispatch }) => {
+        try {
+            const state: AppStore = getState() as AppStore
+            const homeState: HomeUIState = state?.[SlicesNames.HOME_UI]
+            const actionInterest: Interest = homeState?.actionInterest
+            const page = homeState?.actionInterestFeedPage
+            // Request all the interests
+            const abortController = new AbortController()
+            const newArticles: Article[] = await api.theNewsAPI.getInterestNews(actionInterest?.keyword || "", page, LanguageCode.Spanish, abortController) || []
+            return newArticles
+        } catch (e) {
+            rejectWithValue(`e`)
+            Alert.alert(`e`)
+        }
+    }
+)
 export const fetchUserMixFeedAsync = createAsyncThunk(
-    `${SlicesNames.HOME_UI}/fetchUserMixFeedAsync`,
+    `${SlicesNames.HOME_UI}/fetchUserMixFeed`,
     async (payload, { getState, rejectWithValue, dispatch }) => {
         try {
             const state: AppStore = getState() as AppStore
