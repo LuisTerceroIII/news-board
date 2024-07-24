@@ -6,6 +6,7 @@ import rootStore from "./app/model/state/root-store"
 import auth from '@react-native-firebase/auth'
 import { onAuthStateChange } from "./app/model/state/auth/auth-slice"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import 'react-native-url-polyfill/auto'
 
 function App(): React.JSX.Element {
 

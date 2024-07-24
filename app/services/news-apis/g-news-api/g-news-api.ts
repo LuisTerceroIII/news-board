@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GNewsParamsFilter } from '../dtos.types';
+import { GNewsParamsFilter } from './g-news-api.type';
 export class GNewsAPI {
 
     constructor() {}

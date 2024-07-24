@@ -1,18 +1,30 @@
 import React, { FC } from "react"
 import { palette, spacing } from "@theme/index"
 import { usePreventGoBack } from "@app/hooks"
-import { StyleSheet, View } from "react-native"
+import { Alert, StyleSheet, View } from "react-native"
 import { ArticlesFeed, SvgIcon, Text, TextVariant } from "@app/components"
 import { HomeInterestsSelector } from "./components/home-interests-selector"
 import { dictionary } from "@app/dictionary/dictionary"
 import { useSelector } from "react-redux"
-import { getUserFeed } from "@app/model/state/ui-slices/home/home-ui-slice"
+import { actionInterestFeedReq, getUserFeed, userMixFeedReq, viewingMixFeed } from "@app/model/state/ui-slices/home/home-ui-slice"
+import { useAppDispatch } from "@app/model/state/root-store"
+import { fetchSingleInterestNewsAsync, fetchUserMixFeedAsync } from "@app/model/state/ui-slices/home/home-ui-async-actions"
+import { ReqState } from "@app/util/types"
 
 export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
 
 	usePreventGoBack()
 
 	const articlesFeed = useSelector(getUserFeed)
+	const viewingMixNews = useSelector(viewingMixFeed)
+	const mixFeedLoading = useSelector(userMixFeedReq)
+	const actionInterestFeedLoading = useSelector(actionInterestFeedReq)
+	const dispatch = useAppDispatch()
+
+	const loadNews = () => {
+		if (viewingMixNews) dispatch(fetchUserMixFeedAsync())
+		else dispatch(fetchSingleInterestNewsAsync())
+	}
 
 	return (
 		<View style={styles.box}>
@@ -31,7 +43,11 @@ export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
 				</View>
 				<HomeInterestsSelector />
 			</View>
-			<ArticlesFeed data={articlesFeed} />
+			<ArticlesFeed
+				data={articlesFeed}
+				onEndReached={loadNews}
+				showLoading={viewingMixNews ? mixFeedLoading === ReqState.PENDING : actionInterestFeedLoading === ReqState.PENDING}
+			/>
 		</View>
 	)
 }
@@ -40,7 +56,6 @@ const styles = StyleSheet.create({
 	box: {
 		flexGrow: 1,
 		backgroundColor: palette.bg_primary,
-		
 	},
 	selectorBox: {
 		marginTop: 10,
