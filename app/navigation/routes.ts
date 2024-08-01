@@ -46,7 +46,13 @@ const User: Route[] = [
 	}
 ]
 const Articles: Route[] = [
-	{ name: ScreenNames.ARTICLE, component: ArticleScreen, options }
+	{
+		name: ScreenNames.ARTICLE, 
+		component: ArticleScreen,
+        options: ({ route }) => {
+			return { title: route.params?.title }
+		}
+	}
 ]
 //Auth must be include in both lists to avoid jump on load interests
 export const authScreens = [...Auth, ...Home, ...Interests, ...User, ...Articles];

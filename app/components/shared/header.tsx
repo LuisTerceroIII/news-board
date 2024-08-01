@@ -1,26 +1,21 @@
 import React, { FC } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Input, SvgIcon, Text, TextVariant, UserAvatar } from '@components/index'
-import { useSelector } from 'react-redux'
-import { getKeyword, onChangeKeyword } from '@app/model/state/ui-slices/search-article-slice'
-import { useAppDispatch } from '@app/model/state/root-store'
-import { navigate, ScreenNames } from '@app/navigation'
-import { palette, reponsiveW, width } from '@app/theme'
-import { dictionary } from '@app/dictionary/dictionary'
-
+import { StyleSheet, View, ViewStyle } from 'react-native'
+import { SvgIcon, Text, TextVariant } from '@components/index'
+import { palette, width } from '@app/theme'
 interface HeaderProps {
     tx?: string
     onPress?: () => void
+    style?: ViewStyle
 }
 export const Header: FC<HeaderProps> = (props) => {
 
-    const { tx, onPress } = props
+    const { tx, onPress, style } = props
 
     return (
-        <View style={styles.box}>
+        <View style={[styles.box, style]}>
             <SvgIcon
                 icon="goBack"
-                width={30}
+                width={25}
                 linesColor={palette.secondary}
                 onPress={onPress}
             />
@@ -31,11 +26,8 @@ export const Header: FC<HeaderProps> = (props) => {
 
 const styles = StyleSheet.create({
     box: {
-        backgroundColor: palette.primary,
-        justifyContent: "flex-start",
         alignItems: "center",
         flexDirection: "row",
-        columnGap: reponsiveW("5%"),
-        height: 78
+        height: 60,
     }
 })

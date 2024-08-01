@@ -12,13 +12,13 @@ type LoadingOverlayProps = {
 
 export const LoadingOverlay: FC<LoadingOverlayProps> = (props) => {
 
-	const { visible, tx = dictionary.loading?.general } = props
+	const { visible, tx="general" } = props
 
 	return (
 		<Modal visible={visible} transparent={true}>
 			<View style={styles.overlay}>
 				<Spinner />
-				<Text variant={TextVariant.SUBTITLE} tx={tx} />
+				<Text variant={TextVariant.SUBTITLE} tx={dictionary.loading?.[tx]} />
 			</View>
 		</Modal> 
 	)

@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
 		borderRadius: 12,
 		width: "100%",
 		paddingRight: 25,
-		backgroundColor: palette.bg_primary
+		backgroundColor: palette.bg_primary,
+		color: palette.primary
 	},
 	rightIcon: {
 		position: "absolute",

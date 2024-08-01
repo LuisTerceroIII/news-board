@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
 		borderRadius: corners[0],
 		flexDirection: "row",
 		columnGap: 10,
-		paddingHorizontal: 29
+		paddingHorizontal: 40
 	}
 })

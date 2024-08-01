@@ -53,7 +53,8 @@ const errors = {
 export type ErrorsTx = keyof typeof errors
 
 const loading = {
-    general: "Procesando solicitud..."
+    general: "Procesando solicitud...",
+    loading_article: "Loading..."
 }
 export type LoadingTx = keyof typeof loading
 
@@ -93,7 +94,8 @@ const homeFilter = {
     search: "Buscar..."
 }
 const homeFeed = {
-    your_interests: "Tus Intereses"
+    your_interests: "Tus Intereses",
+    world_news: "Mundo"
 }
 const article = {
     by: "Por:" 

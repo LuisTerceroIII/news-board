@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		paddingHorizontal: reponsiveW("5%"),
 		columnGap: reponsiveW("2%"),
-		height: 78
+		height: 60
 	},
 	searchNewsInput: {
 		marginVertical: 20,

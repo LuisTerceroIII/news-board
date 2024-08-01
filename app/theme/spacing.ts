@@ -22,7 +22,7 @@ export const corners = [
 ]
 
 export const width = [
-    wp("0%"),
+    wp("5%"),
     wp("10%"),
     wp("20%"),
     wp("30%"),
@@ -36,3 +36,5 @@ export const width = [
 ]
 
 export const reponsiveW = (n: string) => wp(n)
+export const reponsiveH = (n: string) => hp(n)
+
