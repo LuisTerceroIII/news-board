@@ -20,8 +20,8 @@ export const HomeTabsStack = () => {
                     backgroundColor: palette.primary,
                     borderColor: palette.primary
                 },
-                headerStyle: { backgroundColor: palette.primary, height: 60  },
-                headerLeftContainerStyle: {paddingLeft: width[0]},
+                headerStyle: { backgroundColor: palette.primary, height: 60 },
+                headerLeftContainerStyle: { paddingLeft: width[0] },
                 headerTintColor: palette.secondary,
                 headerLeft: ({ label }) => <Header tx={label} onPress={navigation.goBack} />,
                 headerTitleStyle: { fontFamily: fontFamily.nunito.extraBold, fontSize: 24 },

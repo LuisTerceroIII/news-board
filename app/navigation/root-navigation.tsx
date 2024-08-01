@@ -27,14 +27,13 @@ export const RootNavigation = (): React.JSX.Element => {
 	const userIsLogIn = useSelector(getIsLogin)
 	const screens = userIsLogIn ? authScreens : publicScreens
 	const initialRoute = useSelector(getInitialRoute)
-	
+
 	const routesStack = (
 		<Stack.Navigator
 			screenOptions={({ navigation }) => ({
 				headerStyle: { backgroundColor: palette.primary, height: 60 },
-                headerLeftContainerStyle: { columnGap: width[0] },
 				headerTintColor: palette.secondary,
-				headerLeft: ({label}) => <Header tx={label} onPress={navigation.goBack} style={{columnGap: width[0]}}/>,
+				headerLeft: ({ label }) => <Header tx={label} onPress={navigation.goBack} style={{ columnGap: width[0] }} />,
 				headerTitleStyle: { fontFamily: fontFamily.nunito.extraBold, fontSize: 24 }
 			})}
 			initialRouteName={initialRoute}>
