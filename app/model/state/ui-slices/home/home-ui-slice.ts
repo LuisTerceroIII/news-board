@@ -6,6 +6,7 @@ import { Interest } from "@app/model/entities/interest"
 import { data } from "@assets/mock-data/articles-dummy"
 import { MixInterest, ReqState } from "@app/util/types"
 import { fetchGlobalFeedAsync, fetchSingleInterestNewsAsync, fetchUserMixFeedAsync } from "./home-ui-async-actions"
+
 export interface MixInterestsFeedTracker {
     interestId?: string
     keyword?: string
@@ -15,6 +16,7 @@ export interface MixInterestsFeedTracker {
 
 export interface HomeUIState {
     actionInterest: Interest
+    actionArticle: Article
     userFeedMix: Article[]
     userFeedActionInterests: Article[]
     globalFeed: Article[]
@@ -31,6 +33,7 @@ export interface HomeUIState {
     actionInterestFeedReq: ReqState
 }
 const initialState: HomeUIState = {
+    actionArticle: {},
     actionInterest: MixInterest,
     userFeedMix: data.data,
     userFeedActionInterests: [],
@@ -81,8 +84,10 @@ export const HomeUISlice = createSlice({
             // Check if it is necessary to increment the global mix feed page
             const interestsInMainPage = state.userMixInterestsTracker?.filter(tracker => state.userMixFeedPage === tracker.page)
             if (interestsInMainPage?.length === 0) state.userMixFeedPage = state.userMixFeedPage + 1
+        },
+        setActionArticle: (state, action: PayloadAction<Article>) => {
+            state.actionArticle = action.payload
         }
-
     },
     extraReducers: (builder) => {
         builder
@@ -131,10 +136,12 @@ export const {
     setActionInterest,
     nextPageGlobalFeed,
     setUserMixInterests,
-    nextPageInInterestsTrackers
+    nextPageInInterestsTrackers,
+    setActionArticle
 } = HomeUISlice.actions
 //Views
 export const getActionInterest = (state: AppStore) => state[SlicesNames.HOME_UI]?.actionInterest
+export const getActionArticle = (state: AppStore) => state[SlicesNames.HOME_UI]?.actionArticle
 export const viewingMixFeed = (state: AppStore) => state[SlicesNames.HOME_UI]?.actionInterest?.id === MixInterest?.id
 
 export const getUserFeed = (state: AppStore) => {

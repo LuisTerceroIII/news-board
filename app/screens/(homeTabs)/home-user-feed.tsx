@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { palette, spacing } from "@theme/index"
 import { usePreventGoBack } from "@app/hooks"
-import { Alert, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { ArticlesFeed, SvgIcon, Text, TextVariant } from "@app/components"
 import { HomeInterestsSelector } from "./components/home-interests-selector"
 import { dictionary } from "@app/dictionary/dictionary"
