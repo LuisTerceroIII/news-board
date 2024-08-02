@@ -10,8 +10,9 @@ import { actionInterestFeedReq, getUserFeed, userMixFeedReq, viewingMixFeed } fr
 import { useAppDispatch } from "@app/model/state/root-store"
 import { fetchSingleInterestNewsAsync, fetchUserMixFeedAsync } from "@app/model/state/ui-slices/home/home-ui-async-actions"
 import { ReqState } from "@app/util/types"
+import { navigate, ScreenNames, ScreenNavigationProps } from "@app/navigation"
 
-export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
+export const HomeUserFeedScreen: FC<ScreenNavigationProps> = ( { navigation } ): React.JSX.Element => {
 
 	usePreventGoBack()
 
@@ -25,6 +26,7 @@ export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
 		if (viewingMixNews) dispatch(fetchUserMixFeedAsync())
 		else dispatch(fetchSingleInterestNewsAsync())
 	}
+	const goToEditInterests = () => navigation.navigate(ScreenNames.UPDATE_INTERESTS)
 
 	return (
 		<View style={styles.box}>
@@ -38,7 +40,7 @@ export const HomeUserFeedScreen: FC = (): React.JSX.Element => {
 						icon="add"
 						linesColor={palette.primary}
 						width={30}
-						onPress={() => console.log("Hollaaa")}
+						onPress={goToEditInterests}
 					/>
 				</View>
 				<HomeInterestsSelector />

@@ -63,6 +63,11 @@ const interestsOnBoarding = {
     message: "Elige al menos 4 temas para continuar y comenzar a navegar.",
     button: "Continuar"
 }
+const editInterests = {
+    title: "Añade intereses",
+    message: "Utiliza intereses para seguir temas específicos y obtener la información que buscas.",
+    error: "Agrega al menos un interés para guardar los cambios y personalizar tu experiencia."
+}
 const interests = [
     {id: "International", keyword: "Internacional", label: "Internacional"},
     {id: "BreakingNews", keyword: "Última Hora", label: "Última Hora"},
@@ -111,5 +116,6 @@ export default {
     interestsOnBoarding,
     homeFilter,
     article,
-    homeFeed
+    homeFeed,
+    editInterests
 }

@@ -4,9 +4,11 @@ import { ParamListBase } from "@react-navigation/native"
 import {
 	LoginScreen, RegisterScreen, WelcomeOnBoardingScreen, UserProfile,
 	ArticlesSearchResult, InterestsOnBoardingScreen,
-	ArticleScreen
+	ArticleScreen,
+	UpdateInterestsScreen
 } from "@screens/index"
 import { HomeTabsStack } from "./home-tab-navigator";
+import { dictionary } from "@app/dictionary/dictionary";
 
 export interface ScreenNavigationProps {
 	route: { params?: any }
@@ -15,7 +17,7 @@ export interface ScreenNavigationProps {
 export interface Route {
 	name: string;
 	component: React.FC<{ route: any; navigation: any }>;
-	options?: object;
+	options?: unknown;
 	initialParams?: object;
 }
 const options = {
@@ -31,6 +33,15 @@ const Auth: Route[] = [
 ]
 const Interests: Route[] = [
 	{ name: ScreenNames.INTERESTS_ON_BOARDING, component: InterestsOnBoardingScreen, options },
+	{
+		name: ScreenNames.UPDATE_INTERESTS,
+		component: UpdateInterestsScreen,
+		options: {
+			headerTitle: dictionary.editInterests?.title
+		}
+	},
+
+
 ]
 const Home: Route[] = [
 	{ name: ScreenNames.HOME, component: HomeTabsStack, options },
@@ -47,9 +58,9 @@ const User: Route[] = [
 ]
 const Articles: Route[] = [
 	{
-		name: ScreenNames.ARTICLE, 
+		name: ScreenNames.ARTICLE,
 		component: ArticleScreen,
-        options: ({ route }) => {
+		options: ({ route }: { route: { params: { title: string } } }) => {
 			return { title: route.params?.title }
 		}
 	}

@@ -8,5 +8,7 @@ export enum ScreenNames {
 	SEARCH_RESULT = "searchResults",
 	INTERESTS_ON_BOARDING = "interestsOnBoarding",
 	USER_PROFILE = "userProfile",
-	ARTICLE = "article"
+	ARTICLE = "article",
+	UPDATE_INTERESTS = "updateInterests",
+
 }
