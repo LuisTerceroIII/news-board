@@ -17,5 +17,6 @@ export enum ReqState {
 }
 export const MixInterest: Interest = {
     id: "MIX",
-    keyword: "Mix" 
+    keyword: "Mix",
+    label: "Mix"
 }

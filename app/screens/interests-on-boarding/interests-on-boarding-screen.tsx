@@ -31,7 +31,7 @@ export const InterestsOnBoardingScreen: FC<ScreenNavigationProps> = ({ navigatio
 			return (
 				<TagSelector
 					key={interest.id}
-					tx={interest.keyword}
+					tx={interest.label || ""}
 					onToggle={toggle}
 					isActive={isActive}
 				/>

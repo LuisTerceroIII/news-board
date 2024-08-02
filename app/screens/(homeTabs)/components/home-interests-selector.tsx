@@ -21,7 +21,7 @@ export const HomeInterestsSelector = () => {
 			const selectInterest = () => dispatch(setActionInterest(item))
 			return (
 				<ToggleBox
-					tx={`#${item?.keyword}`}
+					tx={`#${item?.label}`}
 					isActive={isSelected}
 					onPress={selectInterest}
 				/>

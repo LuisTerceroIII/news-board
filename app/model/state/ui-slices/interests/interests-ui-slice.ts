@@ -34,6 +34,7 @@ export const InterestUISlice = createSlice({
 				state.interests = [...state.interests, {
 					id: action.payload.id,
 					keyword: action.payload.keyword,
+					label: action.payload.label,
 					lastDateRequests: getNowTimestamp(),
 					registerAt: getNowTimestamp()
 				}]
