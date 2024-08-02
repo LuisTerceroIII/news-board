@@ -11,7 +11,7 @@ export const spacing = {
         wp("30%")
 
     ],
-    paddingHorizontal: wp("2%")
+    paddingHorizontal: wp("2.5%")
 }
 
 export const corners = [

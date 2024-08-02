@@ -61,12 +61,17 @@ export type LoadingTx = keyof typeof loading
 const interestsOnBoarding = {
     title: "Personaliza tu feed",
     message: "Elige al menos 4 temas para continuar y comenzar a navegar.",
-    button: "Continuar"
+    button: "Continuar",
 }
 const editInterests = {
     title: "Añade intereses",
     message: "Utiliza intereses para seguir temas específicos y obtener la información que buscas.",
-    error: "Agrega al menos un interés para guardar los cambios y personalizar tu experiencia."
+    error: "Agrega al menos un interés para guardar los cambios y personalizar tu experiencia.",
+    suggests_title: "Sugerencias",
+    custom_title: "Intereses personalizados",
+    custom_message: "Escribe las palabras o frases que te interesan para recibir noticias relacionadas con esos temas.",
+    custom_placeholder: "Escribe lo que buscas"
+
 }
 const interests = [
     {id: "International", keyword: "Internacional", label: "Internacional"},

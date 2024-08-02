@@ -27,7 +27,7 @@ export const Input: FC<InputProps & { forwardedRef?: RefObject<TextInput> }> = f
 
 	const {
 		onChangeText, value, onBlur, onFocus, onSubmitEditing,
-		placeholderTextColor, placeholderTx, style, rightIcon = undefined,
+		placeholderTextColor=palette.disabled, placeholderTx, style, rightIcon = undefined,
 		rightIconSize = 20, rightIconOnPress = undefined, rightIconColor=palette.disabled,
 		rightIconStyle={}, secureTextEntry=false, keyboardType
 	} = props
