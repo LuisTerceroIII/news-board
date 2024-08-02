@@ -4,8 +4,7 @@ import { WebView } from 'react-native-webview'
 import { FC, useEffect } from 'react'
 import { ScreenNavigationProps } from '@app/navigation'
 import { getActionArticle } from '@app/model/state/ui-slices/home/home-ui-slice'
-import { LoadingOverlay, Spinner } from '@app/components'
-import { dictionary } from '@app/dictionary/dictionary'
+import { LoadingOverlay } from '@app/components'
 
 export const ArticleScreen: FC<ScreenNavigationProps> = ({route, navigation}) => {
 
